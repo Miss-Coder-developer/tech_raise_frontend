@@ -1,0 +1,18 @@
+.my-startup-butn {
+    padding: 12px 0;
+    border: 1px solid #1469FF;
+    border-radius: 4px;
+    font-family: Poppins;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 22px;
+    color: #1469FF;
+    text-align: center;
+    background-color: inherit;
+    cursor: pointer;
+    transition: all 0.2s linear;
+}
+.my-startup-butn:hover {
+    background-color: #1469FF;
+    color: #FFFFFF;
+}

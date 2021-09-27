@@ -2,3 +2,34 @@
     max-width: 80%; width: 100%;
     margin: 0 auto;
 }
+.founder-main__improve-listing {
+    max-width: 100%; width: 100%;
+}
+.improve-listing__title {
+    font-family: Poppins;
+    font-weight: 600;
+    font-size: 28px;
+    line-height: 22px;
+    color: #0B1C34;
+}
+.improve-listing__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    column-gap: 32px;
+    row-gap: 32px;
+    flex-wrap: wrap;
+    margin: 35px 0 82px;
+}
+.improve-listing__completion-butn {
+    max-width: 258px; width: 100%;
+}
+.improve-listing__add-metrics-butn {
+    max-width: 162px; width: 100%;
+}
+.founder-main__informations {
+    max-width: 100%; width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}

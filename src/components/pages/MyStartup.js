@@ -1,6 +1,6 @@
 import React from 'react';
 import PublicInfoItem from '../items/PublicInfoItem';
-import MyStartupButton from '../UI/wrapper-cards/buttons/MyStartupButton';
+import MyStartupButton from '../UI//buttons/MyStartupButton';
 import ImproveListingCard from '../UI/wrapper-cards/ImproveListingCard';
 import './MyStartup.css';
 

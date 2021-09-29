@@ -62,7 +62,9 @@ const MyStartup = () => {
                 <div className="founder-main__public-info">
                     <h2 className="public-info__title"> Public information </h2>
                     <p className="public-info__text"> Everyone on MicroAcquire can view these details </p>
-                    { PUBLIC_INFORMATIONS.map((infoItem, index) => <PublicInfoItem key={ index } infoItem={ infoItem } />) }
+                    <div className="public-info__items">
+                        { PUBLIC_INFORMATIONS.map((infoItem, index) => <PublicInfoItem key={ index } infoItem={ infoItem } />) }
+                    </div>
                 </div>
                 <div className="founder-main__private-info">
                     <div className="private-info__actions">
@@ -77,7 +79,7 @@ const MyStartup = () => {
                     </div>
                     <p className="private-info__text"> Buyers will see this after you give access </p>
                     <p className="private-info__auto-approve"> Auto-approve buyers requests </p>
-                    <span className="private-info__intro-text"> Video intro from the Founder </span>
+                    <p className="private-info__intro-text"> Video intro from the Founder </p>
                     <button
                         type="button"
                         className="private-info__watch-video-butn"
@@ -95,11 +97,25 @@ const MyStartup = () => {
                     </div>
                     <div className="private-info__user-info-box">
                         <p> Contact e-mail </p>
-                        <h5> tom@Funnelnite.com </h5>
+                        <a 
+                            href="mailto:tom@Funnelnite.com" 
+                            target="_blank" 
+                            rel="noreferrer noopener"
+                            className="user-info-box__email"
+                        >
+                            tom@Funnelnite.com 
+                        </a>
                     </div>
                     <div className="private-info__user-info-box">
                         <p> Website </p>
-                        <h5> WWW.Funnelnite.com </h5>
+                        <a 
+                            href="mailto:WWW.Funnelnite.com" 
+                            target="_blank" 
+                            rel="noreferrer noopener"
+                            className="user-info-box__website"
+                        >
+                            WWW.Funnelnite.com 
+                        </a>
                     </div>
                     <div className="private-info__user-info-box">
                         <p> Capital structure </p>
@@ -125,12 +141,15 @@ const MyStartup = () => {
                         <p> The board of directors  </p>
                         <h5> Lorem ipson text </h5>
                     </div>
-                    <div className="private-info__user-info-box">
-                        <p className="pitch-deck-files"> Pitch deck files </p>
+                    <div className="private-info__user-info-box-pitch">
+                        <p> Pitch deck files </p>
                         <h5> Upload your file to share your vision with potential buyers </h5>
                     </div>
                     <div className="private-info__upload-files-box">
-                        <label htmlFor="deck_file"> Click to upload files </label>
+                        <label htmlFor="deck_file">
+                            <div />
+                            <span> Click to upload files </span>  
+                        </label>
                         <input type="file" id="deck_file" />
                     </div>
                 </div>
@@ -138,15 +157,17 @@ const MyStartup = () => {
             <div className="founder-main__metrics">
                 <h2 className="metrics__title"> Metrics </h2>
                 <div className="metrics__action-box">
-                    <h2 className="metrics__suggestion"> Want to sell your startup faster? Add metrics! </h2>
-                    <p className="metrics__description"> 
-                        Metrics give potential buyers greater insight into your business and will attract more acquisition offers for your startup. 
-                    </p>
-                    <MyStartupButton 
-                        className="improve-listing__add-metrics-butn"
-                        label="Add metrics"
-                        // onButnClick={}
-                    />
+                    <div className="action-box__content">
+                        <h2 className="metrics__suggestion"> Want to sell your startup faster? Add metrics! </h2>
+                        <p className="metrics__description"> 
+                            Metrics give potential buyers greater insight into your business and will attract more acquisition offers for your startup. 
+                        </p>
+                        <MyStartupButton 
+                            className="improve-listing__add-metrics-butn"
+                            label="Add metrics"
+                            // onButnClick={}
+                        />
+                    </div>
                 </div>
             </div>
         </section>

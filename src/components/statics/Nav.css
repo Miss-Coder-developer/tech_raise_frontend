@@ -31,13 +31,13 @@
     font-family: Poppins;
     font-weight: 500;
     font-size: 16px;
-    color: #0B1C34;
 }
 .founder-nav__menu-list li a {
     text-decoration: none;
     color: #0B1C34;
 }
 .founder-nav__menu-list li a.active,
-.founder-nav__menu-list li a:hover {
+.founder-nav__menu-list li a:hover,
+.founder-nav__menu-list li:first-child a {
     color: #1469FF;
 }

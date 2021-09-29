@@ -12,19 +12,20 @@ const Main = () => {
     return (
         <main className="founder-main">
             <Switch>
-                <Route path="/my-startup">
+                {/* <Redirect exact from="/" to="/my-startup" /> */}
+                <Route exact path="/my-startup">
                     <MyStartup />
                 </Route>
-                <Route path="/metrics">
+                <Route exact path="/metrics">
                     <Metrics />
                 </Route>
-                <Route path="/requests">
+                <Route exact path="/requests">
                     <Requests />
                 </Route>
-                <Route path="/marketplace">
+                <Route exact path="/marketplace">
                     <Marketplace />
                 </Route>
-                <Route path="/resources">
+                <Route exact path="/resources">
                     <Resources />
                 </Route>
             </Switch>

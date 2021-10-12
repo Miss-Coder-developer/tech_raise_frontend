@@ -6,26 +6,29 @@ import Metrics from '../pages/Metrics';
 import Requests from '../pages/Requests';
 import Marketplace from '../pages/Marketplace';
 import Resources from '../pages/Resources';
+import Home from '../pages/Home';
 
 
 const Main = () => {
     return (
         <main className="founder-main">
             <Switch>
-                {/* <Redirect exact from="/" to="/my-startup" /> */}
-                <Route exact path="/my-startup">
+                <Route exact path="/">
+                    <Home />
+                </Route>
+                <Route path="/my-startup">
                     <MyStartup />
                 </Route>
-                <Route exact path="/metrics">
+                <Route path="/metrics">
                     <Metrics />
                 </Route>
-                <Route exact path="/requests">
+                <Route path="/requests">
                     <Requests />
                 </Route>
-                <Route exact path="/marketplace">
+                <Route path="/marketplace">
                     <Marketplace />
                 </Route>
-                <Route exact path="/resources">
+                <Route path="/resources">
                     <Resources />
                 </Route>
             </Switch>

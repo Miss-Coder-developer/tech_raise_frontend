@@ -1,15 +1,12 @@
 .improve-listing__card {
-    max-width: 744px; width: 100%;
-    min-height: 170px; height: 100%;
+    max-width: 486px; width: 100%;
+    min-height: 268px; height: 100%;
     padding: 33px 32px 29px 34px;
     background-color: #FFFFFF;
     box-shadow: 0px 4px 28px rgba(0, 0, 0, 0.03);
-}
-.improve-listing__box {
     display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    column-gap: 56px;
+    flex-direction: column;
+    justify-content: space-between;
 }
 .improve-listing__info-box {
     max-width: 396px; width: 100%;

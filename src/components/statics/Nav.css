@@ -14,11 +14,14 @@
     align-items: center;
     column-gap: 125px;
 }
-.founder-nav__title {
+.founder-nav__logo-butn {
     font-family: Poppins;
     font-weight: 600;
     font-size: 20px;
     color: #231F20;
+    cursor: pointer;
+    border: none; outline: none;
+    background-color: inherit;
 }
 .founder-nav__menu-list {
     display: flex;
@@ -37,7 +40,6 @@
     color: #0B1C34;
 }
 .founder-nav__menu-list li a.active,
-.founder-nav__menu-list li a:hover,
-.founder-nav__menu-list li:first-child a {
+.founder-nav__menu-list li a:hover {
     color: #1469FF;
 }

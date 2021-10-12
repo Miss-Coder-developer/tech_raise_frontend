@@ -1,32 +1,13 @@
 import React from 'react';
-import PublicInfoItem from '../items/PublicInfoItem';
 import MyStartupButton from '../UI//buttons/MyStartupButton';
 import ImproveListingCard from '../UI/wrapper-cards/ImproveListingCard';
 import './MyStartup.css';
+import PublicInfo from '../items/PublicInfo';
+import PublicInfoCard from '../UI/wrapper-cards/PublicInfoCard';
+import CompanyFeatures from '../items/CompanyFeatures';
+import SellingDetails from '../items/SellingDetails';
+import SellingFinancialDetails from '../items/SellingFinancialDetails';
 
-
-const PUBLIC_INFORMATIONS = [
-    {
-        suggestion: "Tell us about your startup",
-        description: "Basic information about startup numbers and history",
-    },
-    {
-        suggestion: "Company features",
-        description: "Highlights about your startup",
-    },
-    {
-        suggestion: "Selling details",
-        description: "Reasons and details of selling",
-    },
-    {
-        suggestion: "Financial details",
-        description: "Additional income information",
-    },
-    {
-        suggestion: "TBC",
-        description: " Information",
-    },
-];
 
 const MyStartup = () => {
     return (
@@ -56,6 +37,17 @@ const MyStartup = () => {
                             // onButnClick={}
                         />
                     </ImproveListingCard>
+                    <ImproveListingCard 
+                        infoTitle="Need professional help selling your startup?"
+                        infoText="Search from 100s of experienced advisors and hire one today"
+                        isLoading={ false }
+                    >
+                        <MyStartupButton
+                            className="improve-listing__add-metrics-butn"
+                            label="Find an advisor"
+                            // onButnClick={}
+                        />
+                    </ImproveListingCard>
                 </div>
             </div>
             <div className="founder-main__informations">
@@ -63,7 +55,16 @@ const MyStartup = () => {
                     <h2 className="public-info__title"> Public information </h2>
                     <p className="public-info__text"> Everyone on MicroAcquire can view these details </p>
                     <div className="public-info__items">
-                        { PUBLIC_INFORMATIONS.map((infoItem, index) => <PublicInfoItem key={ index } infoItem={ infoItem } />) }
+                        <PublicInfo />
+                        <PublicInfoCard>
+                            <CompanyFeatures />
+                        </PublicInfoCard>
+                        <PublicInfoCard>
+                            <SellingDetails />
+                        </PublicInfoCard>
+                        <PublicInfoCard>
+                            <SellingFinancialDetails />
+                        </PublicInfoCard>
                     </div>
                 </div>
                 <div className="founder-main__private-info">

@@ -37,3 +37,140 @@
     color: #1469FF;
     border: 1px solid #1469FF;
 }
+
+.selling-financial-details__info {
+    margin-bottom: 35px;
+}
+
+.selling-financial-details__title {
+    font-family: Poppins;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 22px;
+    color: #231F20;
+}
+
+.selling-financial-details__required-warning {
+    font-family: Poppins;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 22px;
+    color: #F1B400;
+    display: flex;
+    align-items: center;
+    column-gap: 11px;
+    margin-top: 9px;
+}
+
+.selling-financial-details__required-warning::before {
+    content: '';
+    width: 18px;
+    height: 18px;
+    background-image: url('../../assets/icons/my-startup/orange-sign.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+
+.selling-financial-details__input-box {
+    margin-bottom: 26px;
+}
+
+.selling-financial-details__label {
+    display: block;
+    font-family: Poppins;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 22px;
+    color: #6E6E6E;
+}
+
+.selling-financial-details__input {
+    max-width: 612px; width: 100%;
+    padding: 18px;
+    border: 1px dashed #D7D7D7;
+    outline: none;
+    font-family: Poppins;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 22px;
+    color: #6E6E6E;
+    margin: 8px 0 2px;
+}
+
+.selling-financial-details__input.invalid {
+    border-color: #D80000;
+}
+
+.selling-financial-details__actions {
+    margin-top: 22px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    column-gap: 30px;
+}
+
+.selling-financial-details__actions > button {
+    width: 111px;
+    height: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+    font-family: Poppins;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 22px;
+    text-transform: capitalize;
+    cursor: pointer;
+    border: transparent; outline: none;
+    transition: all 0.2s linear;
+}
+
+.selling-financial-details__div {
+    max-width: 612px; width: 100%;
+    border: 1px dashed #D7D7D7;
+    margin: 8px 0 2px;
+    cursor: pointer;
+    position: relative;
+}
+
+.selling-financial-details__show-dropdown {
+    width: 100%;
+    padding: 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.selling-financial-details__show-dropdown.rotate-icon > img {
+    transform: rotate(180deg);
+}
+
+.selling-financial-details__selected,
+.selling-financial-details__option {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 22px;
+    text-transform: uppercase;
+    color: #0B1C34;
+}
+
+.selling-financial-details__dropdown {
+    position: absolute;
+    top: 60px;
+    left: 0;
+    z-index: 2;
+    max-width: 612px; width: 100%;
+    border: 1px dashed #D7D7D7;
+    cursor: pointer;
+    padding: 18px;
+    background-color: #FFFFFF;
+    transition: all 0.1s linear;
+}
+
+.selling-financial-details__dropdown:hover {
+    background-color: #D7D7D7;
+}

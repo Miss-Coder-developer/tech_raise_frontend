@@ -4,6 +4,7 @@ import group_2_icon from '../assets/icons/my-startup/group-2.png';
 import group_3_icon from '../assets/icons/my-startup/group-3.png';
 import group_4_icon from '../assets/icons/my-startup/group-4.png';
 import group_5_icon from '../assets/icons/my-startup/group-5.png';
+import down_arrow_icon from '../assets/icons/my-startup/down-arrow.png';
 
 
 // exporting my-startup page icons
@@ -13,4 +14,5 @@ export const my_startup_icons = {
     group_3_icon,
     group_4_icon,
     group_5_icon,
+    down_arrow_icon,
 };

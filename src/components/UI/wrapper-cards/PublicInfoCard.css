@@ -1,9 +1,0 @@
-.public-info__item-box {
-    max-width: 100%; width: 100%;
-    min-height: 240px; height: 100%;
-    border: 1px dashed #D7D7D7;
-    margin-bottom: 36px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}

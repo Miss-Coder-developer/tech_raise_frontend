@@ -3,7 +3,6 @@ import MyStartupButton from '../UI//buttons/MyStartupButton';
 import ImproveListingCard from '../UI/wrapper-cards/ImproveListingCard';
 import './MyStartup.css';
 import PublicInfo from '../items/PublicInfo';
-import PublicInfoCard from '../UI/wrapper-cards/PublicInfoCard';
 import CompanyFeatures from '../items/CompanyFeatures';
 import SellingDetails from '../items/SellingDetails';
 import SellingFinancialDetails from '../items/SellingFinancialDetails';
@@ -56,15 +55,9 @@ const MyStartup = () => {
                     <p className="public-info__text"> Everyone on MicroAcquire can view these details </p>
                     <div className="public-info__items">
                         <PublicInfo />
-                        <PublicInfoCard>
-                            <CompanyFeatures />
-                        </PublicInfoCard>
-                        <PublicInfoCard>
-                            <SellingDetails />
-                        </PublicInfoCard>
-                        <PublicInfoCard>
-                            <SellingFinancialDetails />
-                        </PublicInfoCard>
+                        <CompanyFeatures />
+                        <SellingDetails />
+                        <SellingFinancialDetails />
                     </div>
                 </div>
                 <div className="founder-main__private-info">

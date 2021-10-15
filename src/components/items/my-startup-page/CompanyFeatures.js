@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import './CompanyFeatures.css';
-import { GROWTH_OPPORTUNITY_HIGHLIGHTS, KEY_ASSETS } from '../../datas/MyStartupDatas';
+import { GROWTH_OPPORTUNITY_HIGHLIGHTS, KEY_ASSETS } from '../../../datas/MyStartupDatas';
 
 
 const CompanyFeatures = () => {

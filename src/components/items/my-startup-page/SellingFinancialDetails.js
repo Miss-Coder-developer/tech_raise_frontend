@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { my_startup_icons } from '../../dummy_datas/Icons';
+import { my_startup_icons } from '../../../dummy_datas/Icons';
 import './SellingFinancialDetails.css';
 
 
@@ -15,6 +15,13 @@ const SellingFinancialDetails = () => {
     `;
     const invalid_input_msg = "Value should be not empty";
 
+    const chooseOptionHandler = (option) => {
+        setSelected(option);
+        setDropdownIsShown(false);
+        setOptions([...options.filter(prevOption => {
+            return prevOption !== option;
+        }), selected]);
+    };
 
     return (
         <div className={ box_class_name }>
@@ -54,13 +61,7 @@ const SellingFinancialDetails = () => {
                                                     <div 
                                                         key={ index }
                                                         className="selling-financial-details__dropdown"
-                                                        onClick={ () => {
-                                                            setSelected(option);
-                                                            setDropdownIsShown(false);
-                                                            setOptions([...options.filter(prevOption => {
-                                                                return prevOption !== option;
-                                                            }), selected]);
-                                                        } }
+                                                        onClick={ chooseOptionHandler.bind(null, option) }
                                                     >
                                                         <p className="selling-financial-details__option">
                                                             { option }

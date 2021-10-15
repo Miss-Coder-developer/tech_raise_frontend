@@ -66,7 +66,7 @@
     content: '';
     width: 18px;
     height: 18px;
-    background-image: url('../../assets/icons/my-startup/orange-sign.png');
+    background-image: url('../../../assets/icons/my-startup/orange-sign.png');
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
@@ -94,7 +94,8 @@
     font-weight: 500;
     font-size: 16px;
     line-height: 22px;
-    color: #6E6E6E;
+    /* color: #6E6E6E; */
+    color: #0B1C34;
     margin: 8px 0 2px;
 }
 
@@ -137,7 +138,7 @@
 
 .selling-financial-details__show-dropdown {
     width: 100%;
-    padding: 18px;
+    padding: 0 18px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -154,7 +155,7 @@
     font-weight: 500;
     font-size: 16px;
     line-height: 22px;
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
     color: #0B1C34;
 }
 
@@ -173,4 +174,15 @@
 
 .selling-financial-details__dropdown:hover {
     background-color: #D7D7D7;
+}
+
+.my-div {
+    position: absolute;
+    top: 60px;
+    left: 0;
+    z-index: 2;
+    max-width: 612px; width: 100%;
+    background-color: #FFFFFF;
+    border-radius: 4px;
+    padding: 31px;
 }

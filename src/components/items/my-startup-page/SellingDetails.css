@@ -66,7 +66,7 @@
     content: '';
     width: 18px;
     height: 18px;
-    background-image: url('../../assets/icons/my-startup/orange-sign.png');
+    background-image: url('../../../assets/icons/my-startup/orange-sign.png');
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
@@ -95,7 +95,8 @@
     font-weight: 500;
     font-size: 16px;
     line-height: 22px;
-    color: #6E6E6E;
+    /* color: #6E6E6E; */
+    color: #0B1C34;
     margin: 8px 0 2px;
 }
 

@@ -1,0 +1,41 @@
+.founder-main__requests {
+    width: 100%;
+}
+
+.requests__title {
+    font-family: Poppins;
+    font-weight: 600;
+    font-size: 28px;
+    line-height: 22px;
+    color: #0B1C34;
+    margin-bottom: 7px;
+}
+
+.requests__text {
+    font-family: Poppins;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 22px;
+    color: #6E6E6E;
+}
+
+.requests__content {
+    width: 100%;
+    min-height: 505px; height: 100%;
+    background-color: #FFFFFF;
+    border: 1px dashed #D7D7D7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 33px;
+}
+
+.content__text {
+    font-family: Poppins;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 22px;
+    text-align: center;
+    color: #6E6E6E;
+    margin-top: 12px;
+}

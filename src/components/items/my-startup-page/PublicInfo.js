@@ -1,10 +1,10 @@
 import React from 'react';
 import './PublicInfo.css';
 import SmallInfo from './SmallInfo';
-import { my_startup_icons } from '../../dummy_datas/Icons';
+import { my_startup_icons } from '../../../dummy_datas/Icons';
 
 
-const PublicInfo = () => {
+const PublicInfo = ({ onStartEditing }) => {
     const image_1_src = my_startup_icons.group_1_icon;
     const image_2_src = my_startup_icons.group_2_icon;
     const image_3_src = my_startup_icons.group_3_icon;
@@ -23,7 +23,7 @@ const PublicInfo = () => {
                 <button
                     type="button"
                     className="private-info__edit-info-butn"
-                    // onClick={}
+                    onClick={ onStartEditing }
                 >
                     Edit info
                 </button>

@@ -1,14 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import MyStartupButton from '../UI//buttons/MyStartupButton';
 import ImproveListingCard from '../UI/wrapper-cards/ImproveListingCard';
 import './MyStartup.css';
-import PublicInfo from '../items/PublicInfo';
-import CompanyFeatures from '../items/CompanyFeatures';
-import SellingDetails from '../items/SellingDetails';
-import SellingFinancialDetails from '../items/SellingFinancialDetails';
+import PublicInfo from '../items/my-startup-page/PublicInfo';
+import CompanyFeatures from '../items/my-startup-page/CompanyFeatures';
+import SellingDetails from '../items/my-startup-page/SellingDetails';
+import SellingFinancialDetails from '../items/my-startup-page/SellingFinancialDetails';
+import BasicInformation from '../items/my-startup-page/BasicInformation';
 
 
 const MyStartup = () => {
+    const [basicInfoEditingAreaIsOpen, setBasicInfoEditingAreaIsOpen] = useState(false);
+
+    const openBasicInfoEditingArea = () => setBasicInfoEditingAreaIsOpen(true);
+    const closeBasicInfoEditingArea = () => setBasicInfoEditingAreaIsOpen(false);
+
     return (
         <section className="founder-main__container">
             <div className="founder-main__improve-listing">
@@ -54,10 +60,20 @@ const MyStartup = () => {
                     <h2 className="public-info__title"> Public information </h2>
                     <p className="public-info__text"> Everyone on MicroAcquire can view these details </p>
                     <div className="public-info__items">
-                        <PublicInfo />
-                        <CompanyFeatures />
-                        <SellingDetails />
-                        <SellingFinancialDetails />
+                        {
+                            basicInfoEditingAreaIsOpen 
+                            ? (
+                                <BasicInformation onFinishEditing={ closeBasicInfoEditingArea } />
+                            )
+                            : (
+                                <>
+                                    <PublicInfo onStartEditing={ openBasicInfoEditingArea } />
+                                    <CompanyFeatures />
+                                    <SellingDetails />
+                                    <SellingFinancialDetails />
+                                </>
+                            )
+                        }
                     </div>
                 </div>
                 <div className="founder-main__private-info">

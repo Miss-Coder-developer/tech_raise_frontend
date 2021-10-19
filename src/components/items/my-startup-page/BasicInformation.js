@@ -1,4 +1,5 @@
 import React from 'react';
+import MyStartupDropdown from '../../UI/dropdowns/MyStartupDropdown';
 import './BasicInformation.css';
 
 
@@ -17,6 +18,20 @@ const BasicInformation = ({ onFinishEditing }) => {
                 id="selling_details_form"
                 onSubmit={ (e) => e.preventDefault() }
             >
+                <div className="selling-details__input-box">
+                    <label 
+                        htmlFor="selling_reason"
+                        className="selling-details__label"
+                    > 
+                        Startup type
+                    </label>
+                    <MyStartupDropdown 
+                        dropdownOptions={ [
+                            "Artificial Intelligence", "Blockchain", "Cloud Computing", "Communication", "Consumer", "Cybersecurity", "EdTech", "FinTech", "HealthTech", "RegTech", "SaaS", "Other"
+                        ] }
+                        dropdownClassName={ "startup-type__dropdown" }
+                    />
+                </div>
                 <div className="selling-details__input-box">
                     <label 
                         htmlFor="selling_reason"

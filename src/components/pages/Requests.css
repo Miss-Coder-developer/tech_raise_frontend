@@ -39,3 +39,52 @@
     color: #6E6E6E;
     margin-top: 12px;
 }
+
+.requests__select-actions {
+    margin-top: 54px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.aproval-status__dropdown {
+    max-width: 277px; width: 100%;
+}
+
+.sort-by__dropdown {
+    width: 277px; 
+}
+
+.requests__input-box {
+    max-width: 277px; width: 100%;
+}
+
+.requests__label,
+.requests__title {
+    font-family: Poppins;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 22px;
+    color: #6E6E6E;
+}
+
+.requests__sort-and-hidden {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+    column-gap: 64px;
+}
+
+.hidden-requests__label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 13px;
+    font-family: Poppins;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 22px;
+    color: #231F20;
+    margin-top: 29px;
+}

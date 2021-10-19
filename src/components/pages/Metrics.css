@@ -58,3 +58,7 @@
     text-align: center;
     color: #231F20;
 }
+
+.metrics__dropdown {
+    max-width: 259px; width: 100%;
+}

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import MyStartupDropdown from '../../UI/dropdowns/MyStartupDropdown';
 import './SellingFinancialDetails.css';
 
 
@@ -31,7 +32,10 @@ const SellingFinancialDetails = () => {
                                 > 
                                     { "Do you have a financial summary or P&L?" }
                                 </label>
-
+                                <MyStartupDropdown 
+                                    dropdownOptions={ ["NO", "YES"] }
+                                    dropdownClassName={ "financial-summary__dropdown" }
+                                />
                             </div>
                             <div className="selling-financial-details__input-box">
                                 <label 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { my_startup_icons } from '../../dummy_datas/Icons';
+import MyStartupDropdown from '../UI/dropdowns/MyStartupDropdown';
 import './Metrics.css';
 
 
@@ -7,12 +7,10 @@ const Metrics = () => {
     return (
         <section className="founder-main__container">
             <div className="founder-main__metrics">
-                <div className="metrics__payment-processes">
-                    <div className="selling-financial-details__show-dropdown show-dropdown">
-                        <p className="selling-financial-details__selected"> Google Analytics </p>
-                        <img src={ my_startup_icons.down_arrow_icon } alt="down arrow" />
-                    </div>
-                </div>
+                <MyStartupDropdown 
+                    dropdownOptions={ ["Google Analytics", "Stripe", "Chartmogul", "Baremetrics", "ProfitWell"] }
+                    dropdownClassName={ "metrics__dropdown" }
+                />
                 <button 
                     type="button" 
                     className="metrics__update-data-btn"

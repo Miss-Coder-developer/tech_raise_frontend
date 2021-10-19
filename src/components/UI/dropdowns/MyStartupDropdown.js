@@ -5,7 +5,8 @@ import './MyStartupDropdown.css';
 
 function MyStartupDropdown({ dropdownOptions, dropdownClassName }) {
     const [dropdownIsShown, setDropdownIsShown] = useState(false);
-    const [selected, setSelected] = useState("no");
+    const [defaultOption] = dropdownOptions;
+    const [selected, setSelected] = useState(defaultOption);
 
     const chooseOptionHandler = (option) => {
         setSelected(option);
@@ -13,29 +14,33 @@ function MyStartupDropdown({ dropdownOptions, dropdownClassName }) {
     };
     
     return (
-        <div className="selling-financial-details__div">
+        <div className={ `my-startup-dropdown__div ${ dropdownClassName }` }>
             <div 
-                className={ `selling-financial-details__show-dropdown ${ (dropdownIsShown) && "rotate-icon" }` }
+                className={ `my-startup-dropdown__show-dropdown ${ (dropdownIsShown) && "rotate-icon" }` }
                 onClick={ () => setDropdownIsShown((prevState) => !prevState) }
             >
-                <p className="selling-financial-details__selected"> { selected } </p>
-                <img src={ my_startup_icons.down_arrow_icon } alt="down arrow" />
+                <p className="my-startup-dropdown__selected"> { selected } </p>
+                <img src={ my_startup_icons.down_arrow_icon } alt={ dropdownIsShown ? "up-arrow" : "down arrow" } />
             </div>
             {
                 (dropdownIsShown) && (
-                    dropdownOptions.map((option, index) => {
-                        return (
-                            <div 
-                                key={ index }
-                                className="selling-financial-details__dropdown"
-                                onClick={ chooseOptionHandler.bind(null, option) }
-                            >
-                                <p className="selling-financial-details__option">
-                                    { option }
-                                </p>
-                            </div>
-                        );
-                    })
+                    <div className="my-startup-dropdown__dropdown">
+                        {
+                            dropdownOptions.map((option, index) => {
+                                return (
+                                    <div 
+                                        key={ index }
+                                        className="my-startup-dropdown__options"
+                                        onClick={ () => chooseOptionHandler(option) }
+                                    >
+                                        <p className="my-startup-dropdown__option-title">
+                                            { option }
+                                        </p>
+                                    </div>
+                                );
+                            })
+                        }
+                    </div>
                 )
             }
         </div>

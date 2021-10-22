@@ -3,13 +3,11 @@ import { my_startup_icons } from '../../../dummy_datas/Icons';
 import './MyStartupDropdown.css';
 
 
-function MyStartupDropdown({ dropdownOptions, dropdownClassName }) {
+function MyStartupDropdown({ dropdownOptions, dropdownClassName, onPass, selected }) {
     const [dropdownIsShown, setDropdownIsShown] = useState(false);
-    const [defaultOption] = dropdownOptions;
-    const [selected, setSelected] = useState(defaultOption);
 
     const chooseOptionHandler = (option) => {
-        setSelected(option);
+        onPass(option);
         setDropdownIsShown(false);
     };
     

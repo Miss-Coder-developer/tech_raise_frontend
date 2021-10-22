@@ -60,20 +60,10 @@ const MyStartup = () => {
                     <h2 className="public-info__title"> Public information </h2>
                     <p className="public-info__text"> Everyone on MicroAcquire can view these details </p>
                     <div className="public-info__items">
-                        {
-                            basicInfoEditingAreaIsOpen 
-                            ? (
-                                <BasicInformation onFinishEditing={ closeBasicInfoEditingArea } />
-                            )
-                            : (
-                                <>
-                                    <PublicInfo onStartEditing={ openBasicInfoEditingArea } />
-                                    <CompanyFeatures />
-                                    <SellingDetails />
-                                    <SellingFinancialDetails />
-                                </>
-                            )
-                        }
+                        <BasicInformation />
+                        <CompanyFeatures />
+                        <SellingDetails />
+                        <SellingFinancialDetails />
                     </div>
                 </div>
                 <div className="founder-main__private-info">

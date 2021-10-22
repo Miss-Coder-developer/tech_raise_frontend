@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import SellingDetailsEditingForm from '../../forms/editing-forms/SellingDetailsEditingForm';
 import SellingDetailsNewForm from '../../forms/new-forms/SellingDetailsNewForm';
 import './SellingDetails.css';
 
@@ -7,7 +8,6 @@ const SellingDetails = () => {
     const [sellingDetailsFormIsOpen, setSellingDetailsFormIsOpen] = useState(false);
 
     const box_class_name = (sellingDetailsFormIsOpen) ? "public-info" : "public-info__item-box";
-    const invalid_input_msg = "Value should be not empty";
 
     return (
         <div className={ box_class_name }>
@@ -28,7 +28,7 @@ const SellingDetails = () => {
                             + Add information
                         </button>
                     </div>
-                )
+                ) 
             }
         </div>
     );

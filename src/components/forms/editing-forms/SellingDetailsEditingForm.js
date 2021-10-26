@@ -1,100 +1,95 @@
-import React, { useState } from 'react';
-import MyStartupDropdown from '../../UI/dropdowns/MyStartupDropdown';
+import React, { useContext } from 'react';
+import { useValidity } from '../../../custom-hooks/form-validity';
+import { PassingInfoContext } from '../../contexts/passing-info-context';
 
 
-function SellingDetailsEditingForm({ onClose }) {
-    const [sellingDetailsData, setSellingDetailsData] = useState({});
+function SellingDetailsEditingForm({ onClose, onFinish }) {
+    const myStartupInfoCtx = useContext(PassingInfoContext);
+    const {
+        selling_purpose,
+        funding,
+    } = myStartupInfoCtx.sellingDetailsData;
 
     const invalid_input_msg = "Value should be not empty";
 
+    const isNotEmpty = value => value.trim() !== "";
+
+    const {
+        enteredValue: enteredSellingPurpose,
+        inputIsValid: sellingPurposeInputIsValid,
+        inputIsInvalid: sellingPurposeInputIsInvalid,
+        changeInputValueHandler: changeSellingPurposeInputValueHandler,
+        blurInputHandler: blurSellingPurposeInputHandler
+    } = useValidity(isNotEmpty, selling_purpose);
+
+    const {
+        enteredValue: enteredFunding,
+        inputIsValid: fundingInputIsValid,
+        inputIsInvalid: fundingInputIsInvalid,
+        changeInputValueHandler: changeFundingInputValueHandler,
+        blurInputHandler: blurFundingInputHandler
+    } = useValidity(isNotEmpty, funding);
+
+    const sellingDetailsFormIsValid = sellingPurposeInputIsValid && fundingInputIsValid;
+
+    const submitSellingDetailsData = (evt) => {
+        evt.preventDefault();
+        if(!sellingDetailsFormIsValid) return;
+        const sellingDetailsData = {
+            id: Math.random().toString(),
+            selling_purpose: enteredSellingPurpose,
+            funding: enteredFunding,
+        };
+        console.log(sellingDetailsData);
+        myStartupInfoCtx.passSellingDetailsData(sellingDetailsData);
+        onFinish();
+    };
+
     return (
-        <div className="selling-financial-details">
-            <div className="selling-financial-details__info">
-                <h5 className="selling-financial-details__title"> Selling Financial details </h5>
-                <h4 className="selling-financial-details__required-warning"> All fields are required </h4>
+        <div className="selling-details">
+            <div className="selling-details__info">
+                <h5 className="selling-details__title"> Selling details </h5>
+                <h4 className="selling-details__required-warning"> All fields are required </h4>
             </div>
-            <form 
-                action="#"
-                name="sellingDetailsForm"
-                id="selling_details_form"
-                onSubmit={ (e) => e.preventDefault() }
-            >
-                <div className="selling-financial-details__input-box">
+            <form action="#" name="sellingDetailsForm" id="selling_details_form" onSubmit={ submitSellingDetailsData }>
+                <div className="selling-details__input-box">
                     <label 
-                        htmlFor="financial_summary"
-                        className="selling-financial-details__label"
+                        htmlFor="selling_reason"
+                        className="selling-details__label"
                     > 
-                        { "Do you have a financial summary or P&L?" }
+                        Why are you selling?
                     </label>
-                    <MyStartupDropdown 
-                        dropdownOptions={ ["NO", "YES"] }
-                        dropdownClassName={ "financial-summary__dropdown" }
+                    <textarea 
+                        id="selling_reason" 
+                        className={ `selling-details__textarea ${ sellingPurposeInputIsInvalid && "invalid" }` }
+                        value={ enteredSellingPurpose }
+                        onChange={ changeSellingPurposeInputValueHandler }
+                        onBlur={ blurSellingPurposeInputHandler }
                     />
+                    { sellingPurposeInputIsInvalid && <p className="invalid-input-msg"> { invalid_input_msg } </p> }
                 </div>
-                <div className="selling-financial-details__input-box">
+                <div className="selling-details__input-box">
                     <label 
-                        htmlFor="total_revenue"
-                        className="selling-financial-details__label"
+                        htmlFor="financial_funding"
+                        className="selling-details__label"
                     > 
-                        What was total revenue last month?
-                    </label>
-                    <input
-                        type="number"
-                        id="total_revenue" 
-                        className="selling-financial-details__input"
-                        value="50000" // temporary
-                    />
-                    {/* <p className="invalid-input-msg"> { invalid_input_msg } </p> */}
-                </div>
-                <div className="selling-financial-details__input-box">
-                    <label 
-                        htmlFor="total_profit"
-                        className="selling-financial-details__label"
-                    > 
-                        What was total profit last month?
-                    </label>
-                    <input
-                        type="number"
-                        id="total_profit" 
-                        className="selling-financial-details__input"
-                        value="50000" // temporary
-                    />
-                    {/* <p className="invalid-input-msg"> { invalid_input_msg } </p> */}
-                </div>
-                <div className="selling-financial-details__input-box">
-                    <label 
-                        htmlFor="revenue_over_the_past_12_months"
-                        className="selling-financial-details__label"
-                    > 
-                        What was total revenue over the past 12 months?
-                    </label>
-                    <input
-                        type="number"
-                        id="revenue_over_the_past_12_months" 
-                        className="selling-financial-details__input"
-                        value="50000" // temporary
-                    />
-                    {/* <p className="invalid-input-msg"> { invalid_input_msg } </p> */}
-                </div>
-                <div className="selling-financial-details__input-box">
-                    <label 
-                        htmlFor="profit_over_the_past_12_months"
-                        className="selling-financial-details__label"
-                    > 
-                        What was the total profit over the past 12 months?
+                        Financial / funding
                     </label>
                     <input
                         type="text"
-                        id="profit_over_the_past_12_months" 
-                        className="selling-financial-details__input"
-                        value="50000" // temporary
+                        id="financial_funding" 
+                        className={ `selling-details__input ${ fundingInputIsInvalid && "invalid" }` }
+                        value={ enteredFunding }
+                        onChange={ changeFundingInputValueHandler }
+                        onBlur={ blurFundingInputHandler }
                     />
-                    {/* <p className="invalid-input-msg"> { invalid_input_msg } </p> */}
+                    { fundingInputIsInvalid && <p className="invalid-input-msg"> { invalid_input_msg } </p> }
                 </div>
-                <div className="selling-financial-details__actions">
+                <div className="selling-details__actions">
                     <button
                         type="submit"
                         className="actions__save-btn"
+                        disabled={ !sellingDetailsFormIsValid }
                     >
                         Save
                     </button>

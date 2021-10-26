@@ -4,11 +4,14 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import MyStartupInformationContext from './components/contexts/passing-info-context';
 
 ReactDOM.render(
   <React.StrictMode>
     <Router>
-      <App />    
+      <MyStartupInformationContext>
+        <App />    
+      </MyStartupInformationContext>
     </Router>
   </React.StrictMode>,
   document.getElementById('root')

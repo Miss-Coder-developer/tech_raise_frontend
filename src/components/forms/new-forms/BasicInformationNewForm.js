@@ -1,58 +1,80 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { useValidity } from '../../../custom-hooks/form-validity';
+import { PassingInfoContext } from '../../contexts/passing-info-context';
 import MyStartupDropdown from '../../UI/dropdowns/MyStartupDropdown';
 import './BasicInformationNewForm.css';
 
 
 const ASKING_PRICE_RESPONSE = ["I know the price", "I can’t determine the price, but i’m open to offers"];
 
-function BasicInformationNewForm({ onClose }) {
-    const [basicInfoData, setBasicInfoData] = useState({
-        id: Math.random().toString(),
-        startupType: "", 
-        aboutCompany: "",
-        annualRevenue: "",
-        numOfCustomers: "",
-        month: "",
-        year: "",
-        priceResponse: "",
-        teamSize: "",
-    });
-
+function BasicInformationNewForm({ onClose, onFinish }) {
     const [selectedStartupType, setSelectedStartupType] = useState("Artificial Intelligence"); 
     const [selectedMonth, setSelectedMonth] = useState("January");
     const [selectedYear, setSelectedYear] = useState("2021");
+    const [selectedPriceResponse, setSelectedPriceResponse] = useState("");
 
-    const passSelectedStartupType = (selected) => {
-        setBasicInfoData({
-            ...basicInfoData,
-            startupType: selected
-        });
-        setSelectedStartupType(selected);
-        console.log(selected);
-    };
+    const myStartupInfoCtx = useContext(PassingInfoContext);
+    
+    const invalid_input_msg = "Value should be not empty";
 
-    const passSelectedMonth = (selected) => {
-        setBasicInfoData({
-            ...basicInfoData,
-            month: selected
-        });
-        setSelectedMonth(selected);
-        console.log(selected);
-    };
+    const isNotEmpty = value => value.trim() !== "";
 
-    const passSelectedYear = (selected) => {
-        setBasicInfoData({
-            ...basicInfoData,
-            year: selected
-        });
-        setSelectedYear(selected);
-        console.log(selected);
-    };
+    const {
+        enteredValue: enteredAboutCompanyText,
+        inputIsValid: aboutCompanyTextInputIsValid,
+        inputIsInvalid: aboutCompanyTextInputIsInvalid,
+        changeInputValueHandler: changeAboutCompanyTextInputValueHandler,
+        blurInputHandler: blurAboutCompanyTextInputHandler
+    } = useValidity(isNotEmpty);
 
+    const {
+        enteredValue: enteredAnnualRevenue,
+        inputIsValid: annualRevenueInputIsValid,
+        inputIsInvalid: annualRevenueInputIsInvalid,
+        changeInputValueHandler: changeAnnualRevenueInputValueHandler,
+        blurInputHandler: blurAnnualRevenueInputHandler
+    } = useValidity(isNotEmpty);
+
+    const {
+        enteredValue: enteredNumOfCustomers,
+        inputIsValid: numOfCustomersInputIsValid,
+        inputIsInvalid: numOfCustomersInputIsInvalid,
+        changeInputValueHandler: changeNumOfCustomersInputValueHandler,
+        blurInputHandler: blurNumOfCustomersInputHandler
+    } = useValidity(isNotEmpty);
+
+    const {
+        enteredValue: enteredStartupTeamSize,
+        inputIsValid: startupTeamSizeInputIsValid,
+        inputIsInvalid: startupTeamSizeInputIsInvalid,
+        changeInputValueHandler: changeStartupTeamSizeInputValueHandler,
+        blurInputHandler: blurStartupTeamSizeInputHandler
+    } = useValidity(isNotEmpty);
+
+    const passSelectedStartupType = (selected) => setSelectedStartupType(selected);
+    const passSelectedMonth = (selected) => setSelectedMonth(selected);
+    const passSelectedYear = (selected) => setSelectedYear(selected);
+    const selectPriceResponse = (response) => setSelectedPriceResponse(response);
+
+    const basicInfoFormIsValid = aboutCompanyTextInputIsValid && annualRevenueInputIsValid && numOfCustomersInputIsValid && startupTeamSizeInputIsValid && !!selectedPriceResponse;
 
     const submitBasicInfo = (evt) => {
         evt.preventDefault();
+        if(!basicInfoFormIsValid) return;
+        const basicInfoData = {
+            id: Math.random().toString(),
+            startup_type: selectedStartupType,
+            about_company: enteredAboutCompanyText,
+            annual_revenue: enteredAnnualRevenue,
+            num_of_customers: enteredNumOfCustomers,
+            month: selectedMonth,
+            year: selectedYear,
+            asking_price: selectedPriceResponse,
+            team_size: enteredStartupTeamSize
+        };
         console.log(basicInfoData, "basicInfoData!!!!!");
+        myStartupInfoCtx.passBasicInfoData(basicInfoData);
+        onFinish();
     };
 
     return (
@@ -84,11 +106,12 @@ function BasicInformationNewForm({ onClose }) {
                     </label>
                     <textarea 
                         id="about-company" 
-                        className="selling-details__textarea"
-                        defaultValue="Profitable SaaS with $125,000 in ARR and TTM revenue that has the ability to coach clients. This sales and marketing platform are built for coaches and consultants where they can send marketing emails and run advanced automation through the workflow builder. "
-                        onChange={ (evt) => setBasicInfoData({ ...basicInfoData, aboutCompany: evt.target.value }) }
+                        className={ `selling-details__textarea ${ aboutCompanyTextInputIsInvalid && "invalid" }` }
+                        value={ enteredAboutCompanyText }
+                        onChange={ changeAboutCompanyTextInputValueHandler }
+                        onBlur={ blurAboutCompanyTextInputHandler }
                     />
-                    {/* <p className="invalid-input-msg"> { invalid_input_msg } </p> */}
+                    { aboutCompanyTextInputIsInvalid && <p className="invalid-input-msg"> { invalid_input_msg } </p> }
                 </div>
                 <div className="selling-financial-details__input-box">
                     <label 
@@ -100,11 +123,12 @@ function BasicInformationNewForm({ onClose }) {
                     <input
                         type="text"
                         id="total_revenue" 
-                        className="selling-financial-details__input"
-                        defaultValue="125,000" // temporary
-                        onChange={ (evt) => setBasicInfoData({ ...basicInfoData, annualRevenue: evt.target.value }) }
+                        className={ `selling-financial-details__input ${ annualRevenueInputIsInvalid && "invalid" }` }
+                        value={ enteredAnnualRevenue }
+                        onChange={ changeAnnualRevenueInputValueHandler }
+                        onBlur={ blurAnnualRevenueInputHandler }
                     />
-                    {/* <p className="invalid-input-msg"> { invalid_input_msg } </p> */}
+                    { annualRevenueInputIsInvalid && <p className="invalid-input-msg"> { invalid_input_msg } </p> }
                 </div>
                 <div className="selling-financial-details__input-box">
                     <label 
@@ -116,11 +140,12 @@ function BasicInformationNewForm({ onClose }) {
                     <input
                         type="text"
                         id="total_profit" 
-                        className="selling-financial-details__input"
-                        defaultValue="100-1,000" // temporary
-                        onChange={ (evt) => setBasicInfoData({ ...basicInfoData, numOfCustomers: evt.target.value }) }
+                        className={ `selling-financial-details__input ${ numOfCustomersInputIsInvalid && "invalid" }` }
+                        value={ enteredNumOfCustomers }
+                        onChange={ changeNumOfCustomersInputValueHandler }
+                        onBlur={ blurNumOfCustomersInputHandler }
                     />
-                    {/* <p className="invalid-input-msg"> { invalid_input_msg } </p> */}
+                    { numOfCustomersInputIsInvalid && <p className="invalid-input-msg"> { invalid_input_msg } </p> }
                 </div>
                 <div className="selling-details__input-box">
                     <label className="selling-details__label"> Date founded </label>
@@ -152,7 +177,8 @@ function BasicInformationNewForm({ onClose }) {
                                             type="radio" 
                                             className="asking-price__input"
                                             name="askingPrice"
-                                            onChange={ () => setBasicInfoData({ ...basicInfoData, priceResponse: response }) }
+                                            value={ selectedPriceResponse }
+                                            onChange={ selectPriceResponse.bind(null, response) }
                                         />
                                         { response }
                                     </label>
@@ -171,16 +197,18 @@ function BasicInformationNewForm({ onClose }) {
                     <input
                         type="number"
                         id="startup-team-size" 
-                        className="selling-financial-details__input"
-                        defaultValue="6" // temporary
-                        onChange={ (evt) => setBasicInfoData({ ...basicInfoData, teamSize: evt.target.value }) }
+                        className={ `selling-financial-details__input ${ startupTeamSizeInputIsInvalid && "invalid" }` }
+                        value={ enteredStartupTeamSize }
+                        onChange={ changeStartupTeamSizeInputValueHandler }
+                        onBlur={ blurStartupTeamSizeInputHandler }
                     />
-                    {/* <p className="invalid-input-msg"> { invalid_input_msg } </p> */}
+                    { startupTeamSizeInputIsInvalid && <p className="invalid-input-msg"> { invalid_input_msg } </p> }
                 </div>
                 <div className="selling-financial-details__actions">
                     <button
                         type="submit"
                         className="actions__save-btn"
+                        disabled={ !basicInfoFormIsValid }
                     >
                         Save
                     </button>

@@ -5,6 +5,9 @@
     border-top: 1px dashed #D7D7D7;
     border-bottom: 1px dashed #D7D7D7;
 }
+.info-container {
+    max-width: 766px; width: 100%;
+}
 .public-info__first-box {
     width: 100%;
     display: flex;

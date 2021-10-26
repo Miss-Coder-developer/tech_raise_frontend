@@ -2,18 +2,13 @@ import React, { useState } from 'react';
 import MyStartupButton from '../UI//buttons/MyStartupButton';
 import ImproveListingCard from '../UI/wrapper-cards/ImproveListingCard';
 import './MyStartup.css';
-import PublicInfo from '../items/my-startup-page/PublicInfo';
 import CompanyFeatures from '../items/my-startup-page/CompanyFeatures';
 import SellingDetails from '../items/my-startup-page/SellingDetails';
-import SellingFinancialDetails from '../items/my-startup-page/SellingFinancialDetails';
+import FinancialDetails from '../items/my-startup-page/FinancialDetails';
 import BasicInformation from '../items/my-startup-page/BasicInformation';
 
 
 const MyStartup = () => {
-    const [basicInfoEditingAreaIsOpen, setBasicInfoEditingAreaIsOpen] = useState(false);
-
-    const openBasicInfoEditingArea = () => setBasicInfoEditingAreaIsOpen(true);
-    const closeBasicInfoEditingArea = () => setBasicInfoEditingAreaIsOpen(false);
 
     return (
         <section className="founder-main__container">
@@ -63,7 +58,7 @@ const MyStartup = () => {
                         <BasicInformation />
                         <CompanyFeatures />
                         <SellingDetails />
-                        <SellingFinancialDetails />
+                        <FinancialDetails />
                     </div>
                 </div>
                 <div className="founder-main__private-info">

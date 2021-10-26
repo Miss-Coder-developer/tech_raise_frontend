@@ -1,20 +1,52 @@
 import React, { useState } from 'react';
 import SellingDetailsEditingForm from '../../forms/editing-forms/SellingDetailsEditingForm';
+import SellingDetailsFilledForm from '../../forms/filled-forms/SellingDetailFilledForm';
 import SellingDetailsNewForm from '../../forms/new-forms/SellingDetailsNewForm';
 import './SellingDetails.css';
 
 
 const SellingDetails = () => {
     const [sellingDetailsFormIsOpen, setSellingDetailsFormIsOpen] = useState(false);
+    const [sellingDetailsFormIsFilled, setSellingDetailsFormIsFilled] = useState(false);
+    const [sellingDetailsFormIsBeingEdited, setSellingDetailsFormIsBeingEdited] = useState(false);
 
-    const box_class_name = (sellingDetailsFormIsOpen) ? "public-info" : "public-info__item-box";
+    const box_class_name = (sellingDetailsFormIsOpen || sellingDetailsFormIsBeingEdited || sellingDetailsFormIsFilled) ? "public-info" : "public-info__item-box";
 
     return (
         <div className={ box_class_name }>
             {
                 (sellingDetailsFormIsOpen)
                 ? (
-                    <SellingDetailsNewForm onClose={ () => setSellingDetailsFormIsOpen(false) } />
+                    <SellingDetailsNewForm 
+                        onClose={ () => setSellingDetailsFormIsOpen(false) } 
+                        onFinish={ () => {
+                            setSellingDetailsFormIsFilled(true);
+                            setSellingDetailsFormIsOpen(false);
+                        } }
+                    />
+                )
+                : (sellingDetailsFormIsFilled)
+                ? (
+                    <SellingDetailsFilledForm
+                        onEdit={ () => {
+                            setSellingDetailsFormIsFilled(false);
+                            setSellingDetailsFormIsBeingEdited(true);
+                        } }
+                    />
+                )
+                : (sellingDetailsFormIsBeingEdited)
+                ? (
+                    <SellingDetailsEditingForm 
+                        onClose={ () => {
+                            setSellingDetailsFormIsBeingEdited(false);
+                            setSellingDetailsFormIsOpen(false);
+                            setSellingDetailsFormIsFilled(true);
+                        } }
+                        onFinish={ () => {
+                            setSellingDetailsFormIsFilled(true);
+                            setSellingDetailsFormIsBeingEdited(false);
+                        } } 
+                    />
                 )
                 : (
                     <div className="public-info__content">

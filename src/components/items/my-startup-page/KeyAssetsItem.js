@@ -1,13 +1,14 @@
 import React from 'react';
 
 
-function KeyAssetsItem({ keyAsset }) {
+function KeyAssetsItem({ keyAsset, handleChange }) {
     return (
         <li>
             <label className="list__label">
                 <input 
                     type="checkbox"
                     className="list__input"
+                    onChange={ handleChange }
                 />
                 <div className="list__div" />
                 <span className="list__span"> 

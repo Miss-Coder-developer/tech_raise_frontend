@@ -1,19 +1,45 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
+import { useValidity } from '../../../custom-hooks/form-validity';
+import { PassingInfoContext } from '../../contexts/passing-info-context';
 import './SellingDetailsNewForm.css';
 
 
-function SellingDetailsNewForm({ onClose }) {
-    const [sellingDetailsData, setSellingDetailsData] = useState({
-        id: Math.random().toString(),
-        sellingPurpose: "",
-        funding: "",
-    });
+function SellingDetailsNewForm({ onClose, onFinish }) {
+    const myStartupInfoCtx = useContext(PassingInfoContext);
 
     const invalid_input_msg = "Value should be not empty";
 
+    const isNotEmpty = value => value.trim() !== "";
+
+    const {
+        enteredValue: enteredSellingPurpose,
+        inputIsValid: sellingPurposeInputIsValid,
+        inputIsInvalid: sellingPurposeInputIsInvalid,
+        changeInputValueHandler: changeSellingPurposeInputValueHandler,
+        blurInputHandler: blurSellingPurposeInputHandler
+    } = useValidity(isNotEmpty);
+
+    const {
+        enteredValue: enteredFunding,
+        inputIsValid: fundingInputIsValid,
+        inputIsInvalid: fundingInputIsInvalid,
+        changeInputValueHandler: changeFundingInputValueHandler,
+        blurInputHandler: blurFundingInputHandler
+    } = useValidity(isNotEmpty);
+
+    const sellingDetailsFormIsValid = sellingPurposeInputIsValid && fundingInputIsValid;
+
     const submitSellingDetailsData = (evt) => {
         evt.preventDefault();
+        if(!sellingDetailsFormIsValid) return;
+        const sellingDetailsData = {
+            id: Math.random().toString(),
+            selling_purpose: enteredSellingPurpose,
+            funding: enteredFunding,
+        };
         console.log(sellingDetailsData);
+        myStartupInfoCtx.passSellingDetailsData(sellingDetailsData);
+        onFinish();
     };
 
     return (
@@ -32,10 +58,12 @@ function SellingDetailsNewForm({ onClose }) {
                     </label>
                     <textarea 
                         id="selling_reason" 
-                        className="selling-details__textarea"
-                        onChange={ (evt) => setSellingDetailsData({ ...sellingDetailsData, sellingPurpose: evt.target.value }) }
+                        className={ `selling-details__textarea ${ sellingPurposeInputIsInvalid && "invalid" }` }
+                        value={ enteredSellingPurpose }
+                        onChange={ changeSellingPurposeInputValueHandler }
+                        onBlur={ blurSellingPurposeInputHandler }
                     />
-                    {/* <p className="invalid-input-msg"> { invalid_input_msg } </p> */}
+                    { sellingPurposeInputIsInvalid && <p className="invalid-input-msg"> { invalid_input_msg } </p> }
                 </div>
                 <div className="selling-details__input-box">
                     <label 
@@ -47,15 +75,18 @@ function SellingDetailsNewForm({ onClose }) {
                     <input
                         type="text"
                         id="financial_funding" 
-                        className="selling-details__input"
-                        onChange={ (evt) => setSellingDetailsData({ ...sellingDetailsData, funding: evt.target.value }) }
+                        className={ `selling-details__input ${ fundingInputIsInvalid && "invalid" }` }
+                        value={ enteredFunding }
+                        onChange={ changeFundingInputValueHandler }
+                        onBlur={ blurFundingInputHandler }
                     />
-                    {/* <p className="invalid-input-msg"> { invalid_input_msg } </p> */}
+                    { fundingInputIsInvalid && <p className="invalid-input-msg"> { invalid_input_msg } </p> }
                 </div>
                 <div className="selling-details__actions">
                     <button
                         type="submit"
                         className="actions__save-btn"
+                        disabled={ !sellingDetailsFormIsValid }
                     >
                         Save
                     </button>

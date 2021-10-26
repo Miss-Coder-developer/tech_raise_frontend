@@ -1,4 +1,5 @@
 import React from 'react';
+import './GrowthHighlightItem.css';
 
 
 function GrowthHighlightItem({ growthHighlight, handleChange }) {

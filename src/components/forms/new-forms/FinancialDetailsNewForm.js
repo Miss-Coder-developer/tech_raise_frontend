@@ -1,20 +1,14 @@
 import React, { useState, useContext } from 'react';
+import './FinancialDetailsNewForm.css';
 import MyStartupDropdown from '../../UI/dropdowns/MyStartupDropdown';
 import { useValidity } from '../../../custom-hooks/form-validity';
 import { PassingInfoContext } from '../../contexts/passing-info-context';
 
 
-function FinancialDetailsEditingForm({ onClose, onFinish }) {
-    const myStartupInfoCtx = useContext(PassingInfoContext);
-    const {
-        financial_sum,
-        total_revenue,
-        total_profit,
-        annual_revenue,
-        annual_profit
-    } = myStartupInfoCtx.financialDetailsData;
+function FinancialDetailsNewForm({ onClose, onFinish }) {
+    const [selectedAnswer, setSelectedAnswer] = useState("NO");
 
-    const [selectedAnswer, setSelectedAnswer] = useState(financial_sum);
+    const myStartupInfoCtx = useContext(PassingInfoContext);
 
     const passSelectedAnswer = (selected) => setSelectedAnswer(selected);
 
@@ -28,7 +22,7 @@ function FinancialDetailsEditingForm({ onClose, onFinish }) {
         inputIsInvalid: totalRevenueInputIsInvalid,
         changeInputValueHandler: changeTotalRevenueInputValueHandler,
         blurInputHandler: blurTotalRevenueInputHandler
-    } = useValidity(isNotEmpty, total_revenue);
+    } = useValidity(isNotEmpty);
 
     const {
         enteredValue: enteredTotalProfit,
@@ -36,7 +30,7 @@ function FinancialDetailsEditingForm({ onClose, onFinish }) {
         inputIsInvalid: totalProfitInputIsInvalid,
         changeInputValueHandler: changeTotalProfitInputValueHandler,
         blurInputHandler: blurTotalProfitInputHandler
-    } = useValidity(isNotEmpty, total_profit);
+    } = useValidity(isNotEmpty);
 
     const {
         enteredValue: enteredAnnualRevenue,
@@ -44,7 +38,7 @@ function FinancialDetailsEditingForm({ onClose, onFinish }) {
         inputIsInvalid: annualRevenueInputIsInvalid,
         changeInputValueHandler: changeAnnualRevenueInputValueHandler,
         blurInputHandler: blurAnnualRevenueInputHandler
-    } = useValidity(isNotEmpty, annual_revenue);
+    } = useValidity(isNotEmpty);
 
     const {
         enteredValue: enteredAnnualProfit,
@@ -52,7 +46,7 @@ function FinancialDetailsEditingForm({ onClose, onFinish }) {
         inputIsInvalid: annualProfitInputIsInvalid,
         changeInputValueHandler: changeAnnualProfitInputValueHandler,
         blurInputHandler: blurAnnualProfitInputHandler
-    } = useValidity(isNotEmpty, annual_profit);
+    } = useValidity(isNotEmpty);
 
     const financialDetailsFormIsValid = totalRevenueInputIsValid && totalProfitInputIsValid && annualRevenueInputIsValid && annualProfitInputIsValid;
 
@@ -186,4 +180,4 @@ function FinancialDetailsEditingForm({ onClose, onFinish }) {
     );
 }
 
-export default FinancialDetailsEditingForm;
+export default FinancialDetailsNewForm;

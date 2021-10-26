@@ -203,6 +203,10 @@
 .actions__save-btn:hover {
     background-color: #0849bb;
 }
+.actions__save-btn:disabled {
+    background-color: #95bcff;
+    color: #525050;
+}
 
 .actions__cancel-btn {
     background-color: inherit;

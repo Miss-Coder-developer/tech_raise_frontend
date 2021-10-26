@@ -1,12 +1,51 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import './CompanyFeaturesNewForm.css';
 import { GROWTH_OPPORTUNITY_HIGHLIGHTS, KEY_ASSETS } from '../../../datas/MyStartupDatas';
 import GrowthHighlightItem from '../../items/my-startup-page/GrowthHighlightItem';
 import KeyAssetsItem from '../../items/my-startup-page/KeyAssetsItem';
+import { useValidity } from '../../../custom-hooks/form-validity';
+import { PassingInfoContext } from '../../contexts/passing-info-context';
 
 
-function CompanyFeaturesNewForm({ onClose }) {
+function CompanyFeaturesNewForm({ onClose, onFinish }) {
     const [growthHighlights, setGrowthHighlights] = useState(GROWTH_OPPORTUNITY_HIGHLIGHTS);
+    const [keyAssets, setKeyAssets] = useState(KEY_ASSETS);
+
+    const myStartupInfoCtx = useContext(PassingInfoContext);
+
+    const [selectedHighlights, setSelectedHighlights] = useState([]);
+    const [selectedKeyAssets, setSelectedKeyAssets] = useState([]);
+
+    const highlightIsValid = selectedHighlights.length !== 0;
+    const keyAssetIsValid = selectedKeyAssets.length !== 0;
+
+    const invalid_input_msg = "Value should be not empty";
+
+    const isNotEmpty = value => value.trim() !== "";
+
+    const {
+        enteredValue: enteredBusinessModel,
+        inputIsValid: businessModelInputIsValid,
+        inputIsInvalid: businessModelInputIsInvalid,
+        changeInputValueHandler: changeBusinessModelInputValueHandler,
+        blurInputHandler: blurBusinessModelInputHandler
+    } = useValidity(isNotEmpty);
+
+    const {
+        enteredValue: enteredTechStack,
+        inputIsValid: techStackInputIsValid,
+        inputIsInvalid: techStackInputIsInvalid,
+        changeInputValueHandler: changeTechStackInputValueHandler,
+        blurInputHandler: blurTechStackInputHandler
+    } = useValidity(isNotEmpty);
+
+    const {
+        enteredValue: enteredGrowthOpportunity,
+        inputIsValid: growthOpportunityInputIsValid,
+        inputIsInvalid: growthOpportunityInputIsInvalid,
+        changeInputValueHandler: changeGrowthOpportunityInputValueHandler,
+        blurInputHandler: blurGrowthOpportunityInputHandler
+    } = useValidity(isNotEmpty);
     
     const passHighlightStatus = (changedGrowthHighlight) => {
         setGrowthHighlights(growthHighlights.map(growthHighlight => {
@@ -15,24 +54,45 @@ function CompanyFeaturesNewForm({ onClose }) {
             }
             return growthHighlight;
         }));
+        setSelectedHighlights(growthHighlights.filter(growthHighlight => growthHighlight.isChecked));
     };
 
-    const checkedHighlights = growthHighlights.filter(growthHighlight => growthHighlight.isChecked);
+    const passKeyAssetStatus = (changedKeyAsset) => {
+        setKeyAssets(keyAssets.map(keyAsset => {
+            if(keyAsset.id === changedKeyAsset.id) {
+                return changedKeyAsset;
+            }
+            return keyAsset;
+        }));
+        setSelectedKeyAssets(keyAssets.filter(keyAsset => keyAsset.isChecked));
+    };
 
-    const [companyFeaturesData, setCompanyFeaturesData] = useState({
-        businessModel: "",
-        techStack: "",
-        competitors: [],
-        growthOpportunity: "",
-        checkedGrowthHighlights: checkedHighlights,
+    const {
+        enteredValue: enteredKeywords,
+        inputIsValid: keywordsInputIsValid,
+        inputIsInvalid: keywordsInputIsInvalid,
+        changeInputValueHandler: changeKeywordsInputValueHandler,
+        blurInputHandler: blurKeywordsInputHandler
+    } = useValidity(isNotEmpty);
 
-    });
-
-    const invalid_input_msg = "Value should be not empty";
+    const companyFeaturesFormIsValid = businessModelInputIsValid && techStackInputIsValid && growthOpportunityInputIsValid && highlightIsValid && keyAssetIsValid && keywordsInputIsValid;
 
     const submitFormHandler = (event) => {
         event.preventDefault();
+        if(!companyFeaturesFormIsValid) return;
+        const companyFeaturesData = {
+            id: Math.random().toString(),
+            business_model: enteredBusinessModel,
+            tech_stack: enteredTechStack,
+            competitors: [],
+            growth_opportunity: enteredGrowthOpportunity,
+            growth_highlights: selectedHighlights,
+            key_assets: selectedKeyAssets,
+            keywords: enteredKeywords
+        };
         console.log(companyFeaturesData);
+        myStartupInfoCtx.passCompanyFeaturesData(companyFeaturesData);
+        onFinish();
     };
         
     return (
@@ -52,11 +112,12 @@ function CompanyFeaturesNewForm({ onClose }) {
                     <input 
                         type="text"
                         id="business_model_and_pricing" 
-                        className="company-features__input"
-                        defaultValue="Saas" // temporary
-                        // onChange={  }
+                        className={ `company-features__input ${ businessModelInputIsInvalid && "invalid" }` }
+                        value={ enteredBusinessModel }
+                        onChange={ changeBusinessModelInputValueHandler }
+                        onBlur={ blurBusinessModelInputHandler }
                     />
-                    {/* <p className="invalid-input-msg"> { invalid_input_msg } </p> */}
+                    { businessModelInputIsInvalid && <p className="invalid-input-msg"> { invalid_input_msg } </p> }
                 </div>
                 <div className="company-features__input-box">
                     <label 
@@ -68,10 +129,13 @@ function CompanyFeaturesNewForm({ onClose }) {
                     <input 
                         type="text"
                         id="tech_stack" 
-                        className="company-features__input invalid"
+                        className={ `company-features__input ${ techStackInputIsInvalid && "invalid" }` }
                         placeholder="React, Firebase, AWS"
+                        value={ enteredTechStack }
+                        onChange={ changeTechStackInputValueHandler }
+                        onBlur={ blurTechStackInputHandler }
                     />
-                    <p className="invalid-input-msg"> { invalid_input_msg } </p>
+                    { techStackInputIsInvalid && <p className="invalid-input-msg"> { invalid_input_msg } </p> }
                 </div>   
                 <div className="company-features__input-box">
                     <label 
@@ -98,9 +162,12 @@ function CompanyFeaturesNewForm({ onClose }) {
                     <input 
                         type="text"
                         id="growth_opportunity" 
-                        className="company-features__input after-icon"
+                        className={ `company-features__input ${ growthOpportunityInputIsInvalid && "invalid" }` }
+                        value={ enteredGrowthOpportunity }
+                        onChange={ changeGrowthOpportunityInputValueHandler }
+                        onBlur={ blurGrowthOpportunityInputHandler }
                     />
-                    {/* <p className="invalid-input-msg"> { invalid_input_msg } </p> */}
+                    { growthOpportunityInputIsInvalid && <p className="invalid-input-msg"> { invalid_input_msg } </p> }
                 </div>
                 <div className="company-features__input-box highlights">
                     <label 
@@ -117,6 +184,7 @@ function CompanyFeaturesNewForm({ onClose }) {
                                         key={ index } 
                                         growthHighlight={ growthHighlight }
                                         handleChange={ (evt) => passHighlightStatus({ ...growthHighlight, isChecked: evt.target.checked }) } 
+                                        checked={ growthHighlight.isChecked }
                                     />
                                 );
                             }) }
@@ -128,6 +196,7 @@ function CompanyFeaturesNewForm({ onClose }) {
                                         key={ index } 
                                         growthHighlight={ growthHighlight } 
                                         handleChange={ (evt) => passHighlightStatus({ ...growthHighlight, isChecked: evt.target.checked }) } 
+                                        checked={ growthHighlight.isChecked }
                                     />
                                 );
                             }) }
@@ -148,6 +217,8 @@ function CompanyFeaturesNewForm({ onClose }) {
                                     <KeyAssetsItem 
                                         key={ index } 
                                         keyAsset={ keyAsset } 
+                                        handleChange={ (evt) => passKeyAssetStatus({ ...keyAsset, isChecked:  evt.target.checked }) }
+                                        checked={ keyAsset.isChecked }
                                     />
                                 );
                             }) }
@@ -158,6 +229,8 @@ function CompanyFeaturesNewForm({ onClose }) {
                                     <KeyAssetsItem 
                                         key={ index } 
                                         keyAsset={ keyAsset } 
+                                        handleChange={ (evt) => passKeyAssetStatus({ ...keyAsset, isChecked:  evt.target.checked }) }
+                                        checked={ keyAsset.isChecked }
                                     />
                                 );
                             }) }
@@ -174,16 +247,19 @@ function CompanyFeaturesNewForm({ onClose }) {
                     <input 
                         type="text"
                         id="keywords" 
-                        className="company-features__input"
-                        value="keywords 1, keywords 2, keywords 3" // temporary
+                        className={ `company-features__input ${ keywordsInputIsInvalid && "invalid" }` }
+                        value={ enteredKeywords }
+                        onChange={ changeKeywordsInputValueHandler }
+                        onBlur={ blurKeywordsInputHandler }
                     />
-                    {/* <p className="invalid-input-msg"> { invalid_input_msg } </p> */}
+                    { keywordsInputIsInvalid && <p className="invalid-input-msg"> { invalid_input_msg } </p> }
                     <p className="info-msg"> * tags are separated by a comma and a space </p>
                 </div> 
                 <div className="company-features__actions">
                     <button
                         type="submit"
                         className="actions__save-btn"
+                        disabled={ !companyFeaturesFormIsValid }
                     >
                         Save
                     </button>

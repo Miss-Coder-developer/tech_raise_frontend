@@ -1,9 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Requests.css';
 import MyStartupDropdown from '../UI/dropdowns/MyStartupDropdown';
+import { REQUESTS } from '../../dummy_datas/DummyData';
+import RequestItem from '../items/requests-page/RequestItem';
 
 
 const Requests = () => {
+    const [selectedApprovalStatus, setSelectedApprovalStatus] = useState("All");
+    const [selectedSorting, setSelectedSorting] = useState("Unread");
+
+    const passSelectedApprovalStatus = (selected) => setSelectedApprovalStatus(selected);
+    const passSelectedSorting = (selected) => setSelectedSorting(selected);
+
     return (
         <section className="founder-main__container">
             <div className="founder-main__requests">
@@ -21,6 +29,8 @@ const Requests = () => {
                     <MyStartupDropdown
                         dropdownOptions={ ["All", "Waiting", "Rejected", "Approved"] }
                         dropdownClassName={ "aproval-status__dropdown" }
+                        onPass={ passSelectedApprovalStatus }
+                        selected={ selectedApprovalStatus }
                     />
                 </div>
                 <div className="requests__sort-and-hidden">
@@ -34,6 +44,8 @@ const Requests = () => {
                         <MyStartupDropdown 
                             dropdownOptions={ ["Unread", "Date requested: Oldest", "Date requested: Newest"] }
                             dropdownClassName={ "sort-by__dropdown" }
+                            onPass={ passSelectedSorting }
+                            selected={ selectedSorting }
                         />
                     </div>
                     <div className="requests__hidden-requests">
@@ -50,12 +62,20 @@ const Requests = () => {
                 </div>
             </div>
             <div className="requests__content">
-                <div>
-                    <h2 className="content__info"> You don’t have any requests yet </h2>
-                    <p className="content__text"> 
-                        Don’t worry, you’ll get them. Let’s just wait for a little bit more!
-                    </p>
-                </div>
+                {
+                    (REQUESTS.length === 0) 
+                    ? (
+                        <div className="content__container">  
+                            <div>
+                                <h2 className="content__info"> You don’t have any requests yet </h2> 
+                                <p className="content__text"> 
+                                    Don’t worry, you’ll get them. Let’s just wait for a little bit more!
+                                </p>
+                            </div>
+                        </div>
+                    )
+                    : ( REQUESTS.map(request => <RequestItem key={ request.id } request={ request } />) )
+                }
             </div>
         </section>
     );

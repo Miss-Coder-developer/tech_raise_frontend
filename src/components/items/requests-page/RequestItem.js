@@ -1,5 +1,5 @@
 import React from 'react';
-import './RequestItem.css';
+import './RequestItem.scss';
 import msgIcon from '../../../assets/icons/requests/msg.png';
 
 

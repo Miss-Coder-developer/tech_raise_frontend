@@ -1,0 +1,41 @@
+@import './../../../../colors.scss';
+
+.public-info__suggestion {
+    font-family: Poppins;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 22px;
+    color: $darkGrey;
+    margin-bottom: 8px;
+    text-align: center;
+}
+.public-info__description {
+    font-family: Poppins;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 22px;
+    color: $grey;
+    margin-bottom: 34px;
+    text-align: center;
+}
+.public-info__add-info-butn {
+    width: 192px;
+    height: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid $ashGrey;
+    margin: 0 auto;
+    font-family: Poppins;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 22px;
+    color: $darkGrey;
+    cursor: pointer;
+    background-color: inherit;
+    transition: all 0.2s linear;
+}
+.public-info__add-info-butn:hover {
+    color: $blue;
+    border: 1px solid $blue;
+}

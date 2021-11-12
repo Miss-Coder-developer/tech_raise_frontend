@@ -1,0 +1,30 @@
+@import '../../../../colors.scss';
+
+.small-info__info-box {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    column-gap: 12px;
+    margin-top: 13px;
+}
+.small-info__label {
+    font-family: Poppins;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 22px;
+    color: $grey;
+}
+.small-info__icon {
+    width: 20px;
+    height: 20px;
+}
+.small-info__icon > img {
+    width: 100%;
+}
+.small-info__text {
+    font-family: Poppins;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 22px;
+    color: $darkBlue;
+}

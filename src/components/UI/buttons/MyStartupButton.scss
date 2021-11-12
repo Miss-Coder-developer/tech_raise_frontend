@@ -1,0 +1,20 @@
+@import './../../../colors.scss';
+
+.my-startup-butn {
+    padding: 12px 0;
+    border: 1px solid $blue;
+    border-radius: 4px;
+    font-family: Poppins;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 22px;
+    color: $blue;
+    text-align: center;
+    background-color: inherit;
+    cursor: pointer;
+    transition: all 0.2s linear;
+}
+.my-startup-butn:hover {
+    background-color: $blue;
+    color: #FFFFFF;
+}

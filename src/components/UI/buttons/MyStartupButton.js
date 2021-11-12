@@ -1,5 +1,5 @@
 import React from 'react';
-import './MyStartupButton.css';
+import './MyStartupButton.scss';
 
 
 const MyStartupButton = ({ className, label, onButnClick, type }) => {

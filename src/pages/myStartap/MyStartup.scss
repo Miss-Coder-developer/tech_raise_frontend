@@ -1,0 +1,306 @@
+@import './../../colors.scss';
+
+.improve-listing__completion-butn {
+    max-width: 258px; width: 100%;
+    margin-top: auto;
+}
+.improve-listing__add-metrics-butn {
+    max-width: 162px; width: 100%;
+    margin-top: auto;
+}
+.informations {
+    max-width: 100%; width: 100%;
+    display: flex;
+    align-items: flex-start;
+    padding-bottom: 59px;
+    margin-bottom: 56px;
+    border-bottom: 1px dashed $ashGrey;
+    @media (max-width: 1100px) {
+        flex-direction: column;
+    }
+
+    &__public-info {
+        width: 100%;
+        margin-right: 100px;
+
+        @media (max-width: 1100px) {
+            margin-right: 0;
+        }
+    }
+}
+
+.public-info__title,
+.private-info__title,
+.metrics__title {
+    font-family: Poppins;
+    font-weight: 600;
+    font-size: 28px;
+    line-height: 22px;
+    color: $darkBlue;
+    display: flex;
+    justify-content: flex-starts;
+    align-items: center;
+    column-gap: 14px;
+    margin-bottom: 8px;
+    margin-right: 30px;
+}
+.public-info__title::after,
+// .private-info__title::after,
+.private-info__title::before,
+.metrics__title::after {
+    content: '';
+    white-space: nowrap;
+    width: 18px;
+    height: 18px;
+    background-image: url('../../assets/icons/my-startup/orange-sign.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+.public-info__text,
+.private-info__text {
+    font-family: Poppins;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 22px;
+    color: $grey;
+}
+.public-info__items {
+    width: 100%;
+    margin: 26px 0;
+}
+
+.founder-main__private-info {
+    width: 100%;
+    padding: 56px 32px;
+    background-color: #FFFFFF;
+}
+.private-info__title::before {
+    width: 29px;
+    height: 35px;
+    background-image: url('../../assets/icons/my-startup/green-tick.png');
+}
+.private-info__edit-info-butn {
+    width: 62px;
+    height: 31px;
+    border: none;
+    outline: none;
+    font-family: Poppins;
+    font-weight: normal;
+    font-size: 14px;
+    color: $orange;
+    border-bottom: 1px dashed $orange;
+    background-color: inherit;
+    cursor: pointer;
+    transition: all 0.2s linear;
+    
+    @media (max-width: 650px) {
+        flex-direction: column;
+        margin-left: 45px;
+        margin-bottom: 10px;
+    }
+    
+    &::after{
+        content: '';
+        margin-left: -23px;
+        margin-top: -16px;
+        width: 18px;
+        height: 18px;
+        background-image: url('../../assets/icons/my-startup/orange-sign.png');
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center;
+        display: block;
+    }
+}
+.private-info__edit-info-butn:hover {
+    background-color: $orange;
+    color: #FFFFFF;
+    border-radius: 4px;
+}
+.private-info__actions {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    column-gap: 26px;
+
+    @media (max-width: 650px) {
+        flex-direction: column;
+    }
+}
+.private-info__text {
+    margin-left: 45px;
+    margin-top: -7px;
+}
+.private-info__auto-approve,
+.private-info__intro-text {
+    font-family: Poppins;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 22px;
+    color: $darkGrey;
+    margin: 37px 0 41px;
+}
+.private-info__intro-text {
+    font-size: 14px;
+    color: $grey;
+    margin-bottom: 12px;
+}
+.private-info__watch-video-butn {
+    width: 187px;
+    height: 36px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    column-gap: 13px;
+    font-family: Poppins;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 22px;
+    color: $blue;
+    background-color: inherit;
+    border: none;
+    outline: none;
+    margin-bottom: 41px;
+    cursor: pointer;
+    transition: all 0.2s linear;
+}
+.private-info__watch-video-butn::before {
+    content: '';
+    width: 36px;
+    height: 36px;
+    background-image: url('../../assets/icons/my-startup/blue-play.png');
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+.private-info__user-info-box {
+    margin-bottom: 36px;
+}
+.private-info__user-info-box > p,
+.private-info__user-info-box > h5,
+.user-info-box__email,
+.user-info-box__website {
+    font-family: Poppins;
+    font-weight: normal;
+    font-size: 14px;
+    color: $grey;
+}
+.private-info__user-info-box > h5,
+.user-info-box__email,
+.user-info-box__website {
+    font-weight: 600;
+    font-size: 18px;
+    color: $darkGrey;
+    margin-top: 3px;
+}
+.user-info-box__email,
+.user-info-box__website {
+    display: block;
+    text-decoration: none;
+}
+.user-info-box__website {
+    color: $lightBlue;
+}
+.private-info__user-info-box-pitch {
+    margin-top: 66px;
+}
+.private-info__user-info-box-pitch > p,
+.private-info__user-info-box-pitch > h5 {
+    font-family: Poppins;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 22px;
+    color: $darkGrey;
+}
+.private-info__user-info-box-pitch > h5 {
+    font-weight: normal;
+    font-size: 14px;
+    color: $grey;
+    margin-top: 3px;
+}
+.private-info__upload-files-box {
+    margin: 30px 0 19px;
+    width: 227px;
+    height: 226px;
+    background-color: $bgColor;
+    border: 1px dashed $ashGrey;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.private-info__upload-files-box > label {
+    width: 118px;
+    height: 105px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+.private-info__upload-files-box > label > div {
+    width: 70px;
+    height: 70px;
+    border: 1px dashed $ashGrey;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+.private-info__upload-files-box > label > div::before {
+    content: '';
+    width: 24px;
+    height: 24px;
+    background-image: url('../../assets/icons/my-startup/gray-plus.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.private-info__upload-files-box > label > span {
+    font-family: Poppins;
+    font-weight: 300;
+    font-size: 12px;
+    line-height: 22px;
+    color: $grey;
+}
+.private-info__upload-files-box > input {
+    display: none;
+}
+
+// .founder-main__metrics {
+//     max-width: 100%; width: 100%;
+// }
+// .metrics__action-box {
+//     max-width: 100%; width: 100%;
+//     min-height: 505px; height: 100%;
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     background-color: #FFFFFF;
+//     border: 1px dashed $ashGrey;
+//     margin-top: 62px;
+// }
+// .action-box__content {
+//     max-width: 439px; width: 100%;
+//     text-align: center;
+// }
+// .metrics__suggestion {
+//     font-family: Poppins;
+//     font-weight: 700;
+//     font-size: 32px;
+//     line-height: 47px;
+//     color: $darkGrey;
+// }
+// .metrics__description {
+//     font-family: Poppins;
+//     font-weight: normal;
+//     font-size: 16px;
+//     line-height: 22px;
+//     color: $grey;
+//     margin: 20px 0 43px;
+// }

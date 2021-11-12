@@ -1,0 +1,41 @@
+@import '../../../../colors.scss';
+
+.selling {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    column-gap: 37px;
+}
+
+.selling__title {
+    font-family: Poppins;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 22px;
+    color: $darkGrey;
+}
+
+.selling__selling-purpose, 
+.selling__financing {
+    margin-top: 37px;
+}
+
+.selling-purpose__title,
+.financing__title {
+    font-family: Poppins;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 22px;
+    color: $grey;
+    margin-bottom: 10px;
+}
+
+.selling-purpose__text,
+.financing__text {
+    font-family: Poppins;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 22px;
+    color: $darkBlue;
+}

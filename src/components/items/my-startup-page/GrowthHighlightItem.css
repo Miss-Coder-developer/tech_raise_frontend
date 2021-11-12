@@ -1,6 +1,0 @@
-.list__label > .list__input:checked + .list__div {
-    background-image: url('../../../assets/icons/my-startup/check.png');
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-position: center;
-}

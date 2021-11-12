@@ -1,0 +1,219 @@
+@import './../../../../colors.scss';
+
+.company-features__info {
+    margin-bottom: 35px;
+}
+
+.company-features__title {
+    font-family: Poppins;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 22px;
+    color: $darkGrey;
+}
+
+.company-features__required-warning {
+    font-family: Poppins;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 22px;
+    color: $orange;
+    display: flex;
+    align-items: center;
+    column-gap: 11px;
+    margin-top: 9px;
+}
+
+.company-features__required-warning::before {
+    content: '';
+    width: 18px;
+    height: 18px;
+    background-image: url('../../../../assets/icons/my-startup/orange-sign.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+
+.company-features__input-box {
+    margin-bottom: 26px;
+}
+
+.company-features__label {
+    display: block;
+    font-family: Poppins;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 22px;
+    color: $grey;
+}
+
+.company-features__input {
+    max-width: 612px; width: 100%;
+    padding: 18px;
+    border: 1px dashed $ashGrey;
+    outline: none;
+    font-family: Poppins;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 22px;
+    /* color: #6E6E6E; */
+    color: $darkBlue;
+    margin: 8px 0 2px;
+}
+.company-features__input.invalid {
+    border-color: $red;
+} 
+
+.invalid-input-msg {
+    font-family: Poppins;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 22px;
+    color: $red;
+}
+
+.company-features__add-butn {
+    width: 201px;
+    height: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid $ashGrey;
+    font-family: Poppins;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 22px;
+    color: $darkGrey;
+    cursor: pointer;
+    background-color: inherit;
+    transition: all 0.2s linear;
+    margin: 15px 0 48px;
+}
+.company-features__add-butn:hover {
+    color: $blue; 
+    border: 1px solid $blue;
+}
+
+.company-features__input.after-icon {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    column-gap: 9px;
+}
+.company-features__input.after-icon::after {
+    content: '';
+    width: 28px;
+    height: 28px;
+    background-image: url('../../../../assets/icons/my-startup/orange-sign.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+
+.company-features__input-box.highlights {
+    margin-top: 45px;
+}
+
+.company-features__input-box.key-assets {
+    margin-top: 37px;
+}
+
+.company-features__input-box.keywords {
+    margin-top: 65px;
+}
+
+.growth-opportunity__box,
+.key-assets__box {
+    display: flex; 
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-top: 16px;
+}
+
+.growth-opportunity__list li,
+.key-assets__list li {
+    list-style: none;
+}
+
+.list__label {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    column-gap: 11px;
+    cursor: pointer;
+    margin-bottom: 11px;
+}
+
+.list__input {
+    display: none;
+}
+
+.list__div {
+    width: 16px;
+    height: 16px;
+    border: 1px solid #C4C4C4;
+}
+
+.list__span {
+    font-family: Poppins;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 22px;
+    color: #000000;
+}
+
+.info-msg {
+    margin-top: 8px;
+    font-family: Poppins;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 22px;
+    text-align: right;
+    color: $grey;
+    text-align: right;
+}
+
+.company-features__actions {
+    margin-top: 22px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    column-gap: 30px;
+}
+
+.company-features__actions > button {
+    width: 111px;
+    height: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+    font-family: Poppins;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 22px;
+    text-transform: capitalize;
+    cursor: pointer;
+    border: transparent; outline: none;
+    transition: all 0.2s linear;
+}
+
+.actions__save-btn {
+    background-color: $blue;
+    color: #FFFFFF;
+}
+.actions__save-btn:hover {
+    background-color: #0849bb;
+}
+.actions__save-btn:disabled {
+    background-color: #95bcff;
+    color: #525050;
+}
+
+.actions__cancel-btn {
+    background-color: inherit;
+    color: $grey;
+}
+.actions__cancel-btn:hover {
+    border: 1px solid $grey;
+}

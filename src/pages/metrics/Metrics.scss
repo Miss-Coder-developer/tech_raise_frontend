@@ -1,0 +1,76 @@
+@import '../../colors.scss';
+
+.metrics__payment-processes {
+    max-width: 259px; width: 100%;
+    border: 1px dashed $ashGrey;
+    margin: 8px 0 2px;
+    cursor: pointer;
+}
+
+.metrics-main__container{
+    .metrics-main__row {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+    }
+}
+
+.show-dropdown {
+    width: 100%;
+    height: 48px;
+}
+
+.metrics-main__metrics {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-direction: column;
+}
+
+.metrics__update-data-btn {
+    border: none; outline: none;
+    width: 162px;
+    height: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $blue;
+    border-radius: 4px;
+    font-family: Poppins;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 22px;
+    color: #FFFFFF;
+    cursor: pointer;
+    transition: all 0.2s linear;
+}
+
+.metrics__update-data-btn:hover {
+    background-color: #0849bb;
+}
+
+.metrics__content {
+    width: 100%;
+    min-height: 505px; height: 100%;
+    background-color: #FFFFFF;
+    border: 1px dashed $ashGrey;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+}
+
+.content__info {
+    font-family: Poppins;
+    font-weight: bold;
+    font-size: 32px;
+    line-height: 47px;
+    text-align: center;
+    color: $darkGrey;
+}
+
+.metrics__dropdown {
+    max-width: 259px; width: 100%;
+}

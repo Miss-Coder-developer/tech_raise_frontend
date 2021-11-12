@@ -1,0 +1,42 @@
+@import '../../../../colors.scss';
+
+.basic-info__dropdown-box {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    column-gap: 16px;
+    margin-bottom: 57px;
+}
+
+.months__dropdown {
+    max-width: 410px; width: 100%;
+}
+
+.years__dropdown {
+    max-width: 186px; width: 100%;
+}
+
+.basic-info__checkbox {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    column-gap: 31px;
+    row-gap: 11px;
+    margin-top: 10px;
+    margin-bottom: 57px;
+    flex-wrap: wrap;
+}
+
+.asking-price__label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 9px;
+    font-family: Poppins;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 22px;
+    color: $darkBlue;
+}

@@ -1,0 +1,166 @@
+@import '../../../colors.scss';
+
+.request-item {
+    width: 100%;
+    display: flex;
+    column-gap: 32px;
+    row-gap: 32px;
+    margin-bottom: 32px;
+}
+
+.request-item__actions-field {
+    width: 100%;
+    padding-left: 29px;
+    border-left: 1px dashed $ashGrey;
+}
+
+.user-info__first-box {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    column-gap: 31px;
+    margin-bottom: 26px;
+}
+
+.user-info__image {
+    max-width: 98px; 
+    width: 100%;
+    min-height: 98px;
+    height: 100%;
+    position: relative;
+}
+.user-info__image img {
+    width: 100%;
+}
+
+.user-info__image::after {
+    content: "";
+    width: 50px;
+    height: 50px;
+    background-image: url('../../../assets/icons/requests/star.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+
+.user-info__name {
+    font-family: Poppins;
+    font-weight: bold;
+    font-size: 32px;
+    line-height: 47px;
+    color: $darkGrey;
+}
+
+.user-info__site {
+    font-family: Poppins;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 22px;
+    /* text-decoration-line: underline; */
+    color: $blue;
+}
+
+.user-info__about-me-title,
+.user-info__about-me-text {
+    font-family: Poppins;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 22px;
+    color: $grey;
+    margin-bottom: 15px;
+}
+
+.user-info__about-me-text {
+    display: inline-block;
+    max-width: 614px;
+    width: 100%;
+    font-style: italic;
+}
+
+.actions-field__first-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 21px;
+}
+
+.actions-field__message-date,
+.actions-field__make-visible {
+    font-family: Poppins;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 22px;
+    color: $grey;
+}
+
+.actions-field__make-visible {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 6px;
+}
+
+.actions-field__make-visible::before {
+    content: "";
+    width: 15px;
+    height: 15px;
+    background-image: url('../../../assets/icons/requests/view.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+
+.actions-field__title {
+    font-family: Poppins;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 22px;
+    color: $darkBlue;
+}
+
+.actions-field__second-box {
+    margin-top: 26px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 15px;
+}
+
+.actions-field__btns {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    column-gap: 35px;
+}
+
+.actions-field__btns button {
+    padding: 11px 18px;
+    border: none;
+    outline: none;
+    font-family: Poppins;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 22px;
+    cursor: pointer;
+}
+
+.actions-field__access-given-btn {
+    background-color: #A4C5FF;
+    border-radius: 4px;
+    color: #FFFFFF;
+}
+
+.actions-field__revoke-access {
+    background-color: inherit;
+    color: $darkBlue;
+}
+
+.actions-field__open-msg-btn {
+    border: none;
+    outline: none;
+    background-color: inherit;
+    cursor: pointer;
+}

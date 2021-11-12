@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { my_startup_icons } from '../../../dummy_datas/Icons';
-import './MyStartupDropdown.css';
+import './MyStartupDropdown.scss';
 
 
 function MyStartupDropdown({ dropdownOptions, dropdownClassName, onPass, selected }) {

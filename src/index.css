@@ -28,3 +28,17 @@ input::-webkit-inner-spin-button {
 input[type=number] {
   -moz-appearance: textfield;
 }
+
+
+.wrapper {
+  width: 100%;
+  max-width: 1562px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.displayNone{
+  display: none;
+}

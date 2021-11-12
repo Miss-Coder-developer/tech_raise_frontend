@@ -1,0 +1,56 @@
+@import './../../../../colors.scss';
+
+.public-info {
+    margin: 45px 0 40px;
+    padding: 27px 25px 48px 0;
+    max-width: 766px; width: 100%;
+    border-top: 1px dashed $ashGrey;
+    border-bottom: 1px dashed $ashGrey;
+}
+.info-container {
+    max-width: 766px; width: 100%;
+}
+.public-info__first-box {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+.public-info__small-info > div {
+    column-gap: 19px;
+}
+.public-info__small-info > div > div {
+    width: 32px;
+    height: 32px;
+}
+.public-info__small-info > div > h5 {
+    font-size: 28px;
+}
+.public-info__second-box {
+    margin: 34px 0 50px;
+    max-width: 615px; width: 100%;
+}
+.description__title {
+    font-family: Poppins;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 22px;
+    color: $grey;    
+    margin-bottom: 10px;
+}
+.description__text {
+    font-family: Poppins;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 22px;
+    color: $darkGrey;
+}
+.public-info__third-box {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    column-gap: 20px;
+    row-gap: 20px;
+}

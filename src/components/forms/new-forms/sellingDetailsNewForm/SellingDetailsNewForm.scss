@@ -1,0 +1,98 @@
+@import '../../../../colors.scss';
+
+.selling-details__info {
+    margin-bottom: 35px;
+}
+
+.selling-details__title {
+    font-family: Poppins;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 22px;
+    color: $darkGrey;
+}
+
+.selling-details__required-warning {
+    font-family: Poppins;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 22px;
+    color: $orange;
+    display: flex;
+    align-items: center;
+    column-gap: 11px;
+    margin-top: 9px;
+}
+
+.selling-details__required-warning::before {
+    content: '';
+    width: 18px;
+    height: 18px;
+    background-image: url('../../../../assets/icons/my-startup/orange-sign.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+
+.selling-details__input-box {
+    margin-bottom: 26px;
+}
+
+.selling-details__label {
+    display: block;
+    font-family: Poppins;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 22px;
+    color: $grey;
+}
+
+.selling-details__textarea,
+.selling-details__input {
+    max-width: 612px; width: 100%;
+    padding: 18px;
+    border: 1px dashed $ashGrey;
+    outline: none;
+    font-family: Poppins;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 22px;
+    /* color: #6E6E6E; */
+    color: $darkBlue;
+    margin: 8px 0 2px;
+}
+
+.selling-details__textarea {
+    min-height: 128px; height: 100%;
+    resize: none;
+}
+
+.selling-details__textarea.invalid,
+.selling-details__input.invalid {
+    border-color: $red;
+}
+
+.selling-details__actions {
+    margin-top: 22px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    column-gap: 30px;
+}
+
+.selling-details__actions > button {
+    width: 111px;
+    height: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+    font-family: Poppins;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 22px;
+    text-transform: capitalize;
+    cursor: pointer;
+    border: transparent; outline: none;
+    transition: all 0.2s linear;
+}

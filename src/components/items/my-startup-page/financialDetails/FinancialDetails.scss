@@ -1,0 +1,142 @@
+@import '../../../../colors.scss';
+
+.public-info__suggestion {
+    font-family: Poppins;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 22px;
+    color: $darkGrey;
+    margin-bottom: 8px;
+    text-align: center;
+}
+.public-info__description {
+    font-family: Poppins;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 22px;
+    color: $grey;
+    margin-bottom: 34px;
+    text-align: center;
+}
+.public-info__add-info-butn {
+    width: 192px;
+    height: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid $ashGrey;
+    margin: 0 auto;
+    font-family: Poppins;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 22px;
+    color: $darkGrey;
+    cursor: pointer;
+    background-color: inherit;
+    transition: all 0.2s linear;
+}
+.public-info__add-info-butn:hover {
+    color: $blue;
+    border: 1px solid $blue;
+}
+
+.selling-financial-details__info {
+    margin-bottom: 35px;
+}
+
+.selling-financial-details__title {
+    font-family: Poppins;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 22px;
+    color: $darkGrey;
+}
+
+.selling-financial-details__required-warning {
+    font-family: Poppins;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 22px;
+    color: $orange;
+    display: flex;
+    align-items: center;
+    column-gap: 11px;
+    margin-top: 9px;
+}
+
+.selling-financial-details__required-warning::before {
+    content: '';
+    width: 18px;
+    height: 18px;
+    background-image: url('../../../../assets/icons/my-startup/orange-sign.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+
+.selling-financial-details__input-box {
+    margin-bottom: 26px;
+}
+
+.selling-financial-details__label {
+    display: block;
+    font-family: Poppins;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 22px;
+    color: $grey;
+}
+
+.selling-financial-details__input {
+    max-width: 612px; width: 100%;
+    padding: 18px;
+    border: 1px dashed $ashGrey;
+    outline: none;
+    font-family: Poppins;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 22px;
+    /* color: $grey; */
+    color: $darkBlue;
+    margin: 8px 0 2px;
+}
+
+.selling-financial-details__input.invalid {
+    border-color: $red;
+}
+
+.selling-financial-details__actions {
+    margin-top: 22px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    column-gap: 30px;
+}
+
+.selling-financial-details__actions > button {
+    width: 111px;
+    height: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+    font-family: Poppins;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 22px;
+    text-transform: capitalize;
+    cursor: pointer;
+    border: transparent; outline: none;
+    transition: all 0.2s linear;
+}
+
+.my-div {
+    position: absolute;
+    top: 60px;
+    left: 0;
+    z-index: 2;
+    max-width: 612px; width: 100%;
+    background-color: #FFFFFF;
+    border-radius: 4px;
+    padding: 31px;
+}

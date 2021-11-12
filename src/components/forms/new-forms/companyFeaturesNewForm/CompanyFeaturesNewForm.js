@@ -1,28 +1,20 @@
 import React, { useState, useContext } from 'react';
-import { GROWTH_OPPORTUNITY_HIGHLIGHTS, KEY_ASSETS } from '../../../datas/MyStartupDatas';
-import GrowthHighlightItem from '../../items/my-startup-page/growthHighlightItem/GrowthHighlightItem';
-import KeyAssetsItem from '../../items/my-startup-page/KeyAssetsItem';
-import { useValidity } from '../../../custom-hooks/form-validity';
-import { PassingInfoContext } from '../../contexts/passing-info-context';
+import './CompanyFeaturesNewForm.scss';
+import { GROWTH_OPPORTUNITY_HIGHLIGHTS, KEY_ASSETS } from '../../../../datas/MyStartupDatas';
+import GrowthHighlightItem from '../../../items/my-startup-page/growthHighlightItem/GrowthHighlightItem';
+import KeyAssetsItem from '../../../items/my-startup-page/KeyAssetsItem';
+import { useValidity } from '../../../../custom-hooks/form-validity';
+import { PassingInfoContext } from '../../../contexts/passing-info-context';
 
 
-function CompanyFeaturesEditingForm({ onClose, onFinish }) {
+function CompanyFeaturesNewForm({ onClose, onFinish }) {
     const [growthHighlights, setGrowthHighlights] = useState(GROWTH_OPPORTUNITY_HIGHLIGHTS);
     const [keyAssets, setKeyAssets] = useState(KEY_ASSETS);
 
     const myStartupInfoCtx = useContext(PassingInfoContext);
-    const {
-        business_model,
-        tech_stack,
-        // competitors,
-        growth_opportunity,
-        growth_highlights,
-        key_assets,
-        keywords
-    } = myStartupInfoCtx.companyFeaturesData;
 
-    const [selectedHighlights, setSelectedHighlights] = useState(growth_highlights);
-    const [selectedKeyAssets, setSelectedKeyAssets] = useState(key_assets);
+    const [selectedHighlights, setSelectedHighlights] = useState([]);
+    const [selectedKeyAssets, setSelectedKeyAssets] = useState([]);
 
     const highlightIsValid = selectedHighlights.length !== 0;
     const keyAssetIsValid = selectedKeyAssets.length !== 0;
@@ -37,7 +29,7 @@ function CompanyFeaturesEditingForm({ onClose, onFinish }) {
         inputIsInvalid: businessModelInputIsInvalid,
         changeInputValueHandler: changeBusinessModelInputValueHandler,
         blurInputHandler: blurBusinessModelInputHandler
-    } = useValidity(isNotEmpty, business_model);
+    } = useValidity(isNotEmpty);
 
     const {
         enteredValue: enteredTechStack,
@@ -45,7 +37,7 @@ function CompanyFeaturesEditingForm({ onClose, onFinish }) {
         inputIsInvalid: techStackInputIsInvalid,
         changeInputValueHandler: changeTechStackInputValueHandler,
         blurInputHandler: blurTechStackInputHandler
-    } = useValidity(isNotEmpty, tech_stack);
+    } = useValidity(isNotEmpty);
 
     const {
         enteredValue: enteredGrowthOpportunity,
@@ -53,7 +45,7 @@ function CompanyFeaturesEditingForm({ onClose, onFinish }) {
         inputIsInvalid: growthOpportunityInputIsInvalid,
         changeInputValueHandler: changeGrowthOpportunityInputValueHandler,
         blurInputHandler: blurGrowthOpportunityInputHandler
-    } = useValidity(isNotEmpty, growth_opportunity);
+    } = useValidity(isNotEmpty);
     
     const passHighlightStatus = (changedGrowthHighlight) => {
         setGrowthHighlights(growthHighlights.map(growthHighlight => {
@@ -81,7 +73,7 @@ function CompanyFeaturesEditingForm({ onClose, onFinish }) {
         inputIsInvalid: keywordsInputIsInvalid,
         changeInputValueHandler: changeKeywordsInputValueHandler,
         blurInputHandler: blurKeywordsInputHandler
-    } = useValidity(isNotEmpty, keywords);
+    } = useValidity(isNotEmpty);
 
     const companyFeaturesFormIsValid = businessModelInputIsValid && techStackInputIsValid && growthOpportunityInputIsValid && highlightIsValid && keyAssetIsValid && keywordsInputIsValid;
 
@@ -284,4 +276,4 @@ function CompanyFeaturesEditingForm({ onClose, onFinish }) {
     );
 }
 
-export default CompanyFeaturesEditingForm;
+export default CompanyFeaturesNewForm;

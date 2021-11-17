@@ -8,6 +8,7 @@ import Requests from '../requests/Requests';
 import Marketplace from '../marketplace/Marketplace';
 import Resources from '../resources/Resources';
 import Advisors from '../advisors/Advisors';
+import Login from './../login/Login';
 import Home from '../home/Home';
 import NoMatch from '../NoMatch/NoMatch';
 
@@ -36,6 +37,9 @@ const Main = () => {
                 </Route>
                 <Route path="/advisors">
                     <Advisors />
+                </Route>
+                <Route path="/login">
+                    <Login />
                 </Route>
                 <Route component={NoMatch}/>
             </Switch>

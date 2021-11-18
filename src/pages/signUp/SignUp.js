@@ -29,8 +29,8 @@ function SignUp(){
                 <h1 className='signup__title'>Sign up on Techraise now</h1>
                 <p className='signup__subtitle'>Account type</p>
                 <div className='signup__buttons'>
-                    <button className={role === 'startup' ? 'signup__button' : 'signup__button signup__button--active'}>I want to sell a startup</button>
-                    <button className={role === 'startup' ? 'signup__button' : 'signup__button signup__button--active'}>I want to buy a startup</button>
+                    <button onClick={() => setRole(role => 'startup')} className={role === 'startup' ? 'signup__button signup__button--active' : 'signup__button'}>I want to sell a startup</button>
+                    <button onClick={() => setRole(role => 'investor')} className={role === 'investor' ? 'signup__button signup__button--active' : 'signup__button'}>I want to buy a startup</button>
                 </div>
             </div>
             <div className='signup__block wrapper'>

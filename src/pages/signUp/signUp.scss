@@ -1,6 +1,6 @@
 @import './../../colors.scss';
 
-.login {
+.signup {
   &__title {
     text-align: center;
     margin-bottom: 20px;
@@ -14,6 +14,80 @@
       margin-bottom: 10px;
     }
   }
+
+  &__subtitle {
+    text-align: center;
+    margin-bottom: 38px;
+    margin-top: 27px;
+    font-size: 16px;
+    color: $grey;
+    font-family: Poppins;
+
+    @media (max-width: 768px) {
+      margin-bottom: 15px;
+      margin-top: 10px;
+    }
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+
+  &__button {
+    max-width: 500px;
+    background: #fff;
+    border: 1px solid $blue;
+    color: $blue;
+    box-sizing: border-box;
+    border-radius: 4px;
+    padding: 14px 64px;
+    margin: 0 46px;
+    font-family: Poppins;
+    cursor: pointer;
+
+    @media (max-width: 768px) {
+      max-width: 290px;
+      width: 100%;
+      margin: 0 10px;
+      margin-bottom: 15px;
+      padding: 10px 10px;
+    }
+
+    &--active {
+     
+      background: $blue;
+      border: 1px solid $blue;
+      color: #fff;
+    }
+  }
+  
+  // &__button-buy {
+  //   max-width: 500px;
+  //   background: #fff;
+  //   border: 1px solid $blue;
+  //   box-sizing: border-box;
+  //   border-radius: 4px;
+  //   padding: 14px 64px;
+  //   margin-left: 63px;
+  //   color: $blue;
+  //   font-family: Poppins;
+  //   cursor: pointer;
+
+  //   @media (max-width: 768px) {
+  //     max-width: 290px;
+  //     width: 100%;
+  //     margin-left: 0px;
+  //     margin-bottom: 15px;
+  //     padding: 10px 10px;
+  //   }
+  // }
 
   &__block {
     display: flex;
@@ -31,6 +105,8 @@
 
     &>span {
       margin-bottom: 13px;
+      width: 100%;
+      max-width: 600px;
       font-size: 16px;
       color: $grey;
       font-family: Poppins;
@@ -38,13 +114,15 @@
   }
 
   &__forgot {
+    max-width: 600px;
+    width: 100%;
     color: $grey;
     font-family: Poppins;
     text-align: right;
     margin-bottom: 25px;
     margin-top: 15px;
     font-size: 16px;
-    
+
     @media (max-width: 768px) {
       margin-bottom: 10px;
       margin-top: 10px;
@@ -68,10 +146,6 @@
     @media (max-width: 768px) {
       height: 40px;
     }
-
-    &--error {
-      border: 1px solid $red;
-    }
   }
 
   &__btn {
@@ -83,8 +157,13 @@
     color: #fff;
     font-family: Poppins;
     font-size: 18px;
+    margin-top: 38px;
     font-weight: 600;
     cursor: pointer;
+    
+    @media (max-width: 768px) {
+      margin-top: 20px;
+    }
   }
 
   &__form {
@@ -102,8 +181,6 @@
     font-family: Poppins;
     color: $grey;
     font-size: 16px;
-    padding-left: 20px;
-    padding-right: 20px;
 
     @media (max-width: 768px) {
       margin-bottom: 30px;
@@ -113,19 +190,9 @@
     &-link {
       text-decoration: none;
       color: $blue;
-      white-space: nowrap;
     }
   }
 }
 
-.errorMessage {
-  font-family: Poppins;
-  color: $red;
-  margin-top: 5px;
-  font-size: 12px;
-}
 
-#__lpform_email_icon , #__lpform_password_icon{
-  display: none;
-}
 

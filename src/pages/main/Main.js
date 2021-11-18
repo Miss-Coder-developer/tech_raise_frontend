@@ -9,6 +9,7 @@ import Marketplace from '../marketplace/Marketplace';
 import Resources from '../resources/Resources';
 import Advisors from '../advisors/Advisors';
 import Login from './../login/Login';
+import SignUp from './../signUp/SignUp';
 import Home from '../home/Home';
 import NoMatch from '../NoMatch/NoMatch';
 
@@ -40,6 +41,9 @@ const Main = () => {
                 </Route>
                 <Route path="/login">
                     <Login />
+                </Route>
+                <Route path="/signUp">
+                    <SignUp />
                 </Route>
                 <Route component={NoMatch}/>
             </Switch>

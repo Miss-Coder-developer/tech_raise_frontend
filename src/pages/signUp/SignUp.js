@@ -11,6 +11,7 @@ function SignUp(){
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [role, setRole] = useState('startup')
     const history = useHistory()
 
 
@@ -28,8 +29,8 @@ function SignUp(){
                 <h1 className='signup__title'>Sign up on Techraise now</h1>
                 <p className='signup__subtitle'>Account type</p>
                 <div className='signup__buttons'>
-                    <button className='signup__button  signup__button--active'>I want to sell a startup</button>
-                    <button className='signup__button'>I want to buy a startup</button>
+                    <button className={role === 'startup' ? 'signup__button' : 'signup__button signup__button--active'}>I want to sell a startup</button>
+                    <button className={role === 'startup' ? 'signup__button' : 'signup__button signup__button--active'}>I want to buy a startup</button>
                 </div>
             </div>
             <div className='signup__block wrapper'>
@@ -38,18 +39,6 @@ function SignUp(){
                         <span>Personal emall</span>
                         <input  className='signup__input' name='email' type='email' placeholder='email' value={email} onChange={e => setEmail(e.target.value) }/>
                     </label>
-
-                    {/* <label className='signup__label'>
-                        <span>Personal emall</span>
-                        <input className='signup__input' name='email' type='email' placeholder='Email' value={email}
-                               onChange={e => inputValue(e.target.value, 0)}/>
-                    </label>
-
-                    <label className='signup__label'>
-                        <span>Passwoard</span>
-                        <input className='signup__input'  name='password' type='password' placeholder='Password'
-                               onChange={e => setPassword(e.target.value, 1)}/>
-                    </label> */}
 
                     <label className='signup__label'>
                         <span>Passwoard</span>

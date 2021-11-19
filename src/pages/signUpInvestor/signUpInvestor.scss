@@ -1,0 +1,64 @@
+.signup-investor {
+
+    &__container {
+
+    }
+
+    &__form {
+        margin-bottom: 80px;
+        // display: flex;
+        // flex-wrap: wrap;
+        // max-width: 500px;
+
+        @media (max-width: 768px) {
+            margin-bottom: 30px;
+        }
+
+
+        &-title {
+            font-size: 42px;
+            margin-bottom: 5px;
+            color: #231F20;
+            font-family: Poppins;
+
+            @media (max-width: 768px) {
+                font-size: 18px;
+            }
+        }
+
+        &-text {
+            color: #F3BD1F;
+            font-family: Poppins;
+            font-size: 14px;
+            margin-top: 45px;
+        }
+
+        &-subtitle {
+            font-size: 14px;
+            margin-bottom: 68px;
+            color: #6E6E6E;
+            font-family: Poppins;
+
+            @media (max-width: 768px) {
+                margin-bottom: 20px;
+            }
+        }
+        
+        &-box {
+            max-width: 600px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-column-gap: 32px;
+
+            @media (max-width: 768px) {
+                grid-template-columns: 1fr;
+            }
+        }
+    }
+}
+
+.add-File {
+    // padding: 13px 31px;
+    // border: 1px solid #D7D7D7;
+}

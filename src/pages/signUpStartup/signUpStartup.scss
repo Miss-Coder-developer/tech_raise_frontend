@@ -1,0 +1,50 @@
+.signup-startup {
+
+    &__container {
+
+    }
+
+    &__title {
+        font-size: 42px;
+        margin-bottom: 80px;
+        color: #231F20;
+        font-family: Poppins;
+
+        @media (max-width: 768px) {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+    }
+
+    &__form {
+        margin-bottom: 80px;
+
+        @media (max-width: 768px) {
+            margin-bottom: 30px;
+        }
+
+
+        &-title {
+            font-size: 28px;
+            margin-bottom: 5px;
+            color: #231F20;
+            font-family: Poppins;
+
+            @media (max-width: 768px) {
+                font-size: 18px;
+            }
+        }
+
+        &-subtitle {
+            font-size: 14px;
+            margin-bottom: 68px;
+            color: #6E6E6E;
+            font-family: Poppins;
+
+            @media (max-width: 768px) {
+                margin-bottom: 20px;
+            }
+        }
+        
+    }
+}

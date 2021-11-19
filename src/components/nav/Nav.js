@@ -23,7 +23,7 @@ const Nav = () => {
                     <li> <NavLink to="/requests"> Requests </NavLink> </li>
                     <li> <NavLink to="/marketplace"> Marketplace </NavLink> </li>
                     <li> <NavLink to="/resources"> Resources </NavLink> </li>
-                    <li> <NavLink to="/advisors"> Advisors </NavLink> </li>
+                    {/* <li> <NavLink to="/advisors"> Advisors </NavLink> </li> */}
                 </ul>
                 <div className='hamburger-mb-menu' onClick={hamburgerOpen}>
                     <span

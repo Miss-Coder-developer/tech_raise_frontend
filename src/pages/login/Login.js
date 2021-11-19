@@ -110,7 +110,7 @@ function Login(){
                                onChange={e => inputValue(e.target.value, 1)}/>
                     </label>
                     <p className='errorMessage'>{error === 'Login or Password do not match' || error === 'Password length at least must be 8' ? error : ''}</p>
-                    <p className='login__forgot'>Forgot your password? Restore</p>
+                    <p className='login__forgot'>Forgot your password?<Link to='signup'  className='login__signUp-link'> Restore </Link></p>
                     <button className='login__btn'>Login</button>
                     {/* <div className='login__line'>
                         <p className='login__or'>Or</p>

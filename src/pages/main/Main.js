@@ -12,6 +12,8 @@ import Login from './../login/Login';
 import SignUp from './../signUp/SignUp';
 import Home from '../home/Home';
 import NoMatch from '../NoMatch/NoMatch';
+import SignUpStartup from '../signUpStartup/SignUpStartup';
+import SignUpInvestor from '../signUpInvestor/SignUpInvestor';
 
 const Main = () => {
     return (
@@ -44,6 +46,12 @@ const Main = () => {
                 </Route>
                 <Route path="/signUp">
                     <SignUp />
+                </Route>
+                <Route path="/signUpStartUp">
+                    <SignUpStartup />
+                </Route>
+                <Route path="/signUpInvestor">
+                    <SignUpInvestor />
                 </Route>
                 <Route component={NoMatch}/>
             </Switch>

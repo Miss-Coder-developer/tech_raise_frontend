@@ -21,7 +21,9 @@ function SignUp(){
     const [number4value , setNumber4value] = useState(true)
     const [number5value , setNumber5value] = useState(true)
     const [number6value , setNumber6value] = useState(true)
-
+    //
+    // const number = number1value*1000000 + number2value*100000 + number3value*10000 + number4value*1000+ number5value*100 +number6value
+    // console.log(number)
     const number1 = useRef()
     const number2 = useRef()
     const number3 = useRef()
@@ -65,13 +67,23 @@ function SignUp(){
 
       
     function ShowPopup() {
-        setPopup(popup => !popup)
+        // fetch('auth/send-verification-code'){
+        //
+        // }
+        axios.post(`${process.env.REACT_APP_API_URL}/auth/send-verification-code`,{email})
+            .then(setPopup(popup => !popup))
+            .catch(err => console.log(err))
+
     }
     function handleSubmit(e){
         e.preventDefault()
+        console.log(e.target.value)
+
+
+        const number = "" + number1value + number2value + number3value + number4value + number5value +number6value
 
         if (role === 'startup') {
-            axios.post(`${process.env.REACT_APP_API_URL}/auth/login`,{email,password})
+            axios.post(`${process.env.REACT_APP_API_URL}/auth/verify-code`,{email, password,code:+number})
                 .then(res => history.push({
                     pathname: '/signUpStartup',
                     state: 'role'
@@ -81,7 +93,7 @@ function SignUp(){
         }
 
         else if (role === 'investor') {
-            axios.post(`${process.env.REACT_APP_API_URL}/auth/login`,{email,password})
+            axios.post(`${process.env.REACT_APP_API_URL}/auth/verify-code`,{email,})
                 .then(res => history.push('/signUpInvestor'))
                 .catch(err => console.log(err))
         }
@@ -106,7 +118,7 @@ function SignUp(){
                     </label>
 
                     <label className='signup__label'>
-                        <span>Passwoard</span>
+                        <span>Password</span>
                         <input  className='signup__input' name='password' type='password' value={password} 
                                 onChange={e => setPassword(e.target.value)} placeholder='password'/> 
                     </label> 

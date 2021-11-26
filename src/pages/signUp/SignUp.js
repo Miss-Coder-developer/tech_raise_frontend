@@ -11,7 +11,8 @@ function SignUp(){
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [role, setRole] = useState('startup')
+    const [role, setRole] = useState('startup');
+    const [roleIds, setRoleIds] = useState([])
     const [popup, setPopup] = useState(false)
     const history = useHistory()
 
@@ -65,6 +66,21 @@ function SignUp(){
         numberBtn.current.focus();
     }
 
+
+    useEffect(() => {
+        axios.get(`${process.env.REACT_APP_API_URL}/users/get-roles`, {
+        })
+            .then(response => {
+                let ids = response.data
+                setRoleIds(ids)
+            })
+            .catch(err => {
+                console.log(err.response);
+            })
+    },[])
+
+
+
       
     function ShowPopup() {
         // fetch('auth/send-verification-code'){
@@ -77,26 +93,29 @@ function SignUp(){
     }
     function handleSubmit(e){
         e.preventDefault()
-        console.log(e.target.value)
 
+        const number = "" + number1value + number2value + number3value + number4value + number5value +number6value;
 
-        const number = "" + number1value + number2value + number3value + number4value + number5value +number6value
+        roleIds.forEach(roleId => {
+            if (roleId.name === role) {
+                console.log(roleId.name)
+                axios.post(`${process.env.REACT_APP_API_URL}/auth/verify-code`,{email, password,code:+number, role_id: roleId.id})
+                    // .then(res => history.push({
+                    //     pathname: '/signUpStartup',
+                    //     state: 'role'
+                    // }))
+                    .then(res => history.push('/signUpStartup'))
+                    .catch(err => console.log(err))
+            }
+            else if (roleId.name === role) {
+                console.log(roleId.name)
+                axios.post(`${process.env.REACT_APP_API_URL}/auth/verify-code`,{email, password,code:+number, role_id: roleId.id})
+                    .then(res => '/signUpStartup')
+                    .catch(err => console.log(err))
+            }
+        })
 
-        if (role === 'startup') {
-            axios.post(`${process.env.REACT_APP_API_URL}/auth/verify-code`,{email, password,code:+number})
-                .then(res => history.push({
-                    pathname: '/signUpStartup',
-                    state: 'role'
-                }))
-             
-                .catch(err => console.log(err))
-        }
-
-        else if (role === 'investor') {
-            axios.post(`${process.env.REACT_APP_API_URL}/auth/verify-code`,{email,})
-                .then(res => history.push('/signUpInvestor'))
-                .catch(err => console.log(err))
-        }
+        
     }
 
     return(

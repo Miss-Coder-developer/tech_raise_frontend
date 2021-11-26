@@ -37,7 +37,7 @@ function SignUpStartup() {
     return(
         <div className='signup-startup'>
             <div className='signup-startup__container wrapper'>
-                <h1 className='signup-startup__title'>Welcome to Techraise! Crate your startup profile!</h1>
+                <h1 className='signup-startup__title'>Welcome to Techraise! Create your startup profile!</h1>
                 <form className='signup-startup__form'>
                     <h2 className='signup-startup__form-title'>Public information</h2>
                     <h3 className='signup-startup__form-subtitle'>Buyers will see this after you give access</h3>
@@ -62,7 +62,7 @@ function SignUpStartup() {
                         <input  className='signup__input' name='website' type='text' value={website} 
                                 onChange={e => setWebsite(e.target.value)} /> 
                     </label> 
-                    <button className='signup__btn' type="submit" onClick={hi}>Crate startup</button>
+                    <button className='signup__btn' type="submit" onClick={hi}>Create startup</button>
                 </form>
             </div>
         </div>

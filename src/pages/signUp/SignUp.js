@@ -97,6 +97,7 @@ function SignUp(){
         const number = "" + number1value + number2value + number3value + number4value + number5value +number6value;
 
         roleIds.forEach(roleId => {
+            console.log("aaa", roleId.name, role)
             if (roleId.name === role) {
                 console.log(roleId.name)
                 axios.post(`${process.env.REACT_APP_API_URL}/auth/verify-code`,{email, password,code:+number, role_id: roleId.id})
@@ -104,7 +105,10 @@ function SignUp(){
                     //     pathname: '/signUpStartup',
                     //     state: 'role'
                     // }))
-                    .then(res => history.push('/signUpStartup'))
+                    .then(res => {
+                        localStorage.setItem('user_id',res.data.id)
+                        history.push('/signUpStartup')
+                    })
                     .catch(err => console.log(err))
             }
             else if (roleId.name === role) {

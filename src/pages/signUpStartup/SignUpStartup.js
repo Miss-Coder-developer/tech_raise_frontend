@@ -48,7 +48,7 @@ function SignUpStartup() {
             <div className='signup-startup__container wrapper'>
                 <h1 className='signup-startup__title'>Welcome to Techraise! Create your startup profile!</h1>
                 <form className='signup-startup__form'>
-                    <h2 className='signup-startup__form-title'>Public information</h2>
+                    <h2 className='signup-startup__form-title'>Private information</h2>
                     <h3 className='signup-startup__form-subtitle'>Buyers will see this after you give access</h3>
 
                     <label className='signup__label'>

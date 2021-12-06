@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import { useValidity } from '../../../../custom-hooks/form-validity';
 import { PassingInfoContext } from '../../../contexts/passing-info-context';
 import MyStartupDropdown from '../../../UI/dropdowns/MyStartupDropdown';
+import axios from 'axios';
 import './BasicInformationNewForm.scss';
 
 
@@ -76,6 +77,20 @@ function BasicInformationNewForm({ onClose, onFinish }) {
         myStartupInfoCtx.passBasicInfoData(basicInfoData);
         onFinish();
     };
+
+    const saveBasicInfo = () => {
+        axios.put(`${process.env.REACT_APP_API_URL}/startup/update-public-info`, {
+            'startup_type': selectedStartupType,
+            'about_company': enteredAboutCompanyText,
+            'annual_recurring_revenue': enteredAnnualRevenue,
+            'number_of_customers': enteredNumOfCustomers,
+            'year': selectedYear,
+            'month': selectedMonth,
+            'asking_price': setSelectedPriceResponse,
+            'startup_team': enteredStartupTeamSize 
+        })
+    }
+
 
     return (
         <div className="selling-financial-details">
@@ -209,6 +224,7 @@ function BasicInformationNewForm({ onClose, onFinish }) {
                         type="submit"
                         className="actions__save-btn"
                         disabled={ !basicInfoFormIsValid }
+                        onClick={saveBasicInfo}
                     >
                         Save
                     </button>

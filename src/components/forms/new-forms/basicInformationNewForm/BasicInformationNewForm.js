@@ -3,6 +3,7 @@ import { useValidity } from '../../../../custom-hooks/form-validity';
 import { PassingInfoContext } from '../../../contexts/passing-info-context';
 import MyStartupDropdown from '../../../UI/dropdowns/MyStartupDropdown';
 import axios from 'axios';
+import moment from 'moment';
 import './BasicInformationNewForm.scss';
 
 
@@ -13,6 +14,7 @@ function BasicInformationNewForm({ onClose, onFinish }) {
     const [selectedMonth, setSelectedMonth] = useState("January");
     const [selectedYear, setSelectedYear] = useState("2021");
     const [selectedPriceResponse, setSelectedPriceResponse] = useState("");
+    const [knowingPrice, setKnowingPrice] = useState();
 
     const myStartupInfoCtx = useContext(PassingInfoContext);
     
@@ -55,7 +57,15 @@ function BasicInformationNewForm({ onClose, onFinish }) {
     const passSelectedStartupType = (selected) => setSelectedStartupType(selected);
     const passSelectedMonth = (selected) => setSelectedMonth(selected);
     const passSelectedYear = (selected) => setSelectedYear(selected);
-    const selectPriceResponse = (response) => setSelectedPriceResponse(response);
+    const selectPriceResponse = (response) => {
+        setSelectedPriceResponse(response);
+        if(selectedPriceResponse === ASKING_PRICE_RESPONSE[0]) {
+            setKnowingPrice(1);
+        }
+        else {
+            setKnowingPrice(0);
+        }
+    }
 
     const basicInfoFormIsValid = aboutCompanyTextInputIsValid && annualRevenueInputIsValid && numOfCustomersInputIsValid && startupTeamSizeInputIsValid && !!selectedPriceResponse;
 
@@ -80,14 +90,13 @@ function BasicInformationNewForm({ onClose, onFinish }) {
 
     const saveBasicInfo = () => {
         axios.put(`${process.env.REACT_APP_API_URL}/startup/update-public-info`, {
-            'startup_type': selectedStartupType,
-            'about_company': enteredAboutCompanyText,
+            'type_id': selectedStartupType,
+            'about': enteredAboutCompanyText,
             'annual_recurring_revenue': enteredAnnualRevenue,
-            'number_of_customers': enteredNumOfCustomers,
-            'year': selectedYear,
-            'month': selectedMonth,
-            'asking_price': selectedPriceResponse,
-            'startup_team': enteredStartupTeamSize 
+            'customers_number': enteredNumOfCustomers,
+            'date_founded': moment(selectedMonth+selectedYear).format("MMMM, YYYY"),
+            'asking_price': knowingPrice,
+            'team_size': enteredStartupTeamSize 
         })
     }
 

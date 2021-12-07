@@ -86,7 +86,7 @@ function BasicInformationNewForm({ onClose, onFinish }) {
             'number_of_customers': enteredNumOfCustomers,
             'year': selectedYear,
             'month': selectedMonth,
-            'asking_price': setSelectedPriceResponse,
+            'asking_price': selectedPriceResponse,
             'startup_team': enteredStartupTeamSize 
         })
     }

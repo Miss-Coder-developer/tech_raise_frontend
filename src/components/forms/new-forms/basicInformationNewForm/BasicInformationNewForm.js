@@ -89,7 +89,8 @@ function BasicInformationNewForm({ onClose, onFinish }) {
     };
 
     const saveBasicInfo = () => {
-        axios.put(`${process.env.REACT_APP_API_URL}/startup/update-public-info`, {
+        axios.put(`${process.env.REACT_APP_API_URL}/startup/basic-info/update`, {
+            id: selectedStartupType,
             'type_id': selectedStartupType,
             'about': enteredAboutCompanyText,
             'annual_recurring_revenue': enteredAnnualRevenue,

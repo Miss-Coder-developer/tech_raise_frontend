@@ -4,6 +4,7 @@ import { GROWTH_OPPORTUNITY_HIGHLIGHTS, KEY_ASSETS } from '../../../../datas/MyS
 import GrowthHighlightItem from '../../../items/my-startup-page/growthHighlightItem/GrowthHighlightItem';
 import KeyAssetsItem from '../../../items/my-startup-page/KeyAssetsItem';
 import { useValidity } from '../../../../custom-hooks/form-validity';
+import axios from 'axios';
 import { PassingInfoContext } from '../../../contexts/passing-info-context';
 
 
@@ -76,6 +77,19 @@ function CompanyFeaturesNewForm({ onClose, onFinish }) {
     } = useValidity(isNotEmpty);
 
     const companyFeaturesFormIsValid = businessModelInputIsValid && techStackInputIsValid && growthOpportunityInputIsValid && highlightIsValid && keyAssetIsValid && keywordsInputIsValid;
+
+
+    const saveCompanyFeatures = () => {
+        axios.put(`${process.env.REACT_APP_API_URL}/company_features/save`, {
+            'business_model': enteredBusinessModel,
+            'tech_stack': enteredTechStack,
+            'growth_opportunity': enteredGrowthOpportunity,
+            'growth-opportunity__list': selectedHighlights,
+            'key-assets__list': selectedKeyAssets,
+            'keywords': enteredKeywords,
+            
+        })
+    }
 
     const submitFormHandler = (event) => {
         event.preventDefault();
@@ -260,6 +274,7 @@ function CompanyFeaturesNewForm({ onClose, onFinish }) {
                         type="submit"
                         className="actions__save-btn"
                         disabled={ !companyFeaturesFormIsValid }
+                        onClick={saveCompanyFeatures}
                     >
                         Save
                     </button>

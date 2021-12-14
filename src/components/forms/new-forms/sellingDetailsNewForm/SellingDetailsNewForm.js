@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useContext } from 'react';
 import { useValidity } from '../../../../custom-hooks/form-validity';
 import { PassingInfoContext } from '../../../contexts/passing-info-context';
@@ -41,6 +42,13 @@ function SellingDetailsNewForm({ onClose, onFinish }) {
         myStartupInfoCtx.passSellingDetailsData(sellingDetailsData);
         onFinish();
     };
+
+    const saveSellingDetails = () => {
+        axios.put(`${process.env.REACT_APP_API_URL}/startup/update-public-info`, {
+            'selling_reason': enteredSellingPurpose,
+            'financial_funding': enteredFunding
+        })
+    } 
 
     return (
         <div className="selling-details">
@@ -87,6 +95,7 @@ function SellingDetailsNewForm({ onClose, onFinish }) {
                         type="submit"
                         className="actions__save-btn"
                         disabled={ !sellingDetailsFormIsValid }
+                        onClick={saveSellingDetails}
                     >
                         Save
                     </button>

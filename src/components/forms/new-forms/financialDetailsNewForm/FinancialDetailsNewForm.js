@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import './FinancialDetailsNewForm.scss';
 import MyStartupDropdown from '../../../UI/dropdowns/MyStartupDropdown';
 import { useValidity } from '../../../../custom-hooks/form-validity';
+import axios from 'axios';
 import { PassingInfoContext } from '../../../contexts/passing-info-context';
 
 
@@ -15,6 +16,7 @@ function FinancialDetailsNewForm({ onClose, onFinish }) {
     const invalid_input_msg = "Value should be not empty";
 
     const isNotEmpty = value => value.trim() !== "";
+
 
     const {
         enteredValue: enteredTotalRevenue,
@@ -65,6 +67,16 @@ function FinancialDetailsNewForm({ onClose, onFinish }) {
         myStartupInfoCtx.passFinancialDetailsData(financialDetailsData);
         onFinish();
     };
+
+    const saveSellingFinacialDetails = () => {
+        axios.put(`${process.env.REACT_APP_API_URL}/startup/update-public-info`, {
+            'financial_summary': selectedAnswer,
+            'total_revenue': enteredTotalRevenue,
+            'total_profit': enteredTotalProfit,
+            'revenue_over_the_past_12_months': enteredAnnualRevenue,
+            'profit_over_the_past_12_months': enteredAnnualProfit,
+        })
+    } 
 
     return (
         <div className="selling-financial-details">
@@ -164,6 +176,7 @@ function FinancialDetailsNewForm({ onClose, onFinish }) {
                         type="submit"
                         className="actions__save-btn"
                         disabled={ !financialDetailsFormIsValid }
+                        onClick={saveSellingFinacialDetails}
                     >
                         Save
                     </button>

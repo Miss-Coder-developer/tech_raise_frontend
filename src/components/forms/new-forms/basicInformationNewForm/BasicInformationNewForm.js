@@ -98,7 +98,7 @@ function BasicInformationNewForm({ onClose, onFinish }) {
             'asking_price': knowingPrice,
             'team_size': enteredStartupTeamSize 
         })
-    }
+    } 
 
 
     return (

@@ -89,7 +89,7 @@ const MyStartup = () => {
               Everyone on MicroAcquire can view these details{" "}
             </p>
             <div className="public-info__items">
-              <BasicInformation />
+              <BasicInformation id={userData?.id}/>
               <CompanyFeatures />
               <SellingDetails />
               <FinancialDetails />

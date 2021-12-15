@@ -9,7 +9,7 @@ import './BasicInformationNewForm.scss';
 
 const ASKING_PRICE_RESPONSE = ["I know the price", "I can’t determine the price, but i’m open to offers"];
 
-function BasicInformationNewForm({ onClose, onFinish }) {
+function BasicInformationNewForm({ onClose, onFinish, id }) {
 
 
     useEffect(() => {
@@ -114,6 +114,7 @@ function BasicInformationNewForm({ onClose, onFinish }) {
 
     const saveBasicInfo = () => {
         axios.put(`${process.env.REACT_APP_API_URL}/startup/basic-info/update`, {
+            'id': id,
             'type_id': selectedStartupTypeId,
             'about': enteredAboutCompanyText,
             'annual_recurring_revenue': enteredAnnualRevenue,

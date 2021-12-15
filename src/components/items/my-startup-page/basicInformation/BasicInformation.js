@@ -5,7 +5,7 @@ import BasicInformationFilledForm from '../../../forms/filled-forms/basicInforma
 import './BasicInformation.scss';
 
 
-const BasicInformation = () => {
+const BasicInformation = (props) => {
     const [basicInformationFormIsOpen, setBasicInformationFormIsOpen] = useState(false);
     const [basicInformationFormIsFilled, setBasicInformationFormIsFilled] = useState(false);
     const [basicInformationFormIsBeingEdited, setBasicInformationFormIsBeingEdited] = useState(false);
@@ -22,7 +22,8 @@ const BasicInformation = () => {
                         onFinish={ () => { 
                             setBasicInformationFormIsFilled(true);
                             setBasicInformationFormIsOpen(false);
-                        } } 
+                        } }
+                        id={props.id} 
                     />
                 )
                 : (basicInformationFormIsFilled)

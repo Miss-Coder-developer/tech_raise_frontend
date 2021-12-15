@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useValidity } from '../../../../custom-hooks/form-validity';
 import { PassingInfoContext } from '../../../contexts/passing-info-context';
 import MyStartupDropdown from '../../../UI/dropdowns/MyStartupDropdown';
@@ -10,14 +10,33 @@ import './BasicInformationNewForm.scss';
 const ASKING_PRICE_RESPONSE = ["I know the price", "I can’t determine the price, but i’m open to offers"];
 
 function BasicInformationNewForm({ onClose, onFinish }) {
-    const [selectedStartupType, setSelectedStartupType] = useState("Artificial Intelligence"); 
+
+
+    useEffect(() => {
+        axios.get(`${process.env.REACT_APP_API_URL}/startup/basic-info/startup-types`)
+        .then((res) => {
+            console.log(res.data);
+            setStartups(res.data);
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+    }, []);
+
+
+
+    const [startups, setStartups] = useState(null);
+    const [selectedStartupType, setSelectedStartupType] = useState("");
+    const [selectedStartupTypeId, setSelectedStartupTypeId] = useState(); 
     const [selectedMonth, setSelectedMonth] = useState("January");
     const [selectedYear, setSelectedYear] = useState("2021");
     const [selectedPriceResponse, setSelectedPriceResponse] = useState("");
     const [knowingPrice, setKnowingPrice] = useState();
+    
 
     const myStartupInfoCtx = useContext(PassingInfoContext);
-    
+
+
     const invalid_input_msg = "Value should be not empty";
 
     const isNotEmpty = value => value.trim() !== "";
@@ -54,7 +73,10 @@ function BasicInformationNewForm({ onClose, onFinish }) {
         blurInputHandler: blurStartupTeamSizeInputHandler
     } = useValidity(isNotEmpty);
 
-    const passSelectedStartupType = (selected) => setSelectedStartupType(selected);
+    const passSelectedStartupType = (selected) => {
+        setSelectedStartupType(selected.name);
+        setSelectedStartupTypeId(selected.id);
+    }
     const passSelectedMonth = (selected) => setSelectedMonth(selected);
     const passSelectedYear = (selected) => setSelectedYear(selected);
     const selectPriceResponse = (response) => {
@@ -66,6 +88,8 @@ function BasicInformationNewForm({ onClose, onFinish }) {
             setKnowingPrice(0);
         }
     }
+
+    console.log(selectedStartupType);
 
     const basicInfoFormIsValid = aboutCompanyTextInputIsValid && annualRevenueInputIsValid && numOfCustomersInputIsValid && startupTeamSizeInputIsValid && !!selectedPriceResponse;
 
@@ -90,8 +114,7 @@ function BasicInformationNewForm({ onClose, onFinish }) {
 
     const saveBasicInfo = () => {
         axios.put(`${process.env.REACT_APP_API_URL}/startup/basic-info/update`, {
-            id: selectedStartupType,
-            'type_id': selectedStartupType,
+            'type_id': selectedStartupTypeId,
             'about': enteredAboutCompanyText,
             'annual_recurring_revenue': enteredAnnualRevenue,
             'customers_number': enteredNumOfCustomers,
@@ -114,9 +137,7 @@ function BasicInformationNewForm({ onClose, onFinish }) {
                 <div className="selling-details__input-box">
                     <label className="selling-details__label"> Startup type </label>
                     <MyStartupDropdown 
-                        dropdownOptions={ [
-                            "Artificial Intelligence", "Blockchain", "Cloud Computing", "Communication", "Consumer", "Cybersecurity", "EdTech", "FinTech", "HealthTech", "RegTech", "SaaS", "Other"
-                        ] }
+                        dropdownOptions={startups}
                         dropdownClassName={ "startup-type__dropdown" }
                         onPass={ passSelectedStartupType }
                         selected={ selectedStartupType }

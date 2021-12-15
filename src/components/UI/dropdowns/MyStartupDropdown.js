@@ -10,6 +10,9 @@ function MyStartupDropdown({ dropdownOptions, dropdownClassName, onPass, selecte
         onPass(option);
         setDropdownIsShown(false);
     };
+
+    console.log(selected);
+    
     
     return (
         <div className={ `my-startup-dropdown__div ${ dropdownClassName }` }>
@@ -32,7 +35,7 @@ function MyStartupDropdown({ dropdownOptions, dropdownClassName, onPass, selecte
                                         onClick={ () => chooseOptionHandler(option) }
                                     >
                                         <p className="my-startup-dropdown__option-title">
-                                            { option }
+                                            { option.name }
                                         </p>
                                     </div>
                                 );

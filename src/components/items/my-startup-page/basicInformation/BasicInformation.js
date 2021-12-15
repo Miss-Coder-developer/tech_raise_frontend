@@ -23,7 +23,7 @@ const BasicInformation = (props) => {
                             setBasicInformationFormIsFilled(true);
                             setBasicInformationFormIsOpen(false);
                         } }
-                        id={props.id} 
+                        startup_id={props.startup_id}
                     />
                 )
                 : (basicInformationFormIsFilled)

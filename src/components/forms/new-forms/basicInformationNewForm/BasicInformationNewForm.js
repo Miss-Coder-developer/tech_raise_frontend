@@ -10,7 +10,7 @@ import './BasicInformationNewForm.scss';
 const ASKING_PRICE_RESPONSE = ["I know the price", "I can’t determine the price, but i’m open to offers"];
 
 function BasicInformationNewForm({onClose, onFinish, startup_id}) {
-
+    const [data,setData] = useState(false)
 
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_API_URL}/startup/basic-info/startup-types`)
@@ -94,30 +94,35 @@ function BasicInformationNewForm({onClose, onFinish, startup_id}) {
 
     const basicInfoFormIsValid = aboutCompanyTextInputIsValid && annualRevenueInputIsValid && numOfCustomersInputIsValid && startupTeamSizeInputIsValid && !!selectedPriceResponse;
 
+
+
     const submitBasicInfo = (evt) => {
         evt.preventDefault();
         if (!basicInfoFormIsValid) return;
-        const basicInfoData = {
-            //id: startupData.startup_id,
-            startup_type: selectedStartupType,
-            about_company: startupData?.about,
-            annual_revenue: startupData?.annual_recurring_revenue,
-            num_of_customers: startupData?.customers_number,
-            month: selectedMonth,
-            year: selectedYear,
-            asking_price: startupData?.asking_price,
-            team_size: startupData?.team_size
-        };
-        console.log(basicInfoData, "basicInfoData!!!!!");
-        myStartupInfoCtx.passBasicInfoData(basicInfoData);
-        onFinish();
+            const basicInfoData = {
+                //id: startupData?.startup_id,
+                startup_type: selectedStartupType,
+                about_company: startupData?.about,
+                annual_revenue: startupData?.annual_recurring_revenue,
+                num_of_customers: startupData?.customers_number,
+                month: selectedMonth,
+                year: selectedYear,
+                asking_price: startupData?.asking_price,
+                team_size: startupData?.team_size
+            };
+            console.log(basicInfoData, "basicInfoData!!!!!");
+            myStartupInfoCtx.passBasicInfoData(basicInfoData);
+            onFinish();
+    
     };
+    console.log(startupData, 'wwww');
 
-    const saveBasicInfo = () => {
+    const saveBasicInfo = async (e) => {
+        e.preventDefault()
         console.log(startup_id)
         if(startupData?.id){
             let id = startupData.id;
-            axios.put(`${process.env.REACT_APP_API_URL}/startup/basic-info/update`, {
+            await axios.put(`${process.env.REACT_APP_API_URL}/startup/basic-info/update`, {
                 'id': id,
                 'startup_id': startup_id,
                 'type_id': selectedStartupTypeId,
@@ -129,11 +134,11 @@ function BasicInformationNewForm({onClose, onFinish, startup_id}) {
                 'team_size': enteredStartupTeamSize
             }).then(res => {
                 setStartupData(res.data);
-                console.log(res.data);
+
             })
         }
         else {
-            axios.put(`${process.env.REACT_APP_API_URL}/startup/basic-info/update`, {
+            await axios.put(`${process.env.REACT_APP_API_URL}/startup/basic-info/update`, {
                 'startup_id': startup_id,
                 'type_id': selectedStartupTypeId,
                 'about': enteredAboutCompanyText,
@@ -143,16 +148,26 @@ function BasicInformationNewForm({onClose, onFinish, startup_id}) {
                 'asking_price': knowingPrice,
                 'team_size': enteredStartupTeamSize
             }).then(res => {
-                setStartupData(res.data);
-                console.log(res.data);
+                
+                const basicInfoData = {
+                    //id: startupData?.startup_id,
+                    startup_type: selectedStartupType,
+                    about_company: res.data?.about,
+                    annual_revenue: res.data?.annual_recurring_revenue,
+                    num_of_customers: res.data?.customers_number,
+                    month: selectedMonth,
+                    year: selectedYear,
+                    asking_price: res.data?.asking_price,
+                    team_size: res.data?.team_size
+                };
+                console.log(basicInfoData, "basicInfoData!!!!!");
+                myStartupInfoCtx.passBasicInfoData(basicInfoData);
+                onFinish();
+        
             })
         }
         
-        
     }
-
-    
-
 
     return (
         <div className="selling-financial-details">
@@ -162,7 +177,7 @@ function BasicInformationNewForm({onClose, onFinish, startup_id}) {
                 </h5>
                 <h4 className="selling-financial-details__required-warning"> All fields are required </h4>
             </div>
-            <form action="#" name="sellingDetailsForm" id="selling_details_form" onSubmit={submitBasicInfo}>
+            <form action="#" name="sellingDetailsForm" id="selling_details_form">
                 <div className="selling-details__input-box">
                     <label className="selling-details__label"> Startup type </label>
                     <MyStartupDropdown

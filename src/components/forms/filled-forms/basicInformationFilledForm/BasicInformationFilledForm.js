@@ -20,7 +20,7 @@ const BasicInformationFilledForm = ({ onEdit }) => {
         num_of_customers,
         month,
         year,
-        // asking_price,
+        asking_price,
         team_size
     } = myStartupInfoCtx.basicInfoData;
 
@@ -31,7 +31,7 @@ const BasicInformationFilledForm = ({ onEdit }) => {
                     className={ "public-info__small-info" }
                     label={ "Asking price" }
                     imgSrc={ image_1_src }
-                    info={ "$ 25" } 
+                    info={ `$ ${ asking_price }` } 
                 />
                 <button
                     type="button"

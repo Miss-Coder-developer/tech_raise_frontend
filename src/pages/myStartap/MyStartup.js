@@ -9,13 +9,15 @@ import BasicInformation from '../../components/items/my-startup-page/basicInform
 import Metrics from '../../components/metrics/Metrics';
 import axios from 'axios';
 import {useLocation} from 'react-router-dom'
+import jwt_decode from "jwt-decode";
 
 
 const MyStartup = () => {
 
     // const [userData, setUserData] = useState("");
     const [editInfo, setEditInfo] = useState(false);
-    const userId = localStorage.getItem('user_id')
+    const user_id = jwt_decode(localStorage.getItem('token')).id
+    console.log(user_id);
 
     const location = useLocation()
 
@@ -46,7 +48,7 @@ const MyStartup = () => {
 
     useEffect(() => {
         async function fetchAPI() {
-            await axios.get(`${process.env.REACT_APP_API_URL}/startup/get-one?user_id=${userId}`)
+            await axios.get(`${process.env.REACT_APP_API_URL}/startup/get-one?user_id=${user_id}`)
                 .then((res) => {
                     setUserData(res.data)
                 })
@@ -76,7 +78,7 @@ const MyStartup = () => {
         setEditInfo(!editInfo);
     }
 
-    // console.log(userData.contact_name);
+    //console.log(userData.id);
 
     return (
         <section className="founder-main__container wrapper">
@@ -89,7 +91,7 @@ const MyStartup = () => {
                         Everyone on MicroAcquire can view these details{" "}
                     </p>
                     <div className="public-info__items">
-                        <BasicInformation startup_id={userData?.id}/>
+                        <BasicInformation startup_id={user_id}/>
                         <CompanyFeatures/>
                         <SellingDetails/>
                         <FinancialDetails/>

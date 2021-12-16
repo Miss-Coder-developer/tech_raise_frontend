@@ -4,7 +4,7 @@ import axios from 'axios'
 import { Link } from 'react-router-dom';
 import {useHistory} from 'react-router'
 import { ReactComponent as Linkedin } from '../../assets/icons/whiteLinkedin.svg';
-// import jwt_decode from "jwt-decode"
+import jwt_decode from "jwt-decode";
 
 
 

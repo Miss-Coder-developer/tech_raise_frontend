@@ -31,6 +31,9 @@ function BasicInformationNewForm({onClose, onFinish, startup_id}) {
     const [selectedYear, setSelectedYear] = useState("2021");
     const [selectedPriceResponse, setSelectedPriceResponse] = useState("");
     const [knowingPrice, setKnowingPrice] = useState();
+    const [startupData, setStartupData] = useState();
+
+    console.log(startup_id);
 
 
     const myStartupInfoCtx = useContext(PassingInfoContext);
@@ -95,15 +98,15 @@ function BasicInformationNewForm({onClose, onFinish, startup_id}) {
         evt.preventDefault();
         if (!basicInfoFormIsValid) return;
         const basicInfoData = {
-            id: startup_id,
+            id: startupData.startup_id,
             startup_type: selectedStartupType,
-            about_company: enteredAboutCompanyText,
-            annual_revenue: enteredAnnualRevenue,
-            num_of_customers: enteredNumOfCustomers,
+            about_company: startupData.about,
+            annual_revenue: startupData.annual_recurring_revenue,
+            num_of_customers: startupData.customers_number,
             month: selectedMonth,
             year: selectedYear,
-            asking_price: selectedPriceResponse,
-            team_size: enteredStartupTeamSize
+            asking_price: startupData.asking_price,
+            team_size: startupData.team_size
         };
         console.log(basicInfoData, "basicInfoData!!!!!");
         myStartupInfoCtx.passBasicInfoData(basicInfoData);
@@ -112,17 +115,43 @@ function BasicInformationNewForm({onClose, onFinish, startup_id}) {
 
     const saveBasicInfo = () => {
         console.log(startup_id)
-        axios.put(`${process.env.REACT_APP_API_URL}/startup/basic-info/update`, {
-            'startup_id': startup_id,
-            'type_id': selectedStartupTypeId,
-            'about': enteredAboutCompanyText,
-            'annual_recurring_revenue': enteredAnnualRevenue,
-            'customers_number': enteredNumOfCustomers,
-            'date_founded': moment(selectedMonth + selectedYear).format("MMMM, YYYY"),
-            'asking_price': knowingPrice,
-            'team_size': enteredStartupTeamSize
-        }).then(res => console.log(res.data))
+        if(startupData.id){
+            let id = startupData.id;
+            axios.put(`${process.env.REACT_APP_API_URL}/startup/basic-info/update`, {
+                'id': id,
+                'startup_id': startup_id,
+                'type_id': selectedStartupTypeId,
+                'about': enteredAboutCompanyText,
+                'annual_recurring_revenue': enteredAnnualRevenue,
+                'customers_number': enteredNumOfCustomers,
+                'date_founded': moment(selectedMonth + selectedYear).format("MMMM, YYYY"),
+                'asking_price': knowingPrice,
+                'team_size': enteredStartupTeamSize
+            }).then(res => {
+                setStartupData(res.data);
+                console.log(res.data);
+            })
+        }
+        else {
+            axios.put(`${process.env.REACT_APP_API_URL}/startup/basic-info/update`, {
+                'startup_id': startup_id,
+                'type_id': selectedStartupTypeId,
+                'about': enteredAboutCompanyText,
+                'annual_recurring_revenue': enteredAnnualRevenue,
+                'customers_number': enteredNumOfCustomers,
+                'date_founded': moment(selectedMonth + selectedYear).format("MMMM, YYYY"),
+                'asking_price': knowingPrice,
+                'team_size': enteredStartupTeamSize
+            }).then(res => {
+                setStartupData(res.data);
+                console.log(res.data);
+            })
+        }
+        
+        
     }
+
+    
 
 
     return (

@@ -98,7 +98,7 @@ function BasicInformationNewForm({onClose, onFinish, startup_id}) {
         evt.preventDefault();
         if (!basicInfoFormIsValid) return;
         const basicInfoData = {
-            id: startupData.startup_id,
+            //id: startupData.startup_id,
             startup_type: selectedStartupType,
             about_company: startupData.about,
             annual_revenue: startupData.annual_recurring_revenue,
@@ -115,7 +115,7 @@ function BasicInformationNewForm({onClose, onFinish, startup_id}) {
 
     const saveBasicInfo = () => {
         console.log(startup_id)
-        if(startupData.id){
+        if(startupData?.id){
             let id = startupData.id;
             axios.put(`${process.env.REACT_APP_API_URL}/startup/basic-info/update`, {
                 'id': id,

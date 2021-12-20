@@ -16,7 +16,11 @@ const MyStartup = () => {
 
     // const [userData, setUserData] = useState("");
     const [editInfo, setEditInfo] = useState(false);
-    const user_id = jwt_decode(localStorage.getItem('token')).id
+    let token = localStorage.getItem('token')
+    let user_id;
+    if (token) {
+        user_id = jwt_decode(token).id
+    }
     const [startups, setStartups] = useState(null);
     console.log(user_id);
 
@@ -103,12 +107,12 @@ const MyStartup = () => {
                         Everyone on MicroAcquire can view these details{" "}
                     </p>
                     {startups &&
-                        <div className="public-info__items">
+                    <div className="public-info__items">
                         <BasicInformation startup_id={user_id} startups={startups}/>
                         <CompanyFeatures/>
                         <SellingDetails/>
                         <FinancialDetails/>
-                        </div>
+                    </div>
                     }
 
                 </div>

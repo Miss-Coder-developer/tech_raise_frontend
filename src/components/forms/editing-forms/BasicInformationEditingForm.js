@@ -46,6 +46,8 @@ function BasicInformationEditingForm({ onClose, onFinish, startup_id }) {
         team_size
     } = myStartupInfoCtx.basicInfoData;
 
+
+
     const [selectedStartupType, setSelectedStartupType] = useState(startup_type);
     const [selectedStartupTypeId, setSelectedStartupTypeId] = useState(); 
     const [selectedMonth, setSelectedMonth] = useState(month);
@@ -57,7 +59,9 @@ function BasicInformationEditingForm({ onClose, onFinish, startup_id }) {
     
     const invalid_input_msg = "Value should be not empty";
 
-    const isNotEmpty = value => value.trim() !== "";
+    const isNotEmpty = value => {
+        return value &&  value.toString().trim() !== "";
+    }
 
     const {
         enteredValue: enteredAboutCompanyText,
@@ -103,9 +107,10 @@ function BasicInformationEditingForm({ onClose, onFinish, startup_id }) {
 
     const saveBasicInfo = async (e) => {
         e.preventDefault()
-        console.log(startup_id)
-        if(startupData?.id){
-            let id = startupData.id;
+        console.log(startupData)
+        if(startupData[0]?.id){
+            let id = startupData[0].id;
+            console.log("ID",id)
             await axios.put(`${process.env.REACT_APP_API_URL}/startup/basic-info/update`, {
                 'id': id,
                 'startup_id': startup_id,
@@ -117,7 +122,7 @@ function BasicInformationEditingForm({ onClose, onFinish, startup_id }) {
                 'asking_price': knowingPrice,
                 'team_size': enteredStartupTeamSize
             }).then(res => {
-  
+
                 const basicInfoData = {
                     //id: startupData?.startup_id,
                     startup_type: selectedStartupType,

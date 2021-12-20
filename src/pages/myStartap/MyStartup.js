@@ -17,6 +17,7 @@ const MyStartup = () => {
     // const [userData, setUserData] = useState("");
     const [editInfo, setEditInfo] = useState(false);
     const user_id = jwt_decode(localStorage.getItem('token')).id
+    const [startups, setStartups] = useState(null);
     console.log(user_id);
 
     const location = useLocation()
@@ -61,6 +62,17 @@ const MyStartup = () => {
 
     }, []);
 
+    useEffect(() => {
+        axios.get(`${process.env.REACT_APP_API_URL}/startup/basic-info/startup-types`)
+            .then((res) => {
+                console.log(res.data);
+                setStartups(res.data);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }, []);
+
     const showInfo = () => {
         if (editInfo) {
             console.log(userData, 'userDataPut');
@@ -90,12 +102,15 @@ const MyStartup = () => {
                         {" "}
                         Everyone on MicroAcquire can view these details{" "}
                     </p>
-                    <div className="public-info__items">
-                        <BasicInformation startup_id={user_id}/>
+                    {startups &&
+                        <div className="public-info__items">
+                        <BasicInformation startup_id={user_id} startups={startups}/>
                         <CompanyFeatures/>
                         <SellingDetails/>
                         <FinancialDetails/>
-                    </div>
+                        </div>
+                    }
+
                 </div>
                 <div className="founder-main__private-info">
                     {editInfo && userData ? (

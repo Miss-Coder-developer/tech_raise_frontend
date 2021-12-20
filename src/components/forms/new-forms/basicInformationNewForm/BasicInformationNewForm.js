@@ -9,19 +9,9 @@ import './BasicInformationNewForm.scss';
 
 const ASKING_PRICE_RESPONSE = ["I know the price", "I can’t determine the price, but i’m open to offers"];
 
-function BasicInformationNewForm({onClose, onFinish, startup_id}) {
+function BasicInformationNewForm({onClose, onFinish, startup_id, startups}) {
     const [data,setData] = useState(false)
 
-    useEffect(() => {
-        axios.get(`${process.env.REACT_APP_API_URL}/startup/basic-info/startup-types`)
-            .then((res) => {
-                console.log(res.data);
-                setStartups(res.data);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-    }, []);
 
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_API_URL}/startup/basic-info/get-one?startup_id=${startup_id}`)
@@ -35,7 +25,7 @@ function BasicInformationNewForm({onClose, onFinish, startup_id}) {
     }, []);
 
 
-    const [startups, setStartups] = useState(null);
+    //const [startups, setStartups] = useState(null);
     const [selectedStartupType, setSelectedStartupType] = useState("");
     const [selectedStartupTypeId, setSelectedStartupTypeId] = useState();
     const [selectedMonth, setSelectedMonth] = useState("January");

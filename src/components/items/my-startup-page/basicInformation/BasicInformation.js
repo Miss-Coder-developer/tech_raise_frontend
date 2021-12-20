@@ -5,6 +5,7 @@ import BasicInformationFilledForm from '../../../forms/filled-forms/basicInforma
 import {PassingInfoContext} from '../../../contexts/passing-info-context';
 import axios from 'axios';
 import './BasicInformation.scss';
+import moment from 'moment';
 
 
 const BasicInformation = (props) => {
@@ -16,21 +17,22 @@ const BasicInformation = (props) => {
 
     useEffect(() => {
         let last;
-        axios.get(`${process.env.REACT_APP_API_URL}/startup/basic-info/get-one?startup_id=2`)
+        axios.get(`${process.env.REACT_APP_API_URL}/startup/basic-info/get-one?startup_id=${props?.startup_id}`)
             .then((res) => {
-                console.log(res.data);
-                last = res.data.lenght - 1;
+                last = res.data[res.data.length - 1];
+                setBasicInformationFormIsFilled(!!last);
                 //setStartups(res.data);
                 const basicInfoData = {
                     //id: startupData?.startup_id,
-                    //startup_type: selectedStartupType,
-                    about_company: res.data[last]?.about,
-                    annual_revenue: res.data[last]?.annual_recurring_revenue,
-                    num_of_customers: res.data[last]?.customers_number,
-                    month: '',
-                    year: '',
-                    asking_price: res.data[last]?.asking_price,
-                    team_size: res.data[last]?.team_size
+                    startup_type: props?.startups?.find(st=>st.id === last?.type_id)?.name,
+                    about_company: last?.about,
+                    annual_revenue: last?.annual_recurring_revenue,
+                    num_of_customers: last?.customers_number,
+                    month: moment().format('MMM'),
+                    year: moment().format('yyyy'),
+                    asking_price: last?.asking_price,
+                    team_size: last?.team_size,
+
                 };
                 console.log(basicInfoData, "basicInfoData!!!!!");
                 myStartupInfoCtx.passBasicInfoData(basicInfoData);
@@ -56,6 +58,7 @@ const BasicInformation = (props) => {
                             setBasicInformationFormIsOpen(false);
                         } }
                         startup_id={props?.startup_id}
+                        startups={props.startups}
                     />
                 )
                 : (basicInformationFormIsFilled)
@@ -80,6 +83,7 @@ const BasicInformation = (props) => {
                             setBasicInformationFormIsBeingEdited(false);
                         } }
                         startup_id={props?.startup_id}
+                        startups={props.startups}
                     />
                 )
                 : (

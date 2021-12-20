@@ -1,12 +1,39 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext,useEffect } from 'react';
 import { useValidity } from '../../../custom-hooks/form-validity';
 import { PassingInfoContext } from '../../contexts/passing-info-context';
 import MyStartupDropdown from '../../UI/dropdowns/MyStartupDropdown';
+import axios from 'axios';
+import moment from 'moment';
+import '../new-forms/basicInformationNewForm/BasicInformationNewForm.scss';
 
 
 const ASKING_PRICE_RESPONSE = ["I know the price", "I can’t determine the price, but i’m open to offers"];
 
-function BasicInformationEditingForm({ onClose, onFinish }) {
+function BasicInformationEditingForm({ onClose, onFinish, startup_id }) {
+
+    useEffect(() => {
+        axios.get(`${process.env.REACT_APP_API_URL}/startup/basic-info/startup-types`)
+            .then((res) => {
+                console.log(res.data);
+                setStartups(res.data);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }, []);
+
+    useEffect(() => {
+        axios.get(`${process.env.REACT_APP_API_URL}/startup/basic-info/get-one?startup_id=${startup_id}`)
+            .then((res) => {
+                console.log(res.data);
+                setStartupData(res.data);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }, []);
+
+
     const myStartupInfoCtx = useContext(PassingInfoContext);
     const {
         startup_type,
@@ -19,10 +46,14 @@ function BasicInformationEditingForm({ onClose, onFinish }) {
         team_size
     } = myStartupInfoCtx.basicInfoData;
 
-    const [selectedStartupType, setSelectedStartupType] = useState(startup_type); 
+    const [selectedStartupType, setSelectedStartupType] = useState(startup_type);
+    const [selectedStartupTypeId, setSelectedStartupTypeId] = useState(); 
     const [selectedMonth, setSelectedMonth] = useState(month);
     const [selectedYear, setSelectedYear] = useState(year);
     const [selectedPriceResponse, setSelectedPriceResponse] = useState(asking_price);
+    const [startups, setStartups] = useState(null);
+    const [knowingPrice, setKnowingPrice] = useState();
+    const [startupData, setStartupData] = useState();
     
     const invalid_input_msg = "Value should be not empty";
 
@@ -60,31 +91,80 @@ function BasicInformationEditingForm({ onClose, onFinish }) {
         blurInputHandler: blurStartupTeamSizeInputHandler
     } = useValidity(isNotEmpty, team_size);
 
-    const passSelectedStartupType = (selected) => setSelectedStartupType(selected);
+    const passSelectedStartupType = (selected) => {
+        setSelectedStartupType(selected.name);
+        setSelectedStartupTypeId(selected.id);
+    }
     const passSelectedMonth = (selected) => setSelectedMonth(selected);
     const passSelectedYear = (selected) => setSelectedYear(selected);
     const selectPriceResponse = (response) => setSelectedPriceResponse(response);
 
     const basicInfoFormIsValid = aboutCompanyTextInputIsValid && annualRevenueInputIsValid && numOfCustomersInputIsValid && startupTeamSizeInputIsValid && !!selectedPriceResponse;
 
-    const submitBasicInfo = (evt) => {
-        evt.preventDefault();
-        if(!basicInfoFormIsValid) return;
-        const basicInfoData = {
-            id: Math.random().toString(),
-            startup_type: selectedStartupType,
-            about_company: enteredAboutCompanyText,
-            annual_revenue: enteredAnnualRevenue,
-            num_of_customers: enteredNumOfCustomers,
-            month: selectedMonth,
-            year: selectedYear,
-            asking_price: selectedPriceResponse,
-            team_size: enteredStartupTeamSize
-        };
-        console.log(basicInfoData, "basicInfoData!!!!!");
-        myStartupInfoCtx.passBasicInfoData(basicInfoData);
-        onFinish();
-    };
+    const saveBasicInfo = async (e) => {
+        e.preventDefault()
+        console.log(startup_id)
+        if(startupData?.id){
+            let id = startupData.id;
+            await axios.put(`${process.env.REACT_APP_API_URL}/startup/basic-info/update`, {
+                'id': id,
+                'startup_id': startup_id,
+                'type_id': selectedStartupTypeId,
+                'about': enteredAboutCompanyText,
+                'annual_recurring_revenue': enteredAnnualRevenue,
+                'customers_number': enteredNumOfCustomers,
+                'date_founded': moment(selectedMonth + selectedYear).format("MMMM, YYYY"),
+                'asking_price': knowingPrice,
+                'team_size': enteredStartupTeamSize
+            }).then(res => {
+  
+                const basicInfoData = {
+                    //id: startupData?.startup_id,
+                    startup_type: selectedStartupType,
+                    about_company: res.data?.about,
+                    annual_revenue: res.data?.annual_recurring_revenue,
+                    num_of_customers: res.data?.customers_number,
+                    month: selectedMonth,
+                    year: selectedYear,
+                    asking_price: res.data?.asking_price,
+                    team_size: res.data?.team_size
+                };
+                console.log(basicInfoData, "basicInfoData!!!!!");
+                myStartupInfoCtx.passBasicInfoData(basicInfoData);
+                setStartupData(res.data);
+                onFinish();
+            })
+        }
+        else {
+            await axios.put(`${process.env.REACT_APP_API_URL}/startup/basic-info/update`, {
+                'startup_id': startup_id,
+                'type_id': selectedStartupTypeId,
+                'about': enteredAboutCompanyText,
+                'annual_recurring_revenue': enteredAnnualRevenue,
+                'customers_number': enteredNumOfCustomers,
+                'date_founded': moment(selectedMonth + selectedYear).format("MMMM, YYYY"),
+                'asking_price': knowingPrice,
+                'team_size': enteredStartupTeamSize
+            }).then(res => {
+                
+                const basicInfoData = {
+                    //id: startupData?.startup_id,
+                    startup_type: selectedStartupType,
+                    about_company: res.data?.about,
+                    annual_revenue: res.data?.annual_recurring_revenue,
+                    num_of_customers: res.data?.customers_number,
+                    month: selectedMonth,
+                    year: selectedYear,
+                    asking_price: res.data?.asking_price,
+                    team_size: res.data?.team_size
+                };
+                console.log(basicInfoData, "basicInfoData!!!!!");
+                myStartupInfoCtx.passBasicInfoData(basicInfoData);
+                setStartupData(res.data);
+                onFinish();
+            })
+        }  
+    }
 
     return (
         <div className="selling-financial-details">
@@ -94,13 +174,11 @@ function BasicInformationEditingForm({ onClose, onFinish }) {
                 </h5>
                 <h4 className="selling-financial-details__required-warning"> All fields are required </h4>
             </div>
-            <form action="#" name="sellingDetailsForm" id="selling_details_form" onSubmit={ submitBasicInfo }>
+            <form action="#" name="sellingDetailsForm" id="selling_details_form" >
                 <div className="selling-details__input-box">
                     <label className="selling-details__label"> Startup type </label>
                     <MyStartupDropdown 
-                        dropdownOptions={ [
-                            "Artificial Intelligence", "Blockchain", "Cloud Computing", "Communication", "Consumer", "Cybersecurity", "EdTech", "FinTech", "HealthTech", "RegTech", "SaaS", "Other"
-                        ] }
+                        dropdownOptions={startups}
                         dropdownClassName={ "startup-type__dropdown" }
                         onPass={ passSelectedStartupType }
                         selected={ selectedStartupType }
@@ -218,6 +296,7 @@ function BasicInformationEditingForm({ onClose, onFinish }) {
                         type="submit"
                         className="actions__save-btn"
                         disabled={ !basicInfoFormIsValid }
+                        onClick={saveBasicInfo}
                     >
                         Save
                     </button>

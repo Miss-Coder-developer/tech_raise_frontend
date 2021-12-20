@@ -23,6 +23,17 @@ function BasicInformationNewForm({onClose, onFinish, startup_id}) {
             });
     }, []);
 
+    useEffect(() => {
+        axios.get(`${process.env.REACT_APP_API_URL}/startup/basic-info/get-one?startup_id=${startup_id}`)
+            .then((res) => {
+                console.log(res.data);
+                setStartupData(res.data);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }, []);
+
 
     const [startups, setStartups] = useState(null);
     const [selectedStartupType, setSelectedStartupType] = useState("");
@@ -96,26 +107,25 @@ function BasicInformationNewForm({onClose, onFinish, startup_id}) {
 
 
 
-    const submitBasicInfo = (evt) => {
-        evt.preventDefault();
-        if (!basicInfoFormIsValid) return;
-            const basicInfoData = {
-                //id: startupData?.startup_id,
-                startup_type: selectedStartupType,
-                about_company: startupData?.about,
-                annual_revenue: startupData?.annual_recurring_revenue,
-                num_of_customers: startupData?.customers_number,
-                month: selectedMonth,
-                year: selectedYear,
-                asking_price: startupData?.asking_price,
-                team_size: startupData?.team_size
-            };
-            console.log(basicInfoData, "basicInfoData!!!!!");
-            myStartupInfoCtx.passBasicInfoData(basicInfoData);
-            onFinish();
-    
-    };
-    console.log(startupData, 'wwww');
+    // const submitBasicInfo = (evt) => {
+    //     evt.preventDefault();
+    //     if (!basicInfoFormIsValid) return;
+    //         const basicInfoData = {
+    //             //id: startupData?.startup_id,
+    //             startup_type: selectedStartupType,
+    //             about_company: startupData?.about,
+    //             annual_revenue: startupData?.annual_recurring_revenue,
+    //             num_of_customers: startupData?.customers_number,
+    //             month: selectedMonth,
+    //             year: selectedYear,
+    //             asking_price: startupData?.asking_price,
+    //             team_size: startupData?.team_size
+    //         };
+    //         console.log(basicInfoData, "basicInfoData!!!!!");
+    //         myStartupInfoCtx.passBasicInfoData(basicInfoData);
+    //         onFinish();
+    // };
+    // console.log(startupData, 'wwww');
 
     const saveBasicInfo = async (e) => {
         e.preventDefault()
@@ -133,8 +143,22 @@ function BasicInformationNewForm({onClose, onFinish, startup_id}) {
                 'asking_price': knowingPrice,
                 'team_size': enteredStartupTeamSize
             }).then(res => {
+  
+                const basicInfoData = {
+                    //id: startupData?.startup_id,
+                    startup_type: selectedStartupType,
+                    about_company: res.data?.about,
+                    annual_revenue: res.data?.annual_recurring_revenue,
+                    num_of_customers: res.data?.customers_number,
+                    month: selectedMonth,
+                    year: selectedYear,
+                    asking_price: res.data?.asking_price,
+                    team_size: res.data?.team_size
+                };
+                console.log(basicInfoData, "basicInfoData!!!!!");
+                myStartupInfoCtx.passBasicInfoData(basicInfoData);
                 setStartupData(res.data);
-
+                onFinish();
             })
         }
         else {
@@ -162,12 +186,13 @@ function BasicInformationNewForm({onClose, onFinish, startup_id}) {
                 };
                 console.log(basicInfoData, "basicInfoData!!!!!");
                 myStartupInfoCtx.passBasicInfoData(basicInfoData);
+                setStartupData(res.data);
                 onFinish();
-        
             })
-        }
-        
+        }  
     }
+
+    console.log(startupData);
 
     return (
         <div className="selling-financial-details">

@@ -48,7 +48,7 @@ const MyStartup = () => {
 
     useEffect(() => {
         async function fetchAPI() {
-            await axios.get(`${process.env.REACT_APP_API_URL}/startup/get-one?user_id=${user_id}`)
+            await axios.get(`${process.env.REACT_APP_API_URL}/startup/get-one?user_id=${user_id}`) //backend
                 .then((res) => {
                     setUserData(res.data)
                 })

@@ -1,10 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { my_startup_icons } from '../../../dummy_datas/Icons';
+import axios from 'axios';
 import './MyStartupDropdown.scss';
 
 
 function MyStartupDropdown({ dropdownOptions, dropdownClassName, onPass, selected }) {
     const [dropdownIsShown, setDropdownIsShown] = useState(false);
+    const [startups, setStartups] = useState();
+
+    // useEffect(() => {
+    //     axios.get(`${process.env.REACT_APP_API_URL}/startup/basic-info/startup-types`)
+    //         .then((res) => {
+    //             console.log(res.data);
+    //             setStartups(res.data);
+    //         })
+    //         .catch((err) => {
+    //             console.log(err);
+    //         });
+    // }, [dropdownIsShown]);
 
     const chooseOptionHandler = (option) => {
         onPass(option);

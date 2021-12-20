@@ -16,8 +16,9 @@ const MyStartup = () => {
 
     // const [userData, setUserData] = useState("");
     const [editInfo, setEditInfo] = useState(false);
-    let token = localStorage.getItem('token')
+    let token = localStorage.getItem('token') || '';
     let user_id;
+    console.log(token)
     if (token) {
         user_id = jwt_decode(token).id
     }

@@ -18,12 +18,12 @@ const MyStartup = () => {
     const [editInfo, setEditInfo] = useState(false);
     let token = localStorage.getItem('token') || '';
     let user_id;
-    console.log(token)
+
     if (token) {
         user_id = jwt_decode(token).id
     }
     const [startups, setStartups] = useState(null);
-    console.log(user_id);
+
 
     const location = useLocation()
 
@@ -37,7 +37,6 @@ const MyStartup = () => {
         }
     }, [])
 
-    console.log(location);
 
     const [userData, setUserData] = useState()
 
@@ -70,7 +69,6 @@ const MyStartup = () => {
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_API_URL}/startup/basic-info/startup-types`)
             .then((res) => {
-                console.log(res.data);
                 setStartups(res.data);
             })
             .catch((err) => {
@@ -80,7 +78,6 @@ const MyStartup = () => {
 
     const showInfo = () => {
         if (editInfo) {
-            console.log(userData, 'userDataPut');
             axios.put(`${process.env.REACT_APP_API_URL}/startup/update`, {
                 "id": userData.id,
                 "user_id": userData.user_id,
@@ -95,7 +92,6 @@ const MyStartup = () => {
         setEditInfo(!editInfo);
     }
 
-    //console.log(userData.id);
 
     return (
         <section className="founder-main__container wrapper">

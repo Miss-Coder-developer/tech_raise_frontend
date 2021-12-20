@@ -56,7 +56,7 @@ function BasicInformationEditingForm({ onClose, onFinish, startup_id }) {
     const [startups, setStartups] = useState(null);
     const [knowingPrice, setKnowingPrice] = useState();
     const [startupData, setStartupData] = useState();
-    
+    console.log(asking_price, 'asking_price')
     const invalid_input_msg = "Value should be not empty";
 
     const isNotEmpty = value => {
@@ -101,16 +101,21 @@ function BasicInformationEditingForm({ onClose, onFinish, startup_id }) {
     }
     const passSelectedMonth = (selected) => setSelectedMonth(selected);
     const passSelectedYear = (selected) => setSelectedYear(selected);
-    const selectPriceResponse = (response) => setSelectedPriceResponse(response);
+    const selectPriceResponse = (response) => {
+        console.log('response')
+        setSelectedPriceResponse(response)
+    };
 
-    const basicInfoFormIsValid = aboutCompanyTextInputIsValid && annualRevenueInputIsValid && numOfCustomersInputIsValid && startupTeamSizeInputIsValid && !!selectedPriceResponse;
+    const basicInfoFormIsValid = aboutCompanyTextInputIsValid && annualRevenueInputIsValid && numOfCustomersInputIsValid && startupTeamSizeInputIsValid;
 
     const saveBasicInfo = async (e) => {
         e.preventDefault()
         console.log(startupData)
+        console.log(selectedPriceResponse, 'put');
         if(startupData[0]?.id){
             let id = startupData[0].id;
             console.log("ID",id)
+
             await axios.put(`${process.env.REACT_APP_API_URL}/startup/basic-info/update`, {
                 'id': id,
                 'startup_id': startup_id,
@@ -119,7 +124,7 @@ function BasicInformationEditingForm({ onClose, onFinish, startup_id }) {
                 'annual_recurring_revenue': enteredAnnualRevenue,
                 'customers_number': enteredNumOfCustomers,
                 'date_founded': moment(selectedMonth + selectedYear).format("MMMM, YYYY"),
-                'asking_price': knowingPrice,
+                'asking_price': selectedPriceResponse,
                 'team_size': enteredStartupTeamSize
             }).then(res => {
 
@@ -148,7 +153,7 @@ function BasicInformationEditingForm({ onClose, onFinish, startup_id }) {
                 'annual_recurring_revenue': enteredAnnualRevenue,
                 'customers_number': enteredNumOfCustomers,
                 'date_founded': moment(selectedMonth + selectedYear).format("MMMM, YYYY"),
-                'asking_price': knowingPrice,
+                'asking_price': selectedPriceResponse,
                 'team_size': enteredStartupTeamSize
             }).then(res => {
                 
@@ -169,6 +174,10 @@ function BasicInformationEditingForm({ onClose, onFinish, startup_id }) {
                 onFinish();
             })
         }  
+    }
+    function handler(e){
+        console.log('hi', +e.target.value)
+        setSelectedPriceResponse(+e.target.value)
     }
 
     return (
@@ -262,15 +271,17 @@ function BasicInformationEditingForm({ onClose, onFinish, startup_id }) {
                     <label className="selling-details__label"> Asking price </label>
                     <div className="basic-info__checkbox">
                         {
-                            ASKING_PRICE_RESPONSE.map((response, index) => {
+                            ASKING_PRICE_RESPONSE && ASKING_PRICE_RESPONSE.map((response, index) => {
                                 return (
                                     <label className="asking-price__label" key={ index }>
                                         <input 
-                                            type="radio" 
+                                            type="radio"
                                             className="asking-price__input"
-                                            name="askingPrice"
-                                            value={ selectedPriceResponse }
-                                            onChange={ selectPriceResponse.bind(null, response) }
+                                            // name="askingPrice[x]"
+                                            value={ index }
+                                            checked = { +(index === selectedPriceResponse) }
+                                            // onChange={ selectPriceResponse.bind(null, response) }
+                                            onChange={handler}
                                         />
                                         { response }
                                     </label>

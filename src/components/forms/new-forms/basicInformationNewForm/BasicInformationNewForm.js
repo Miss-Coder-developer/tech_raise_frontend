@@ -36,7 +36,7 @@ function BasicInformationNewForm({onClose, onFinish, startup_id, startups}) {
 
     console.log(startup_id);
 
-
+    console.log(knowingPrice, 'price')
     const myStartupInfoCtx = useContext(PassingInfoContext);
 
 
@@ -122,6 +122,7 @@ function BasicInformationNewForm({onClose, onFinish, startup_id, startups}) {
         console.log(startup_id)
         if(startupData?.id){
             let id = startupData.id;
+
             await axios.put(`${process.env.REACT_APP_API_URL}/startup/basic-info/update`, {
                 'id': id,
                 'startup_id': startup_id,
@@ -133,7 +134,7 @@ function BasicInformationNewForm({onClose, onFinish, startup_id, startups}) {
                 'asking_price': knowingPrice,
                 'team_size': enteredStartupTeamSize
             }).then(res => {
-  
+                console.log(knowingPrice)
                 const basicInfoData = {
                     //id: startupData?.startup_id,
                     startup_type: selectedStartupType,
@@ -279,7 +280,7 @@ function BasicInformationNewForm({onClose, onFinish, startup_id, startups}) {
                                 return (
                                     <label className="asking-price__label" key={index}>
                                         <input
-                                            type="radio"
+                                            type="radio" defaultChecked={selectedPriceResponse}
                                             className="asking-price__input"
                                             name="askingPrice"
                                             value={selectedPriceResponse}

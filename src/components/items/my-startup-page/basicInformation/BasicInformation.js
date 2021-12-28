@@ -29,8 +29,8 @@ const BasicInformation = (props) => {
                     about_company: last?.about,
                     annual_revenue: last?.annual_recurring_revenue,
                     num_of_customers: last?.customers_number,
-                    month: moment().format('MMM'),
-                    year: moment().format('yyyy'),
+                    month: moment(last.date_founded).format('MMM'),
+                    year: moment(last.date_founded).format('yyyy'),
                     asking_price: last?.asking_price,
                     team_size: last?.team_size,
 

@@ -130,7 +130,7 @@ function BasicInformationNewForm({onClose, onFinish, startup_id, startups}) {
                 'about': enteredAboutCompanyText,
                 'annual_recurring_revenue': enteredAnnualRevenue,
                 'customers_number': enteredNumOfCustomers,
-                'date_founded': moment(selectedMonth + selectedYear).format("MMMM, YYYY"),
+                'date_founded': moment(selectedMonth + selectedYear).format("MMM, yyyy"),
                 'asking_price': knowingPrice,
                 'team_size': enteredStartupTeamSize
             }).then(res => {
@@ -159,7 +159,7 @@ function BasicInformationNewForm({onClose, onFinish, startup_id, startups}) {
                 'about': enteredAboutCompanyText,
                 'annual_recurring_revenue': enteredAnnualRevenue,
                 'customers_number': enteredNumOfCustomers,
-                'date_founded': moment(selectedMonth + selectedYear).format("MMMM, YYYY"),
+                'date_founded': moment(selectedMonth + selectedYear).format("MMM, yyyy"),
                 'asking_price': knowingPrice,
                 'team_size': enteredStartupTeamSize
             }).then(res => {
@@ -257,7 +257,7 @@ function BasicInformationNewForm({onClose, onFinish, startup_id, startups}) {
                     <label className="selling-details__label"> Date founded </label>
                     <div className="basic-info__dropdown-box">
                         <MyStartupDropdown
-                            dropdownOptions={["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]}
+                            dropdownOptions={["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]}
                             dropdownClassName={"months__dropdown"}
                             onPass={passSelectedMonth}
                             selected={selectedMonth}

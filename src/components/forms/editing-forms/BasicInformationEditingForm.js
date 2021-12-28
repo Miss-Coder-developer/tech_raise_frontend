@@ -123,7 +123,7 @@ function BasicInformationEditingForm({ onClose, onFinish, startup_id }) {
                 'about': enteredAboutCompanyText,
                 'annual_recurring_revenue': enteredAnnualRevenue,
                 'customers_number': enteredNumOfCustomers,
-                'date_founded': moment(selectedMonth + selectedYear).format("MMMM, YYYY"),
+                'date_founded': moment(selectedMonth + selectedYear).format("MMM, yyyy"),
                 'asking_price': selectedPriceResponse,
                 'team_size': enteredStartupTeamSize
             }).then(res => {
@@ -152,7 +152,7 @@ function BasicInformationEditingForm({ onClose, onFinish, startup_id }) {
                 'about': enteredAboutCompanyText,
                 'annual_recurring_revenue': enteredAnnualRevenue,
                 'customers_number': enteredNumOfCustomers,
-                'date_founded': moment(selectedMonth + selectedYear).format("MMMM, YYYY"),
+                'date_founded': moment(selectedMonth + selectedYear).format("MMM, yyyy"),
                 'asking_price': selectedPriceResponse,
                 'team_size': enteredStartupTeamSize
             }).then(res => {
@@ -192,7 +192,7 @@ function BasicInformationEditingForm({ onClose, onFinish, startup_id }) {
                 <div className="selling-details__input-box">
                     <label className="selling-details__label"> Startup type </label>
                     <MyStartupDropdown 
-                        dropdownOptions={startups}
+                        dropdownOptions={ startups }
                         dropdownClassName={ "startup-type__dropdown" }
                         onPass={ passSelectedStartupType }
                         selected={ selectedStartupType }
@@ -252,7 +252,7 @@ function BasicInformationEditingForm({ onClose, onFinish, startup_id }) {
                     <label className="selling-details__label"> Date founded </label>
                     <div className="basic-info__dropdown-box">
                         <MyStartupDropdown 
-                            dropdownOptions={ ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"] }
+                            dropdownOptions={ ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"] }
                             dropdownClassName={ "months__dropdown" }
                             onPass={ passSelectedMonth }
                             selected={ selectedMonth }

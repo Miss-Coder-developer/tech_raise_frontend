@@ -21,6 +21,7 @@ const BasicInformation = (props) => {
             .then((res) => {
                 last = res.data[res.data.length - 1];
                 setBasicInformationFormIsFilled(!!last);
+                console.log(last);
                 //setStartups(res.data);
                 const basicInfoData = {
                     //id: startupData?.startup_id,

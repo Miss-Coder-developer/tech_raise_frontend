@@ -10,6 +10,7 @@ import Metrics from '../../components/metrics/Metrics';
 import axios from 'axios';
 import {useLocation} from 'react-router-dom'
 import jwt_decode from "jwt-decode";
+import { logDOM } from '@testing-library/react';
 
 
 const MyStartup = () => {
@@ -24,8 +25,7 @@ const MyStartup = () => {
     }
     const [startups, setStartups] = useState(null);
 
-
-    const location = useLocation()
+    const location = useLocation();
 
     useEffect(() => {
         let b;
@@ -88,10 +88,8 @@ const MyStartup = () => {
 
             })
         }
-
         setEditInfo(!editInfo);
     }
-
 
     return (
         <section className="founder-main__container wrapper">

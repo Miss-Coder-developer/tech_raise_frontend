@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useContext } from 'react';
 import { useValidity } from '../../../../custom-hooks/form-validity';
 import { PassingInfoContext } from '../../../contexts/passing-info-context';
+import '../';
 import './SellingDetailsNewForm.scss';
 
 
@@ -90,6 +91,7 @@ function SellingDetailsNewForm({ onClose, onFinish }) {
                     />
                     { fundingInputIsInvalid && <p className="invalid-input-msg"> { invalid_input_msg } </p> }
                 </div>
+                
                 <div className="selling-details__actions">
                     <button
                         type="submit"

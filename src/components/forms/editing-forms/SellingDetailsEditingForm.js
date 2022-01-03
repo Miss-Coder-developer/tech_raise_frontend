@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react';
+import axios from 'axios';
 import MyStartupDropdown from '../../UI/dropdowns/MyStartupDropdown';
 import { useValidity } from '../../../custom-hooks/form-validity';
 import { PassingInfoContext } from '../../contexts/passing-info-context';
@@ -23,6 +24,8 @@ function SellingDetailsEditingForm({ onClose, onFinish, startup_id }) {
     const [selectedAnswer, setSelectedAnswer] = useState(financial_sum);
 
     const passSelectedAnswer = (selected) => setSelectedAnswer(selected);
+
+    const [detailsData, setDetailsData] = useState();
 
     const {
         enteredValue: enteredSellingPurpose,
@@ -74,23 +77,62 @@ function SellingDetailsEditingForm({ onClose, onFinish, startup_id }) {
 
     const sellingDetailsFormIsValid = sellingPurposeInputIsValid && fundingInputIsValid && totalRevenueInputIsValid && totalProfitInputIsValid && annualRevenueInputIsValid && annualProfitInputIsValid;
 
-    const submitSellingDetailsData = (evt) => {
-        evt.preventDefault();
-        if(!sellingDetailsFormIsValid) return;
-        const sellingDetailsData = {
-            id: Math.random().toString(),
-            selling_purpose: enteredSellingPurpose,
-            funding: enteredFunding,
-            financial_sum: selectedAnswer,
-            total_revenue: enteredTotalRevenue,
-            total_profit: enteredTotalProfit,
-            annual_revenue: enteredAnnualRevenue,
-            annual_profit: enteredAnnualProfit
-        };
-        console.log(sellingDetailsData);
-        myStartupInfoCtx.passSellingDetailsData(sellingDetailsData);
-        onFinish();
-    };
+    const saveSellingDetails = async (e) => {
+        e.preventDefault()
+        console.log(startup_id)
+        if(detailsData?.id){
+            let id = detailsData.id;
+
+            axios.put(`${process.env.REACT_APP_API_URL}/startup/selling-details/update`, {
+                'selling_why': enteredSellingPurpose,
+                'funding': enteredFunding,
+                'financial_summary': selectedAnswer,
+                'last_month_total_revenue': enteredTotalRevenue,
+                'last_month_total_profit': enteredTotalProfit,
+                'last_year_total_revenue': enteredAnnualRevenue,
+                'last_year_total_profit': enteredAnnualProfit
+            }).then(res => {
+                const sellingDetailsData = {
+                    //id: startupData?.startup_id,
+                    selling_purpose: res.data.selling_why,
+                    funding: res.data.funding,
+                    financial_sum: res.data.financial_summary,
+                    total_revenue: res.data.last_month_total_revenue,
+                    total_profit: res.data.last_month_total_profit,
+                    annual_revenue: res.data.last_year_total_revenue,
+                    annual_profit: res.data.last_year_total_profit
+                };
+                myStartupInfoCtx.passSellingDetailsData(sellingDetailsData);
+                setDetailsData(res.data);
+                onFinish();
+            })
+        }
+        else {
+            axios.put(`${process.env.REACT_APP_API_URL}/startup/selling-details/update`, {
+                'selling_why': enteredSellingPurpose,
+                'funding': enteredFunding,
+                'financial_summary': selectedAnswer,
+                'last_month_total_revenue': enteredTotalRevenue,
+                'last_month_total_profit': enteredTotalProfit,
+                'last_year_total_revenue': enteredAnnualRevenue,
+                'last_year_total_profit': enteredAnnualProfit
+            }).then(res => {
+                const sellingDetailsData = {
+                    //id: startupData?.startup_id,
+                    selling_purpose: res.data.selling_why,
+                    funding: res.data.funding,
+                    financial_sum: res.data.financial_summary,
+                    total_revenue: res.data.last_month_total_revenue,
+                    total_profit: res.data.last_month_total_profit,
+                    annual_revenue: res.data.last_year_total_revenue,
+                    annual_profit: res.data.last_year_total_profit
+                };
+                myStartupInfoCtx.passSellingDetailsData(sellingDetailsData);
+                setDetailsData(res.data);
+                onFinish();
+            })
+        }  
+    } 
 
     return (
         <div className="selling-details">
@@ -223,6 +265,7 @@ function SellingDetailsEditingForm({ onClose, onFinish, startup_id }) {
                         type="submit"
                         className="actions__save-btn"
                         disabled={ !sellingDetailsFormIsValid }
+                        onClick={saveSellingDetails}
                     >
                         Save
                     </button>

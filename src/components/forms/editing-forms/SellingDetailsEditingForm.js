@@ -96,6 +96,7 @@ function SellingDetailsEditingForm({ onClose, onFinish, startup_id }) {
                     //id: startupData?.startup_id,
                     selling_purpose: res.data.selling_why,
                     funding: res.data.funding,
+                    financial_summary: selectedAnswer === 'NO' ? 0 : 1,
                     financial_sum: res.data.financial_summary,
                     total_revenue: res.data.last_month_total_revenue,
                     total_profit: res.data.last_month_total_profit,
@@ -111,7 +112,7 @@ function SellingDetailsEditingForm({ onClose, onFinish, startup_id }) {
             axios.put(`${process.env.REACT_APP_API_URL}/startup/selling-details/update`, {
                 'selling_why': enteredSellingPurpose,
                 'funding': enteredFunding,
-                'financial_summary': selectedAnswer,
+                'financial_summary': selectedAnswer === 'NO' ? 0 : 1,
                 'last_month_total_revenue': enteredTotalRevenue,
                 'last_month_total_profit': enteredTotalProfit,
                 'last_year_total_revenue': enteredAnnualRevenue,
@@ -140,7 +141,7 @@ function SellingDetailsEditingForm({ onClose, onFinish, startup_id }) {
                 <h5 className="selling-details__title"> Financial details </h5>
                 <h4 className="selling-details__required-warning"> All fields are required </h4>
             </div>
-            <form action="#" name="sellingDetailsForm" id="selling_details_form" onSubmit={ submitSellingDetailsData }>
+            <form action="#" name="sellingDetailsForm" id="selling_details_form" >
                 <div className="selling-details__input-box">
                     <label 
                         htmlFor="selling_reason"

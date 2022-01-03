@@ -35,7 +35,7 @@ function BasicInformationNewForm({onClose, onFinish, startup_id, startups}) {
     const [startupData, setStartupData] = useState();
 
     console.log(startup_id);
-
+   
     console.log(knowingPrice, 'price')
     const myStartupInfoCtx = useContext(PassingInfoContext);
 

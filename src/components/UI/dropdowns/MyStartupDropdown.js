@@ -48,9 +48,9 @@ function MyStartupDropdown({ dropdownOptions, dropdownClassName, onPass, selecte
                                         onClick={ () => chooseOptionHandler(option) }
                                     >
                                         <p className="my-startup-dropdown__option-title">
-                                            { option.name }
+                                            {typeof option === 'object' ? option.name : option }
                                         </p>
-                                    </div>
+                                    </div> 
                                 );
                             })
                         }

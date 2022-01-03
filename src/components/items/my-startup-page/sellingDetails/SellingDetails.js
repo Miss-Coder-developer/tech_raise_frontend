@@ -5,7 +5,7 @@ import SellingDetailsNewForm from '../../../forms/new-forms/sellingDetailsNewFor
 import './SellingDetails.scss';
 
 
-const SellingDetails = () => {
+const SellingDetails = (props) => {
     const [sellingDetailsFormIsOpen, setSellingDetailsFormIsOpen] = useState(false);
     const [sellingDetailsFormIsFilled, setSellingDetailsFormIsFilled] = useState(false);
     const [sellingDetailsFormIsBeingEdited, setSellingDetailsFormIsBeingEdited] = useState(false);
@@ -23,6 +23,7 @@ const SellingDetails = () => {
                             setSellingDetailsFormIsFilled(true);
                             setSellingDetailsFormIsOpen(false);
                         } }
+                        startup_id={props?.startup_id}
                     />
                 )
                 : (sellingDetailsFormIsFilled)
@@ -45,12 +46,13 @@ const SellingDetails = () => {
                         onFinish={ () => {
                             setSellingDetailsFormIsFilled(true);
                             setSellingDetailsFormIsBeingEdited(false);
-                        } } 
+                        } }
+                        startup_id={props?.startup_id} 
                     />
                 )
                 : (
                     <div className="public-info__content">
-                        <h4 className="public-info__suggestion"> Selling details </h4>
+                        <h4 className="public-info__suggestion"> Financial details </h4>
                         <p className="public-info__description"> Reasons and details of selling </p>
                         <button
                             type="button"

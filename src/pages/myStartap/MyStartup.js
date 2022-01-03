@@ -105,8 +105,8 @@ const MyStartup = () => {
                     <div className="public-info__items">
                         <BasicInformation startup_id={user_id} startups={startups}/>
                         <CompanyFeatures/>
-                        <SellingDetails/>
-                        <FinancialDetails/>
+                        <SellingDetails startup_id={user_id}/>
+                        {/* <FinancialDetails/> */}
                     </div>
                     }
 

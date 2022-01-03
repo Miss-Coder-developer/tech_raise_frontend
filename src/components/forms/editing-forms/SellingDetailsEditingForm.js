@@ -84,6 +84,7 @@ function SellingDetailsEditingForm({onClose, onFinish, startup_id}) {
             let id = detailsData.id;
 
             axios.put(`${process.env.REACT_APP_API_URL}/startup/selling-details/update`, {
+                startup_id,
                 'selling_why': enteredSellingPurpose,
                 'funding': enteredFunding,
                 'financial_summary': selectedAnswer,
@@ -109,6 +110,7 @@ function SellingDetailsEditingForm({onClose, onFinish, startup_id}) {
             })
         } else {
             axios.put(`${process.env.REACT_APP_API_URL}/startup/selling-details/update`, {
+                startup_id,
                 'selling_why': enteredSellingPurpose,
                 'funding': enteredFunding,
                 'financial_summary': selectedAnswer === 'NO' ? 0 : 1,

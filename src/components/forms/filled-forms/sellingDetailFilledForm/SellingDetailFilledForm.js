@@ -37,7 +37,7 @@ export default function SellingDetailFilledForm({ onEdit }) {
             </div>
             <div className="selling__selling-purpose">
                 <h6 className="selling-purpose__title"> Availability of financial summary or P&L? </h6>
-                <h4 className="selling-purpose__text"> { financial_sum } </h4>
+                <h4 className="selling-purpose__text"> { financial_sum === 0 ? 'NO' : 'YES' } </h4>
             </div>
             <div className="selling__financing">
                 <h6 className="financing__title"> Total revenue last month </h6>

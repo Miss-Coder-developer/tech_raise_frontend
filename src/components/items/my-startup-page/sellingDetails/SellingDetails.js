@@ -1,14 +1,51 @@
-import React, { useState } from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import SellingDetailsEditingForm from '../../../forms/editing-forms/SellingDetailsEditingForm';
 import SellingDetailsFilledForm from '../../../forms/filled-forms/sellingDetailFilledForm/SellingDetailFilledForm';
 import SellingDetailsNewForm from '../../../forms/new-forms/sellingDetailsNewForm/SellingDetailsNewForm';
 import './SellingDetails.scss';
+import axios from "axios";
+import moment from "moment";
+import {PassingInfoContext} from "../../../contexts/passing-info-context";
 
 
 const SellingDetails = (props) => {
     const [sellingDetailsFormIsOpen, setSellingDetailsFormIsOpen] = useState(false);
     const [sellingDetailsFormIsFilled, setSellingDetailsFormIsFilled] = useState(false);
     const [sellingDetailsFormIsBeingEdited, setSellingDetailsFormIsBeingEdited] = useState(false);
+
+    const myStartupInfoCtx = useContext(PassingInfoContext);
+
+
+    useEffect(() => {
+        let last;
+        axios.get(`${process.env.REACT_APP_API_URL}/startup/selling-details/get-one`, {params: {startup_id: props?.startup_id}})
+            .then((res) => {
+                last = res.data[res.data.length - 1];
+                setSellingDetailsFormIsFilled(!!last);
+                console.log(last);
+                //setStartups(res.data);
+                const sellingDetailsData = {
+                    id: props?.startup_id,
+                    selling_purpose: last.selling_why,
+                    funding: last.funding,
+                    financial_sum: last.financial_summary,
+                    total_revenue: last.last_month_total_revenue,
+                    total_profit: last.last_month_total_profit,
+                    annual_revenue: last.last_year_total_revenue,
+                    annual_profit: last.last_year_total_profit
+
+                };
+                console.log(sellingDetailsData, "basicInfoData!!!!!");
+                myStartupInfoCtx.passSellingDetailsData(sellingDetailsData);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }, []);
+
+
+
+
 
     const box_class_name = (sellingDetailsFormIsOpen || sellingDetailsFormIsBeingEdited || sellingDetailsFormIsFilled) ? "public-info" : "public-info__item-box";
 

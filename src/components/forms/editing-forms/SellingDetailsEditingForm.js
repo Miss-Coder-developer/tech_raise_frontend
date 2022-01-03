@@ -19,7 +19,7 @@ function SellingDetailsEditingForm({ onClose, onFinish, startup_id }) {
 
     const invalid_input_msg = "Value should be not empty";
 
-    const isNotEmpty = value => value.trim() !== "";
+    const isNotEmpty = value => value.toString().trim() !== "";
 
     const [selectedAnswer, setSelectedAnswer] = useState(financial_sum);
 

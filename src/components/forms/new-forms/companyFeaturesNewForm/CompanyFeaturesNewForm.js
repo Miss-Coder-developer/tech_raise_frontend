@@ -8,9 +8,11 @@ import axios from 'axios';
 import { PassingInfoContext } from '../../../contexts/passing-info-context';
 
 
-function CompanyFeaturesNewForm({ onClose, onFinish, startup_id }) {
-    const [growthHighlights, setGrowthHighlights] = useState(GROWTH_OPPORTUNITY_HIGHLIGHTS);
-    const [keyAssets, setKeyAssets] = useState(KEY_ASSETS);
+function CompanyFeaturesNewForm({ onClose, onFinish, startup_id, highlights, assets }) {
+    const [growthHighlights, setGrowthHighlights] = useState(highlights);
+    const [keyAssets, setKeyAssets] = useState(assets);
+
+    
 
     const myStartupInfoCtx = useContext(PassingInfoContext);
     const [featuresData, setFeaturesData] = useState();
@@ -177,7 +179,7 @@ function CompanyFeaturesNewForm({ onClose, onFinish, startup_id }) {
                     />
                     { techStackInputIsInvalid && <p className="invalid-input-msg"> { invalid_input_msg } </p> }
                 </div>   
-                <div className="company-features__input-box">
+                {/* <div className="company-features__input-box">
                     <label 
                         htmlFor="competitors"
                         className="company-features__label"
@@ -191,7 +193,7 @@ function CompanyFeaturesNewForm({ onClose, onFinish, startup_id }) {
                     >
                         + Add competitor
                     </button>
-                </div>
+                </div> */}
                 <div className="company-features__input-box">
                     <label 
                         htmlFor="growth_opportunity"
@@ -252,7 +254,7 @@ function CompanyFeaturesNewForm({ onClose, onFinish, startup_id }) {
                     </label>
                     <div className="key-assets__box">
                         <ul className="key-assets__list">
-                            { KEY_ASSETS.slice(0, 5).map((keyAsset, index) => {
+                            { keyAssets.slice(0, 5).map((keyAsset, index) => {
                                 return (
                                     <KeyAssetsItem 
                                         key={ index } 
@@ -264,7 +266,7 @@ function CompanyFeaturesNewForm({ onClose, onFinish, startup_id }) {
                             }) }
                         </ul>
                         <ul className="key-assets__list">
-                            { KEY_ASSETS.slice(5, 9).map((keyAsset, index) => {
+                            { keyAssets.slice(5, 9).map((keyAsset, index) => {
                                 return (
                                     <KeyAssetsItem 
                                         key={ index } 

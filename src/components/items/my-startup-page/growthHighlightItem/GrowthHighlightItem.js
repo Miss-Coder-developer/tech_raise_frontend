@@ -13,7 +13,7 @@ function GrowthHighlightItem({ growthHighlight, handleChange }) {
                 />
                 <div className="list__div" />
                 <span className="list__span"> 
-                    { growthHighlight.title } 
+                    { growthHighlight.name } 
                 </span>
             </label>
         </li>

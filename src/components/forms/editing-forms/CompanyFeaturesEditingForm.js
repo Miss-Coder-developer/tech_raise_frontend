@@ -144,24 +144,6 @@ function CompanyFeaturesEditingForm({ onClose, onFinish, startup_id }) {
     }
 
 
-
-    const submitFormHandler = (event) => {
-        event.preventDefault();
-        if(!companyFeaturesFormIsValid) return;
-        const companyFeaturesData = {
-            id: Math.random().toString(),
-            business_model: enteredBusinessModel,
-            tech_stack: enteredTechStack,
-            competitors: [],
-            growth_opportunity: enteredGrowthOpportunity,
-            growth_highlights: selectedHighlights,
-            key_assets: selectedKeyAssets,
-            keywords: enteredKeywords
-        };
-        console.log(companyFeaturesData);
-        myStartupInfoCtx.passCompanyFeaturesData(companyFeaturesData);
-        onFinish();
-    };
         
     return (
         <div className="company-features">

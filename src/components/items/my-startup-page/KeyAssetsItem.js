@@ -12,7 +12,7 @@ function KeyAssetsItem({ keyAsset, handleChange }) {
                 />
                 <div className="list__div" />
                 <span className="list__span"> 
-                    { keyAsset.title } 
+                    { keyAsset.name } 
                 </span>
             </label>
         </li>

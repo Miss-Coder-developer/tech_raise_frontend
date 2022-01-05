@@ -10,31 +10,52 @@ const CompanyFeatures = (props) => {
     const [companyFeaturesFormIsOpen, setCompanyFeaturesFormIsOpen] = useState(false);
     const [companyFeaturesFormIsFilled, setCompanyFeaturesFormIsFilled] = useState(false);
     const [companyFeaturesFormIsBeingEdited, setCompanyFeaturesFormIsBeingEdited] = useState(false);
+
+    let [growthHighlights, setGrowthHighlights] = useState(null);
+    let [keyAssets, setKeyAssets] = useState(null);
     
     const box_class_name = (companyFeaturesFormIsOpen || companyFeaturesFormIsBeingEdited || companyFeaturesFormIsFilled) ? "public-info" : "public-info__item-box";
 
 
     useEffect(() => {
-        axios.get(`${process.env.REACT_APP_API_URL}/startup/company-features/get-growth-opportunities`)
+        const fetch = async () => {
+            axios.get(`${process.env.REACT_APP_API_URL}/startup/company-features/get-growth-opportunities`)
             .then((res) => {
                 console.log(res.data);
+                setGrowthHighlights(res.data.map(growthHighlight => {
+                    return { ...growthHighlight, isChecked: false}
+                }));
             })
             .catch((err) => {
                 console.log(err);
             });
+        }
+
+        fetch();
+        
     }, []);
 
     useEffect(() => {
-        axios.get(`${process.env.REACT_APP_API_URL}/startup/company-features/get-key-assets`)
+        const fetch = async () => {
+            axios.get(`${process.env.REACT_APP_API_URL}/startup/company-features/get-key-assets`)
             .then((res) => {
                 console.log(res.data);
+                setKeyAssets(res.data.map(keyAsset => {
+                    return { ...keyAsset, isChecked: false}
+                }));
             })
             .catch((err) => {
                 console.log(err);
             });
+        }
+        
+        fetch();
     }, []);
 
+   
 
+
+    console.log(growthHighlights, keyAssets);
 
     return (
         <div className={ box_class_name }> 
@@ -47,8 +68,10 @@ const CompanyFeatures = (props) => {
                             setCompanyFeaturesFormIsFilled(true);
                             setCompanyFeaturesFormIsOpen(false);
                         } }
-                        startup_id={props?.startup_id} 
-                    />
+                        startup_id={props?.startup_id}
+                        highlights={growthHighlights}
+                        assets={keyAssets} 
+                    /> 
                 ) 
                 : (companyFeaturesFormIsFilled)
                 ? (

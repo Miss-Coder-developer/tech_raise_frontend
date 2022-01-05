@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import CompanyFeaturesNewForm from '../../../forms/new-forms/companyFeaturesNewForm/CompanyFeaturesNewForm';
 import CompanyFeaturesFilledForm from '../../../forms/filled-forms/companyFeaturesFilledForm/CompanyFeaturesFilledForm';
 import CompanyFeaturesEditingForm from '../../../forms/editing-forms/CompanyFeaturesEditingForm';
 import './CompanyFeatures.scss';
+import axios from "axios";
 
 
 const CompanyFeatures = (props) => {
@@ -11,6 +12,29 @@ const CompanyFeatures = (props) => {
     const [companyFeaturesFormIsBeingEdited, setCompanyFeaturesFormIsBeingEdited] = useState(false);
     
     const box_class_name = (companyFeaturesFormIsOpen || companyFeaturesFormIsBeingEdited || companyFeaturesFormIsFilled) ? "public-info" : "public-info__item-box";
+
+
+    useEffect(() => {
+        axios.get(`${process.env.REACT_APP_API_URL}/startup/company-features/get-growth-opportunities`)
+            .then((res) => {
+                console.log(res.data);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }, []);
+
+    useEffect(() => {
+        axios.get(`${process.env.REACT_APP_API_URL}/startup/company-features/get-key-assets`)
+            .then((res) => {
+                console.log(res.data);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }, []);
+
+
 
     return (
         <div className={ box_class_name }> 

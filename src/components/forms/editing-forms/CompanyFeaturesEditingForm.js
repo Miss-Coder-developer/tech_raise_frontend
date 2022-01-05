@@ -2,13 +2,15 @@ import React, { useState, useContext } from 'react';
 import { GROWTH_OPPORTUNITY_HIGHLIGHTS, KEY_ASSETS } from '../../../datas/MyStartupDatas';
 import GrowthHighlightItem from '../../items/my-startup-page/growthHighlightItem/GrowthHighlightItem';
 import KeyAssetsItem from '../../items/my-startup-page/KeyAssetsItem';
+import axios from 'axios';
 import { useValidity } from '../../../custom-hooks/form-validity';
 import { PassingInfoContext } from '../../contexts/passing-info-context';
 
 
-function CompanyFeaturesEditingForm({ onClose, onFinish }) {
+function CompanyFeaturesEditingForm({ onClose, onFinish, startup_id }) {
     const [growthHighlights, setGrowthHighlights] = useState(GROWTH_OPPORTUNITY_HIGHLIGHTS);
     const [keyAssets, setKeyAssets] = useState(KEY_ASSETS);
+    const [featuresData, setFeaturesData] = useState();
 
     const myStartupInfoCtx = useContext(PassingInfoContext);
     const {
@@ -85,6 +87,64 @@ function CompanyFeaturesEditingForm({ onClose, onFinish }) {
 
     const companyFeaturesFormIsValid = businessModelInputIsValid && techStackInputIsValid && growthOpportunityInputIsValid && highlightIsValid && keyAssetIsValid && keywordsInputIsValid;
 
+
+
+    const saveCompanyFeatures = async (e) => {
+        e.preventDefault()
+        console.log(startup_id)
+        if (featuresData?.id) {
+            let id = featuresData.id;
+
+            axios.put(`${process.env.REACT_APP_API_URL}/company_features/save`, {
+                startup_id,
+                'business_model': enteredBusinessModel,
+                'tech_stack': enteredTechStack,
+                'growth_opportunity': enteredGrowthOpportunity,
+                'growth_opportunity_list': selectedHighlights,
+                'key_assets_list': selectedKeyAssets,
+                'keywords': enteredKeywords, 
+            }).then(res => {
+                const companyFeaturesData = {
+                    //id: startupData?.startup_id,
+                    business_model: res.data.business_model,
+                    tech_stack: res.data.tech_stack,
+                    growth_opportunity: res.data.growth_opportunity,
+                    growth_highlights: res.data.growth_opportunity_list,
+                    key_assets: res.data.key_assets_list,
+                    keywords: res.data.keywords
+                };
+                myStartupInfoCtx.passCompanyFeaturesData(companyFeaturesData);
+                setFeaturesData(res.data);
+                onFinish();
+            })
+        } else {
+            axios.put(`${process.env.REACT_APP_API_URL}/company_features/save`, {
+                startup_id,
+                'business_model': enteredBusinessModel,
+                'tech_stack': enteredTechStack,
+                'growth_opportunity': enteredGrowthOpportunity,
+                'growth_opportunity_list': selectedHighlights,
+                'key_assets_list': selectedKeyAssets,
+                'keywords': enteredKeywords, 
+            }).then(res => {
+                const companyFeaturesData = {
+                    //id: startupData?.startup_id,
+                    business_model: res.data.business_model,
+                    tech_stack: res.data.tech_stack,
+                    growth_opportunity: res.data.growth_opportunity,
+                    growth_highlights: res.data.growth_opportunity_list,
+                    key_assets: res.data.key_assets_list,
+                    keywords: res.data.keywords
+                };
+                myStartupInfoCtx.passCompanyFeaturesData(companyFeaturesData);
+                setFeaturesData(res.data);
+                onFinish();
+            })
+        }
+    }
+
+
+
     const submitFormHandler = (event) => {
         event.preventDefault();
         if(!companyFeaturesFormIsValid) return;
@@ -109,7 +169,7 @@ function CompanyFeaturesEditingForm({ onClose, onFinish }) {
                 <h5 className="company-features__title"> Company features </h5>
                 <h4 className="company-features__required-warning"> All fields are required </h4>
             </div>
-            <form action="#" name="companyFtrsForm" id="company_ftrs_form" onSubmit={ submitFormHandler }>
+            <form action="#" name="companyFtrsForm" id="company_ftrs_form" >
                 <div className="company-features__input-box">
                     <label 
                         htmlFor="business_model_and_pricing"
@@ -268,6 +328,7 @@ function CompanyFeaturesEditingForm({ onClose, onFinish }) {
                         type="submit"
                         className="actions__save-btn"
                         disabled={ !companyFeaturesFormIsValid }
+                        onClick={saveCompanyFeatures}
                     >
                         Save
                     </button>

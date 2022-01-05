@@ -5,7 +5,7 @@ import CompanyFeaturesEditingForm from '../../../forms/editing-forms/CompanyFeat
 import './CompanyFeatures.scss';
 
 
-const CompanyFeatures = () => {
+const CompanyFeatures = (props) => {
     const [companyFeaturesFormIsOpen, setCompanyFeaturesFormIsOpen] = useState(false);
     const [companyFeaturesFormIsFilled, setCompanyFeaturesFormIsFilled] = useState(false);
     const [companyFeaturesFormIsBeingEdited, setCompanyFeaturesFormIsBeingEdited] = useState(false);
@@ -22,7 +22,8 @@ const CompanyFeatures = () => {
                         onFinish={ () => {
                             setCompanyFeaturesFormIsFilled(true);
                             setCompanyFeaturesFormIsOpen(false);
-                        } } 
+                        } }
+                        startup_id={props?.startup_id} 
                     />
                 ) 
                 : (companyFeaturesFormIsFilled)
@@ -46,6 +47,7 @@ const CompanyFeatures = () => {
                             setCompanyFeaturesFormIsFilled(true);
                             setCompanyFeaturesFormIsBeingEdited(false);
                         } }
+                        startup_id={props?.startup_id}
                     />
                 )
                 : (

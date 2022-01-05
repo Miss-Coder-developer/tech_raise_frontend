@@ -8,11 +8,12 @@ import axios from 'axios';
 import { PassingInfoContext } from '../../../contexts/passing-info-context';
 
 
-function CompanyFeaturesNewForm({ onClose, onFinish }) {
+function CompanyFeaturesNewForm({ onClose, onFinish, startup_id }) {
     const [growthHighlights, setGrowthHighlights] = useState(GROWTH_OPPORTUNITY_HIGHLIGHTS);
     const [keyAssets, setKeyAssets] = useState(KEY_ASSETS);
 
     const myStartupInfoCtx = useContext(PassingInfoContext);
+    const [featuresData, setFeaturesData] = useState();
 
     const [selectedHighlights, setSelectedHighlights] = useState([]);
     const [selectedKeyAssets, setSelectedKeyAssets] = useState([]);
@@ -79,43 +80,68 @@ function CompanyFeaturesNewForm({ onClose, onFinish }) {
     const companyFeaturesFormIsValid = businessModelInputIsValid && techStackInputIsValid && growthOpportunityInputIsValid && highlightIsValid && keyAssetIsValid && keywordsInputIsValid;
 
 
-    const saveCompanyFeatures = () => {
-        axios.put(`${process.env.REACT_APP_API_URL}/company_features/save`, {
-            'business_model': enteredBusinessModel,
-            'tech_stack': enteredTechStack,
-            'growth_opportunity': enteredGrowthOpportunity,
-            'growth-opportunity__list': selectedHighlights,
-            'key-assets__list': selectedKeyAssets,
-            'keywords': enteredKeywords,
-            
-        })
-    }
 
-    const submitFormHandler = (event) => {
-        event.preventDefault();
-        if(!companyFeaturesFormIsValid) return;
-        const companyFeaturesData = {
-            id: Math.random().toString(),
-            business_model: enteredBusinessModel,
-            tech_stack: enteredTechStack,
-            competitors: [],
-            growth_opportunity: enteredGrowthOpportunity,
-            growth_highlights: selectedHighlights,
-            key_assets: selectedKeyAssets,
-            keywords: enteredKeywords
-        };
-        console.log(companyFeaturesData);
-        myStartupInfoCtx.passCompanyFeaturesData(companyFeaturesData);
-        onFinish();
-    };
-        
+    const saveCompanyFeatures = async (e) => {
+        e.preventDefault()
+        console.log(startup_id)
+        if (featuresData?.id) {
+            let id = featuresData.id;
+
+            axios.put(`${process.env.REACT_APP_API_URL}/company_features/save`, {
+                startup_id,
+                'business_model': enteredBusinessModel,
+                'tech_stack': enteredTechStack,
+                'growth_opportunity': enteredGrowthOpportunity,
+                'growth_opportunity_list': selectedHighlights,
+                'key_assets_list': selectedKeyAssets,
+                'keywords': enteredKeywords, 
+            }).then(res => {
+                const companyFeaturesData = {
+                    //id: startupData?.startup_id,
+                    business_model: res.data.business_model,
+                    tech_stack: res.data.tech_stack,
+                    growth_opportunity: res.data.growth_opportunity,
+                    growth_highlights: res.data.growth_opportunity_list,
+                    key_assets: res.data.key_assets_list,
+                    keywords: res.data.keywords
+                };
+                myStartupInfoCtx.passCompanyFeaturesData(companyFeaturesData);
+                setFeaturesData(res.data);
+                onFinish();
+            })
+        } else {
+            axios.put(`${process.env.REACT_APP_API_URL}/company_features/save`, {
+                startup_id,
+                'business_model': enteredBusinessModel,
+                'tech_stack': enteredTechStack,
+                'growth_opportunity': enteredGrowthOpportunity,
+                'growth_opportunity_list': selectedHighlights,
+                'key_assets_list': selectedKeyAssets,
+                'keywords': enteredKeywords, 
+            }).then(res => {
+                const companyFeaturesData = {
+                    //id: startupData?.startup_id,
+                    business_model: res.data.business_model,
+                    tech_stack: res.data.tech_stack,
+                    growth_opportunity: res.data.growth_opportunity,
+                    growth_highlights: res.data.growth_opportunity_list,
+                    key_assets: res.data.key_assets_list,
+                    keywords: res.data.keywords
+                };
+                myStartupInfoCtx.passCompanyFeaturesData(companyFeaturesData);
+                setFeaturesData(res.data);
+                onFinish();
+            })
+        }
+    }
+     
     return (
         <div className="company-features">
             <div className="company-features__info">
                 <h5 className="company-features__title"> Company features </h5>
                 <h4 className="company-features__required-warning"> All fields are required </h4>
             </div>
-            <form action="#" name="companyFtrsForm" id="company_ftrs_form" onSubmit={ submitFormHandler }>
+            <form action="#" name="companyFtrsForm" id="company_ftrs_form">
                 <div className="company-features__input-box">
                     <label 
                         htmlFor="business_model_and_pricing"

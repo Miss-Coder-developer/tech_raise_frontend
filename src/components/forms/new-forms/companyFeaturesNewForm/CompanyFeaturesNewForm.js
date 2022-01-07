@@ -25,7 +25,7 @@ function CompanyFeaturesNewForm({ onClose, onFinish, startup_id, highlights, ass
 
     const invalid_input_msg = "Value should be not empty";
 
-    const isNotEmpty = value => value.trim() !== "";
+    const isNotEmpty = value => value.toString().trim() !== "";
 
     const {
         enteredValue: enteredBusinessModel,
@@ -91,7 +91,7 @@ function CompanyFeaturesNewForm({ onClose, onFinish, startup_id, highlights, ass
 
             axios.put(`${process.env.REACT_APP_API_URL}/startup/company-features/save`, {
                 startup_id,
-                'business_model': enteredBusinessModel,
+                'business_model_pricing': enteredBusinessModel,
                 'tech_stack': enteredTechStack,
                 'growth_opportunity': enteredGrowthOpportunity,
                 'growth_opportunity_list': selectedHighlights,
@@ -114,7 +114,7 @@ function CompanyFeaturesNewForm({ onClose, onFinish, startup_id, highlights, ass
         } else {
             axios.put(`${process.env.REACT_APP_API_URL}/startup/company-features/save`, {
                 startup_id,
-                'business_model': enteredBusinessModel,
+                'business_model_pricing': enteredBusinessModel,
                 'tech_stack': enteredTechStack,
                 'growth_opportunity': enteredGrowthOpportunity,
                 'growth_opportunity_list': selectedHighlights,

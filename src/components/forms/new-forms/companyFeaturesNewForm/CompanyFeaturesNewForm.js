@@ -100,7 +100,7 @@ function CompanyFeaturesNewForm({ onClose, onFinish, startup_id, highlights, ass
             }).then(res => {
                 const companyFeaturesData = {
                     //id: startupData?.startup_id,
-                    business_model: res.data.business_model,
+                    business_model: res.data.business_model_pricing,
                     tech_stack: res.data.tech_stack,
                     growth_opportunity: res.data.growth_opportunity,
                     growth_highlights: res.data.growth_opportunity_list,
@@ -123,7 +123,7 @@ function CompanyFeaturesNewForm({ onClose, onFinish, startup_id, highlights, ass
             }).then(res => {
                 const companyFeaturesData = {
                     //id: startupData?.startup_id,
-                    business_model: res.data.business_model,
+                    business_model: res.data.business_model_pricing ,
                     tech_stack: res.data.tech_stack,
                     growth_opportunity: res.data.growth_opportunity,
                     growth_highlights: res.data.growth_opportunity_list,

@@ -11,7 +11,7 @@ function SellingDetailsNewForm({onClose, onFinish, startup_id}) {
     const myStartupInfoCtx = useContext(PassingInfoContext);
 
     const [selectedAnswer, setSelectedAnswer] = useState("NO");
-    const [detailsData, setDetailsData] = useState();
+    const [detailsData, setDetailsData] = useState(); 
 
     const invalid_input_msg = "Value should be not empty";
 

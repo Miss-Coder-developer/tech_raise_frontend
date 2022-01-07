@@ -95,7 +95,7 @@ function CompanyFeaturesEditingForm({ onClose, onFinish, startup_id, highlights,
         if (featuresData?.id) {
             let id = featuresData.id;
 
-            axios.put(`${process.env.REACT_APP_API_URL}/company_features/save`, {
+            axios.put(`${process.env.REACT_APP_API_URL}/startup/company_features/save`, {
                 startup_id,
                 'business_model': enteredBusinessModel,
                 'tech_stack': enteredTechStack,
@@ -118,7 +118,7 @@ function CompanyFeaturesEditingForm({ onClose, onFinish, startup_id, highlights,
                 onFinish();
             })
         } else {
-            axios.put(`${process.env.REACT_APP_API_URL}/company_features/save`, {
+            axios.put(`${process.env.REACT_APP_API_URL}/startup/company_features/save`, {
                 startup_id,
                 'business_model': enteredBusinessModel,
                 'tech_stack': enteredTechStack,

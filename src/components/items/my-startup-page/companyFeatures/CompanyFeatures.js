@@ -95,6 +95,8 @@ const CompanyFeatures = (props) => {
                             setCompanyFeaturesFormIsBeingEdited(false);
                         } }
                         startup_id={props?.startup_id}
+                        highlights={growthHighlights}
+                        assets={keyAssets} 
                     />
                 )
                 : (

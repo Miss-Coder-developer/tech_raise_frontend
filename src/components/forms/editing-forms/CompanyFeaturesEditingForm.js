@@ -7,9 +7,9 @@ import { useValidity } from '../../../custom-hooks/form-validity';
 import { PassingInfoContext } from '../../contexts/passing-info-context';
 
 
-function CompanyFeaturesEditingForm({ onClose, onFinish, startup_id }) {
-    const [growthHighlights, setGrowthHighlights] = useState(GROWTH_OPPORTUNITY_HIGHLIGHTS);
-    const [keyAssets, setKeyAssets] = useState(KEY_ASSETS);
+function CompanyFeaturesEditingForm({ onClose, onFinish, startup_id, highlights, assets }) {
+    const [growthHighlights, setGrowthHighlights] = useState(highlights);
+    const [keyAssets, setKeyAssets] = useState(assets);
     const [featuresData, setFeaturesData] = useState();
 
     const myStartupInfoCtx = useContext(PassingInfoContext);

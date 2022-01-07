@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-function KeyAssetsItem({ keyAsset, handleChange }) {
+function KeyAssetsItem({ keyAsset, handleChange, checked }) {
     return (
         <li>
             <label className="list__label">
@@ -9,6 +9,7 @@ function KeyAssetsItem({ keyAsset, handleChange }) {
                     type="checkbox"
                     className="list__input"
                     onChange={ handleChange }
+                    checked={checked}
                 />
                 <div className="list__div" />
                 <span className="list__span"> 

@@ -85,11 +85,12 @@ function CompanyFeaturesNewForm({ onClose, onFinish, startup_id, highlights, ass
 
     const saveCompanyFeatures = async (e) => {
         e.preventDefault()
-        console.log(startup_id)
+        console.log(featuresData)
         if (featuresData?.id) {
             let id = featuresData.id;
 
             axios.put(`${process.env.REACT_APP_API_URL}/startup/company-features/save`, {
+                id,
                 startup_id,
                 'business_model_pricing': enteredBusinessModel,
                 'tech_stack': enteredTechStack,
@@ -99,7 +100,7 @@ function CompanyFeaturesNewForm({ onClose, onFinish, startup_id, highlights, ass
                 'keywords': enteredKeywords, 
             }).then(res => {
                 const companyFeaturesData = {
-                    //id: startupData?.startup_id,
+                    id: res.data.id,
                     business_model: res.data.business_model_pricing,
                     tech_stack: res.data.tech_stack,
                     growth_opportunity: res.data.growth_opportunity,
@@ -107,6 +108,7 @@ function CompanyFeaturesNewForm({ onClose, onFinish, startup_id, highlights, ass
                     key_assets: res.data.key_assets_list,
                     keywords: res.data.keywords
                 };
+                console.log(res.data)
                 myStartupInfoCtx.passCompanyFeaturesData(companyFeaturesData);
                 setFeaturesData(res.data);
                 onFinish();
@@ -122,14 +124,15 @@ function CompanyFeaturesNewForm({ onClose, onFinish, startup_id, highlights, ass
                 'keywords': enteredKeywords, 
             }).then(res => {
                 const companyFeaturesData = {
-                    //id: startupData?.startup_id,
+                    id: res.data.id,
                     business_model: res.data.business_model_pricing ,
                     tech_stack: res.data.tech_stack,
                     growth_opportunity: res.data.growth_opportunity,
-                    growth_highlights: res.data.growth_opportunity_list,
-                    key_assets: res.data.key_assets_list,
-                    keywords: res.data.keywords
+                    growth_highlights: res.data.company_opportunities_list,
+                    key_assets: res.data.company_assets_list,
+                    keywords: res.data.company_keywords_list.map(d=> d.name).join(' ')
                 };
+                console.log(companyFeaturesData)
                 myStartupInfoCtx.passCompanyFeaturesData(companyFeaturesData);
                 setFeaturesData(res.data);
                 onFinish();

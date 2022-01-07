@@ -1,16 +1,18 @@
-import React, { useState, useContext } from 'react';
-import { GROWTH_OPPORTUNITY_HIGHLIGHTS, KEY_ASSETS } from '../../../datas/MyStartupDatas';
+import React, {useState, useContext} from 'react';
+import {GROWTH_OPPORTUNITY_HIGHLIGHTS, KEY_ASSETS} from '../../../datas/MyStartupDatas';
 import GrowthHighlightItem from '../../items/my-startup-page/growthHighlightItem/GrowthHighlightItem';
 import KeyAssetsItem from '../../items/my-startup-page/KeyAssetsItem';
 import axios from 'axios';
-import { useValidity } from '../../../custom-hooks/form-validity';
-import { PassingInfoContext } from '../../contexts/passing-info-context';
+import {useValidity} from '../../../custom-hooks/form-validity';
+import {PassingInfoContext} from '../../contexts/passing-info-context';
 
 
-function CompanyFeaturesEditingForm({ onClose, onFinish, startup_id, highlights, assets }) {
+function CompanyFeaturesEditingForm({onClose, onFinish, startup_id, highlights, assets}) {
+    console.log(highlights, "test tiko")
     const [growthHighlights, setGrowthHighlights] = useState(highlights);
     const [keyAssets, setKeyAssets] = useState(assets);
     const [featuresData, setFeaturesData] = useState();
+
 
     const myStartupInfoCtx = useContext(PassingInfoContext);
     const {
@@ -20,8 +22,30 @@ function CompanyFeaturesEditingForm({ onClose, onFinish, startup_id, highlights,
         growth_opportunity,
         growth_highlights,
         key_assets,
-        keywords
+        keywords,
+        id
     } = myStartupInfoCtx.companyFeaturesData;
+
+
+//     let gHiglights = growthHighlights.map(gh => {
+//         gh.isChecked = growth_highlights.includes(gh);
+//     return gh;
+// });
+
+    console.log(myStartupInfoCtx.companyFeaturesData)
+
+
+    //
+    // setGrowthHighlights(gHiglights);
+    // let kAssets = keyAssets.map(ka => {
+    //     ka.isChecked = key_assets.includes(ka);
+    //     return ka;
+    // });
+    //
+    //
+    // setGrowthHighlights(gHiglights);
+    // setKeyAssets(kAssets);
+
 
     const [selectedHighlights, setSelectedHighlights] = useState(growth_highlights);
     const [selectedKeyAssets, setSelectedKeyAssets] = useState(key_assets);
@@ -33,6 +57,7 @@ function CompanyFeaturesEditingForm({ onClose, onFinish, startup_id, highlights,
 
     const isNotEmpty = value => value.toString().trim() !== "";
 
+    console.log(selectedHighlights)
     const {
         enteredValue: enteredBusinessModel,
         inputIsValid: businessModelInputIsValid,
@@ -56,20 +81,25 @@ function CompanyFeaturesEditingForm({ onClose, onFinish, startup_id, highlights,
         changeInputValueHandler: changeGrowthOpportunityInputValueHandler,
         blurInputHandler: blurGrowthOpportunityInputHandler
     } = useValidity(isNotEmpty, growth_opportunity);
-    
+
     const passHighlightStatus = (changedGrowthHighlight) => {
         setGrowthHighlights(growthHighlights.map(growthHighlight => {
-            if(growthHighlight.id === changedGrowthHighlight.id) {
+            if (growthHighlight.id === changedGrowthHighlight.id) {
+                growthHighlight.isChecked = true;
                 return changedGrowthHighlight;
             }
+
             return growthHighlight;
         }));
+        console.log(changedGrowthHighlight, growthHighlights)
         setSelectedHighlights(growthHighlights.filter(growthHighlight => growthHighlight.isChecked));
+        console.log(selectedHighlights);
     };
 
     const passKeyAssetStatus = (changedKeyAsset) => {
         setKeyAssets(keyAssets.map(keyAsset => {
-            if(keyAsset.id === changedKeyAsset.id) {
+            if (keyAsset.id === changedKeyAsset.id) {
+                keyAsset.isChecked = true;
                 return changedKeyAsset;
             }
             return keyAsset;
@@ -88,21 +118,21 @@ function CompanyFeaturesEditingForm({ onClose, onFinish, startup_id, highlights,
     const companyFeaturesFormIsValid = businessModelInputIsValid && techStackInputIsValid && growthOpportunityInputIsValid && highlightIsValid && keyAssetIsValid && keywordsInputIsValid;
 
 
-
     const saveCompanyFeatures = async (e) => {
         e.preventDefault()
-        console.log(startup_id)
+        console.log(id)
         if (featuresData?.id) {
             let id = featuresData.id;
 
             axios.put(`${process.env.REACT_APP_API_URL}/startup/company-features/save`, {
+                id,
                 startup_id,
                 'business_model_pricing': enteredBusinessModel,
                 'tech_stack': enteredTechStack,
                 'growth_opportunity': enteredGrowthOpportunity,
                 'growth_opportunity_list': selectedHighlights,
                 'key_assets_list': selectedKeyAssets,
-                'keywords': enteredKeywords, 
+                'keywords': enteredKeywords,
             }).then(res => {
                 const companyFeaturesData = {
                     //id: startupData?.startup_id,
@@ -113,19 +143,23 @@ function CompanyFeaturesEditingForm({ onClose, onFinish, startup_id, highlights,
                     key_assets: res.data.key_assets_list,
                     keywords: res.data.keywords
                 };
+                console.log(companyFeaturesData)
                 myStartupInfoCtx.passCompanyFeaturesData(companyFeaturesData);
                 setFeaturesData(res.data);
                 onFinish();
             })
         } else {
+            console.log(selectedHighlights)
+            console.log(selectedKeyAssets)
             axios.put(`${process.env.REACT_APP_API_URL}/startup/company-features/save`, {
+                id,
                 startup_id,
                 'business_model_pricing': enteredBusinessModel,
                 'tech_stack': enteredTechStack,
                 'growth_opportunity': enteredGrowthOpportunity,
                 'growth_opportunity_list': selectedHighlights,
                 'key_assets_list': selectedKeyAssets,
-                'keywords': enteredKeywords, 
+                'keywords': enteredKeywords,
             }).then(res => {
                 const companyFeaturesData = {
                     //id: startupData?.startup_id,
@@ -136,6 +170,7 @@ function CompanyFeaturesEditingForm({ onClose, onFinish, startup_id, highlights,
                     key_assets: res.data.key_assets_list,
                     keywords: res.data.keywords
                 };
+                console.log(companyFeaturesData)
                 myStartupInfoCtx.passCompanyFeaturesData(companyFeaturesData);
                 setFeaturesData(res.data);
                 onFinish();
@@ -144,54 +179,53 @@ function CompanyFeaturesEditingForm({ onClose, onFinish, startup_id, highlights,
     }
 
 
-        
     return (
         <div className="company-features">
             <div className="company-features__info">
                 <h5 className="company-features__title"> Company features </h5>
                 <h4 className="company-features__required-warning"> All fields are required </h4>
             </div>
-            <form action="#" name="companyFtrsForm" id="company_ftrs_form" >
+            <form action="#" name="companyFtrsForm" id="company_ftrs_form">
                 <div className="company-features__input-box">
-                    <label 
+                    <label
                         htmlFor="business_model_and_pricing"
                         className="company-features__label"
-                    > 
+                    >
                         What is your business model and pricing?
                     </label>
-                    <input 
+                    <input
                         type="text"
-                        id="business_model_and_pricing" 
-                        className={ `company-features__input ${ businessModelInputIsInvalid && "invalid" }` }
-                        value={ enteredBusinessModel }
-                        onChange={ changeBusinessModelInputValueHandler }
-                        onBlur={ blurBusinessModelInputHandler }
+                        id="business_model_and_pricing"
+                        className={`company-features__input ${businessModelInputIsInvalid && "invalid"}`}
+                        value={enteredBusinessModel}
+                        onChange={changeBusinessModelInputValueHandler}
+                        onBlur={blurBusinessModelInputHandler}
                     />
-                    { businessModelInputIsInvalid && <p className="invalid-input-msg"> { invalid_input_msg } </p> }
+                    {businessModelInputIsInvalid && <p className="invalid-input-msg"> {invalid_input_msg} </p>}
                 </div>
                 <div className="company-features__input-box">
-                    <label 
+                    <label
                         htmlFor="tech_stack"
                         className="company-features__label"
-                    > 
+                    >
                         What tech stack is this product built on?
                     </label>
-                    <input 
+                    <input
                         type="text"
-                        id="tech_stack" 
-                        className={ `company-features__input ${ techStackInputIsInvalid && "invalid" }` }
+                        id="tech_stack"
+                        className={`company-features__input ${techStackInputIsInvalid && "invalid"}`}
                         placeholder="React, Firebase, AWS"
-                        value={ enteredTechStack }
-                        onChange={ changeTechStackInputValueHandler }
-                        onBlur={ blurTechStackInputHandler }
+                        value={enteredTechStack}
+                        onChange={changeTechStackInputValueHandler}
+                        onBlur={blurTechStackInputHandler}
                     />
-                    { techStackInputIsInvalid && <p className="invalid-input-msg"> { invalid_input_msg } </p> }
-                </div>   
+                    {techStackInputIsInvalid && <p className="invalid-input-msg"> {invalid_input_msg} </p>}
+                </div>
                 <div className="company-features__input-box">
-                    <label 
+                    <label
                         htmlFor="competitors"
                         className="company-features__label"
-                    > 
+                    >
                         Who are your competitors?
                     </label>
                     <button
@@ -203,113 +237,125 @@ function CompanyFeaturesEditingForm({ onClose, onFinish, startup_id, highlights,
                     </button>
                 </div>
                 <div className="company-features__input-box">
-                    <label 
+                    <label
                         htmlFor="growth_opportunity"
                         className="company-features__label"
-                    > 
+                    >
                         Growth opportunity
                     </label>
-                    <input 
+                    <input
                         type="text"
-                        id="growth_opportunity" 
-                        className={ `company-features__input ${ growthOpportunityInputIsInvalid && "invalid" }` }
-                        value={ enteredGrowthOpportunity }
-                        onChange={ changeGrowthOpportunityInputValueHandler }
-                        onBlur={ blurGrowthOpportunityInputHandler }
+                        id="growth_opportunity"
+                        className={`company-features__input ${growthOpportunityInputIsInvalid && "invalid"}`}
+                        value={enteredGrowthOpportunity}
+                        onChange={changeGrowthOpportunityInputValueHandler}
+                        onBlur={blurGrowthOpportunityInputHandler}
                     />
-                    { growthOpportunityInputIsInvalid && <p className="invalid-input-msg"> { invalid_input_msg } </p> }
+                    {growthOpportunityInputIsInvalid && <p className="invalid-input-msg"> {invalid_input_msg} </p>}
                 </div>
                 <div className="company-features__input-box highlights">
-                    <label 
+                    <label
                         htmlFor="growth_opportunity_highlights"
                         className="company-features__label"
-                    > 
+                    >
                         Growth opportunity (highlights)
                     </label>
                     <div className="growth-opportunity__box">
                         <ul className="growth-opportunity__list">
-                            { growthHighlights.slice(0, 5).map((growthHighlight, index) => {
+                            {growthHighlights.slice(0, 5).map((growthHighlight, index) => {
                                 return (
-                                    <GrowthHighlightItem 
-                                        key={ index } 
-                                        growthHighlight={ growthHighlight }
-                                        handleChange={ (evt) => passHighlightStatus({ ...growthHighlight, isChecked: evt.target.checked }) } 
-                                        checked={ growthHighlight.isChecked }
+                                    <GrowthHighlightItem
+                                        key={index}
+                                        growthHighlight={growthHighlight}
+                                        handleChange={(evt) => passHighlightStatus({
+                                            ...growthHighlight,
+                                            isChecked: evt.target.checked
+                                        })}
+                                        checked={growthHighlight.isChecked}
                                     />
                                 );
-                            }) }
+                            })}
                         </ul>
                         <ul className="growth-opportunity__list">
-                            { growthHighlights.slice(5, 10).map((growthHighlight, index) => {
+                            {growthHighlights.slice(5, 10).map((growthHighlight, index) => {
                                 return (
-                                    <GrowthHighlightItem 
-                                        key={ index } 
-                                        growthHighlight={ growthHighlight } 
-                                        handleChange={ (evt) => passHighlightStatus({ ...growthHighlight, isChecked: evt.target.checked }) } 
-                                        checked={ growthHighlight.isChecked }
+                                    <GrowthHighlightItem
+                                        key={index}
+                                        growthHighlight={growthHighlight}
+                                        handleChange={(evt) => passHighlightStatus({
+                                            ...growthHighlight,
+                                            isChecked: evt.target.checked
+                                        })}
+                                        checked={growthHighlight?.isChecked}
                                     />
                                 );
-                            }) }
+                            })}
                         </ul>
                     </div>
                 </div>
                 <div className="company-features__input-box key-assets">
-                    <label 
+                    <label
                         htmlFor="key_assets"
                         className="company-features__label"
-                    > 
+                    >
                         Key assets
                     </label>
                     <div className="key-assets__box">
                         <ul className="key-assets__list">
-                            { KEY_ASSETS.slice(0, 5).map((keyAsset, index) => {
+                            {keyAssets.slice(0, 5).map((keyAsset, index) => {
                                 return (
-                                    <KeyAssetsItem 
-                                        key={ index } 
-                                        keyAsset={ keyAsset } 
-                                        handleChange={ (evt) => passKeyAssetStatus({ ...keyAsset, isChecked:  evt.target.checked }) }
-                                        checked={ keyAsset.isChecked }
+                                    <KeyAssetsItem
+                                        key={index}
+                                        keyAsset={keyAsset}
+                                        handleChange={(evt) => passKeyAssetStatus({
+                                            ...keyAsset,
+                                            isChecked: evt.target.checked
+                                        })}
+                                        checked={keyAsset.isChecked}
                                     />
                                 );
-                            }) }
+                            })}
                         </ul>
                         <ul className="key-assets__list">
-                            { KEY_ASSETS.slice(5, 9).map((keyAsset, index) => {
+                            {keyAssets.slice(5, 9).map((keyAsset, index) => {
                                 return (
-                                    <KeyAssetsItem 
-                                        key={ index } 
-                                        keyAsset={ keyAsset } 
-                                        handleChange={ (evt) => passKeyAssetStatus({ ...keyAsset, isChecked:  evt.target.checked }) }
-                                        checked={ keyAsset.isChecked }
+                                    <KeyAssetsItem
+                                        key={index}
+                                        keyAsset={keyAsset}
+                                        handleChange={(evt) => passKeyAssetStatus({
+                                            ...keyAsset,
+                                            isChecked: evt.target.checked
+                                        })}
+                                        checked={keyAsset.isChecked}
                                     />
                                 );
-                            }) }
+                            })}
                         </ul>
                     </div>
                 </div>
                 <div className="company-features__input-box keywords">
-                    <label 
+                    <label
                         htmlFor="keywords"
                         className="company-features__label"
-                    > 
+                    >
                         keywords
                     </label>
-                    <input 
+                    <input
                         type="text"
-                        id="keywords" 
-                        className={ `company-features__input ${ keywordsInputIsInvalid && "invalid" }` }
-                        value={ enteredKeywords }
-                        onChange={ changeKeywordsInputValueHandler }
-                        onBlur={ blurKeywordsInputHandler }
+                        id="keywords"
+                        className={`company-features__input ${keywordsInputIsInvalid && "invalid"}`}
+                        value={enteredKeywords}
+                        onChange={changeKeywordsInputValueHandler}
+                        onBlur={blurKeywordsInputHandler}
                     />
-                    { keywordsInputIsInvalid && <p className="invalid-input-msg"> { invalid_input_msg } </p> }
+                    {keywordsInputIsInvalid && <p className="invalid-input-msg"> {invalid_input_msg} </p>}
                     <p className="info-msg"> * tags are separated by a comma and a space </p>
-                </div> 
+                </div>
                 <div className="company-features__actions">
                     <button
                         type="submit"
                         className="actions__save-btn"
-                        disabled={ !companyFeaturesFormIsValid }
+                        disabled={!companyFeaturesFormIsValid}
                         onClick={saveCompanyFeatures}
                     >
                         Save
@@ -317,7 +363,7 @@ function CompanyFeaturesEditingForm({ onClose, onFinish, startup_id, highlights,
                     <button
                         type="reset"
                         className="actions__cancel-btn"
-                        onClick={ onClose }
+                        onClick={onClose}
                     >
                         Cancel
                     </button>

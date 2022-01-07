@@ -89,7 +89,7 @@ function CompanyFeaturesNewForm({ onClose, onFinish, startup_id, highlights, ass
         if (featuresData?.id) {
             let id = featuresData.id;
 
-            axios.put(`${process.env.REACT_APP_API_URL}/startup/company_features/save`, {
+            axios.put(`${process.env.REACT_APP_API_URL}/startup/company-features/save`, {
                 startup_id,
                 'business_model': enteredBusinessModel,
                 'tech_stack': enteredTechStack,
@@ -112,7 +112,7 @@ function CompanyFeaturesNewForm({ onClose, onFinish, startup_id, highlights, ass
                 onFinish();
             })
         } else {
-            axios.put(`${process.env.REACT_APP_API_URL}/startup/company_features/save`, {
+            axios.put(`${process.env.REACT_APP_API_URL}/startup/company-features/save`, {
                 startup_id,
                 'business_model': enteredBusinessModel,
                 'tech_stack': enteredTechStack,

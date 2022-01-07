@@ -26,13 +26,13 @@ const SellingDetails = (props) => {
                 //setStartups(res.data);
                 const sellingDetailsData = {
                     id: props?.startup_id,
-                    selling_purpose: last.selling_why,
-                    funding: last.funding,
-                    financial_sum: last.financial_summary,
-                    total_revenue: last.last_month_total_revenue,
-                    total_profit: last.last_month_total_profit,
-                    annual_revenue: last.last_year_total_revenue,
-                    annual_profit: last.last_year_total_profit
+                    selling_purpose: last?.selling_why,
+                    funding: last?.funding,
+                    financial_sum: last?.financial_summary,
+                    total_revenue: last?.last_month_total_revenue,
+                    total_profit: last?.last_month_total_profit,
+                    annual_revenue: last?.last_year_total_revenue,
+                    annual_profit: last?.last_year_total_profit
 
                 };
                 console.log(sellingDetailsData, "basicInfoData!!!!!");

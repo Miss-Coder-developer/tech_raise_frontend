@@ -50,8 +50,8 @@ function CompanyFeaturesEditingForm({onClose, onFinish, startup_id, highlights, 
     const [selectedHighlights, setSelectedHighlights] = useState(growth_highlights);
     const [selectedKeyAssets, setSelectedKeyAssets] = useState(key_assets);
 
-    const highlightIsValid = selectedHighlights.length !== 0;
-    const keyAssetIsValid = selectedKeyAssets.length !== 0;
+    const highlightIsValid = selectedHighlights?.length !== 0;
+    const keyAssetIsValid = selectedKeyAssets?.length !== 0;
 
     const invalid_input_msg = "Value should be not empty";
 
@@ -92,8 +92,8 @@ function CompanyFeaturesEditingForm({onClose, onFinish, startup_id, highlights, 
             return growthHighlight;
         }));
         console.log(changedGrowthHighlight, growthHighlights)
-        setSelectedHighlights(growthHighlights.filter(growthHighlight => growthHighlight.isChecked));
-        console.log(selectedHighlights);
+        setSelectedHighlights(growthHighlights.filter(growthHighlight => growthHighlight.isChecked), () => console.log('hi callback'));
+        
     };
 
     const passKeyAssetStatus = (changedKeyAsset) => {
@@ -104,8 +104,10 @@ function CompanyFeaturesEditingForm({onClose, onFinish, startup_id, highlights, 
             }
             return keyAsset;
         }));
-        setSelectedKeyAssets(keyAssets.filter(keyAsset => keyAsset.isChecked));
+        setSelectedKeyAssets(keyAssets.filter(keyAsset => keyAsset.isChecked), () => console.log('hi callback'));
     };
+
+    console.log(selectedKeyAssets, selectedHighlights);
 
     const {
         enteredValue: enteredKeywords,
@@ -135,13 +137,13 @@ function CompanyFeaturesEditingForm({onClose, onFinish, startup_id, highlights, 
                 'keywords': enteredKeywords,
             }).then(res => {
                 const companyFeaturesData = {
-                    //id: startupData?.startup_id,
-                    business_model: res.data.business_model_pricing,
+                    id: res.data.id,
+                    business_model: res.data.business_model_pricing ,
                     tech_stack: res.data.tech_stack,
                     growth_opportunity: res.data.growth_opportunity,
-                    growth_highlights: res.data.growth_opportunity_list,
-                    key_assets: res.data.key_assets_list,
-                    keywords: res.data.keywords
+                    growth_highlights: res.data.company_opportunities_list,
+                    key_assets: res.data.company_assets_list,
+                    keywords: res.data.company_keywords_list.map(d=> d.name).join(' ')
                 };
                 console.log(companyFeaturesData)
                 myStartupInfoCtx.passCompanyFeaturesData(companyFeaturesData);
@@ -159,18 +161,18 @@ function CompanyFeaturesEditingForm({onClose, onFinish, startup_id, highlights, 
                 'growth_opportunity': enteredGrowthOpportunity,
                 'growth_opportunity_list': selectedHighlights,
                 'key_assets_list': selectedKeyAssets,
-                'keywords': enteredKeywords,
+                'keywords': enteredKeywords, 
             }).then(res => {
                 const companyFeaturesData = {
-                    //id: startupData?.startup_id,
-                    business_model: res.data.business_model_pricing,
+                    id: res.data.id,
+                    business_model: res.data.business_model_pricing ,
                     tech_stack: res.data.tech_stack,
                     growth_opportunity: res.data.growth_opportunity,
-                    growth_highlights: res.data.growth_opportunity_list,
-                    key_assets: res.data.key_assets_list,
-                    keywords: res.data.keywords
+                    growth_highlights: res.data.company_opportunities_list,
+                    key_assets: res.data.company_assets_list,
+                    keywords: res.data.company_keywords_list.map(d=> d.name).join(' ')
                 };
-                console.log(companyFeaturesData)
+                console.log(res.data)
                 myStartupInfoCtx.passCompanyFeaturesData(companyFeaturesData);
                 setFeaturesData(res.data);
                 onFinish();
@@ -221,7 +223,7 @@ function CompanyFeaturesEditingForm({onClose, onFinish, startup_id, highlights, 
                     />
                     {techStackInputIsInvalid && <p className="invalid-input-msg"> {invalid_input_msg} </p>}
                 </div>
-                <div className="company-features__input-box">
+                {/* <div className="company-features__input-box">
                     <label
                         htmlFor="competitors"
                         className="company-features__label"
@@ -235,7 +237,7 @@ function CompanyFeaturesEditingForm({onClose, onFinish, startup_id, highlights, 
                     >
                         + Add competitor
                     </button>
-                </div>
+                </div> */}
                 <div className="company-features__input-box">
                     <label
                         htmlFor="growth_opportunity"
